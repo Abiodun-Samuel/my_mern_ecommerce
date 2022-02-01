@@ -1,12 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 import products from "./data.js";
+dotenv.config();
+
+connectDB();
 
 const app = express();
-dotenv.config();
 app.get("/", (req, res) => {
   res.send("api is runung");
 });
+
 app.get("/api/products", (req, res) => {
   res.json(products);
 });
