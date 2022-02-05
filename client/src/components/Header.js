@@ -1,10 +1,14 @@
-import React from "react";
+// import React, { useEffect } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineLogin } from "react-icons/ai";
+// import { useSelector } from "react-redux";
 
 const Header = () => {
+  // const { cartItems } = useSelector((state) => state.cart);
+  // console.log(cartItems);
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>

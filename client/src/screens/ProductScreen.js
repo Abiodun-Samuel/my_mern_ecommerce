@@ -21,7 +21,7 @@ const ProductScreen = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     dispatch(listProductDetails(id));
   }, [dispatch, id]);
