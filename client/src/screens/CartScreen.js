@@ -30,7 +30,6 @@ const CartScreen = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
 
   useEffect(() => {
     if (productId) {
@@ -41,7 +40,10 @@ const CartScreen = () => {
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
-  const checkOutHandler = () => {};
+  const navigate = useNavigate();
+  const checkOutHandler = () => {
+    navigate("/login?redirect=shipping");
+  };
   return (
     <div>
       <div>
@@ -85,7 +87,7 @@ const CartScreen = () => {
                       <Button
                         type="button"
                         variant="light"
-                        onClick={() => removeFromCartHandler(productId)}
+                        onClick={() => removeFromCartHandler(item.product)}
                       >
                         Remove
                       </Button>
