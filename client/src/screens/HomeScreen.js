@@ -5,7 +5,6 @@ import Product from "../components/Product";
 import { Row, Col } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import CryptoJS from "crypto-js";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();

@@ -62,7 +62,7 @@ const LoginScreen = () => {
       <div>
         New Customer
         {/* <Link to="/register">Register</Link> */}
-        <Link to={redirect ? `register?redirect=${redirect}` : "/register"}>
+        <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
           Register
         </Link>
       </div>

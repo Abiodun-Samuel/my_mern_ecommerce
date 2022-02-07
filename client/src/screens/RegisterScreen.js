@@ -24,7 +24,7 @@ const RegisterScreen = () => {
   const { loading, error, userInfo } = userRegister;
 
   useEffect(() => {
-    if (userInfo) {
+    if (!userInfo) {
       navigate(redirect, { replace: true });
     }
   }, [userInfo, navigate, redirect]);
@@ -79,7 +79,7 @@ const RegisterScreen = () => {
       </form>
       <div>
         Have an account?
-        <Link to={redirect ? `login?redirect=${redirect}` : "/login"}>
+        <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
           Login
         </Link>
       </div>

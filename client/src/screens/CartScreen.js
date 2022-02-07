@@ -17,8 +17,8 @@ import {
 } from "react-bootstrap";
 import Message from "../components/Message";
 import { addToCart, removeFromCart } from "../actions/cartActions";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
 
 const CartScreen = () => {
   const { id } = useParams();
@@ -34,7 +34,6 @@ const CartScreen = () => {
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, quantity));
-      // toast.success("Product has been added to your cart");
     }
   }, [dispatch, productId, quantity]);
   const removeFromCartHandler = (id) => {
@@ -46,9 +45,6 @@ const CartScreen = () => {
   };
   return (
     <div>
-      <div>
-        <ToastContainer />
-      </div>
       <Row>
         <Col md={8}>
           <h1>Shopping Cart</h1>

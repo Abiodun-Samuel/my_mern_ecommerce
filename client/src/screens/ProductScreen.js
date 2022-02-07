@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import {
   Row,
@@ -15,25 +14,55 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { useNavigate } from "react-router-dom";
-// import products from "../products";
+import { addToCart } from "../actions/cartActions";
+import { toast, ToastContainer } from "react-toastify";
+import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
+
 const ProductScreen = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     dispatch(listProductDetails(id));
+    return () => {
+      dispatch({ type: PRODUCT_DETAILS_RESET });
+    };
   }, [dispatch, id]);
+
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
-  const addToCartHandler = () => {
-    navigate(`/cart/${id}?quantity=${quantity}`);
-  };
+  const { cartItems } = useSelector((state) => state.cart);
 
+  const addToCartHandler = () => {
+    dispatch(addToCart(product._id, quantity));
+    const existItem = cartItems.filter(
+      (item) => item.product === product._id && item.quantity === quantity
+    );
+    if (existItem.length > 0) {
+      toast.error(
+        <div>
+          <span className="toastify">
+            {product.name + " (" + quantity + ") "}
+          </span>
+          already exist in your cart
+        </div>
+      );
+    } else {
+      toast.success(
+        <div>
+          <span className="toastify">
+            {product.name + " (" + quantity + ") "}
+          </span>
+          has been added to your cart
+        </div>
+      );
+    }
+  };
   return (
     <>
+      <ToastContainer />
       <Link to="/" className="btn btn-dark my-3">
         Go Back
       </Link>
@@ -93,7 +122,6 @@ const ProductScreen = () => {
                             value={quantity}
                             onChange={(e) => setQuantity(e.target.value)}
                           >
-                            <option>0</option>
                             {[...Array(product.countInStock).keys()].map(
                               (x) => (
                                 <option key={x + 1} value={x + 1}>
@@ -115,6 +143,9 @@ const ProductScreen = () => {
                     >
                       Add To Cart
                     </Button>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Link to="/cart">Cart</Link>
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
