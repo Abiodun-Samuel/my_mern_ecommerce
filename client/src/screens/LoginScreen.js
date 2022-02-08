@@ -26,9 +26,9 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect, { replace: true });
+      navigate("/");
     }
-  }, [userInfo, navigate, redirect]);
+  }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -61,10 +61,10 @@ const LoginScreen = () => {
       </form>
       <div>
         New Customer
-        {/* <Link to="/register">Register</Link> */}
-        <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
+        <Link to="/register">Register</Link>
+        {/* <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
           Register
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

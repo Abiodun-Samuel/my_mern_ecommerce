@@ -24,10 +24,10 @@ const RegisterScreen = () => {
   const { loading, error, userInfo } = userRegister;
 
   useEffect(() => {
-    if (!userInfo) {
-      navigate(redirect, { replace: true });
+    if (userInfo) {
+      navigate("/");
     }
-  }, [userInfo, navigate, redirect]);
+  }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -77,11 +77,13 @@ const RegisterScreen = () => {
         />
         <input type="submit" value="Sign Up" className="btn btn-primary" />
       </form>
+
       <div>
         Have an account?
-        <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+        <Link to="/login">Login</Link>
+        {/* <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
           Login
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
