@@ -1,6 +1,7 @@
 import {
   ADD_CART_ITEM,
   REMOVE_CART_ITEM,
+  SAVE_PAYMENT_METHOD_CART,
   SAVE_SHIPPING_ADDRESS_CART,
 } from "../constant/cartConstants";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,6 +36,11 @@ export const cartReducer = (
       return {
         ...state,
         shippingAddress: action.payload,
+      };
+    case SAVE_PAYMENT_METHOD_CART:
+      return {
+        ...state,
+        paymentMethod: action.payload,
       };
     default:
       return state;

@@ -40,6 +40,25 @@ const PaymentScreen = () => {
         <h1>Payment Method</h1>
       </div>
       <form onSubmit={submitHandler}>
+        <label htmlFor="PayPal">PayPal</label>
+        <input
+          type="radio"
+          id="PayPal"
+          value="PayPal"
+          name="paymentMethod"
+          checked
+          onChange={(e) => setPaymentMethod(e.target.value)}
+        />
+        {/* another method */}
+        {/* <label htmlFor="PayPal"></label>
+        <input
+          type="radio"
+          id="PayPal"
+          value="PayPal"
+          name="paymentMethod"
+          checked
+          onChange={(e) => setPaymentMethod(e.target.value)}
+        /> */}
         <button type="submit">Continue</button>
       </form>
     </>

@@ -4,16 +4,22 @@ const Loader = () => {
   return (
     <div
       className="d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
+      style={{
+        height: "100vh",
+        // width: "100%",
+        position: "absolute",
+        backgroundColor: "rgba(0,0,0,0.2)",
+        // right: "100px",
+      }}
     >
       <div>
         <Spinner
           animation="border"
           role="status"
           style={{
-            width: "50px",
-            height: "50px",
-            margin: 'auto',
+            maxwidth: "100px",
+            maxheight: "100px",
+            margin: "auto",
             display: "block",
           }}
         ></Spinner>
