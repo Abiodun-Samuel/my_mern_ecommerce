@@ -1,4 +1,5 @@
 import "./App.css";
+import ReCAPTCHA from "react-google-recaptcha";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
@@ -15,6 +16,9 @@ import PaymentScreen from "./screens/PaymentScreen";
 import PlaceorderScreen from "./screens/PlaceorderScreen";
 
 function App() {
+  function onChange(value) {
+    console.log("Captcha value:", value);
+  }
   return (
     <Router>
       <Header />
@@ -26,6 +30,7 @@ function App() {
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
             <Route path="/place-order" element={<PlaceorderScreen />} />
+            {/* <Route path="/place-order" element={<PlaceorderScreen />} /> */}
             <Route path="/profile" element={<ProfileScreen />} />
             <Route path="/product/:id" element={<ProductScreen />} />
             <Route path="/cart">
@@ -35,6 +40,12 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>
+        <div className="App">
+          <ReCAPTCHA
+            sitekey={process.env.REACT_APP_RECAPTCHA_SITEKEY}
+            onChange={onChange}
+          />
+        </div>
       </main>
       <Footer />
     </Router>
