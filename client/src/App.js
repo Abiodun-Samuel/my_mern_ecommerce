@@ -14,6 +14,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceorderScreen from "./screens/PlaceorderScreen";
+import OrderScreen from "./screens/OrderScreen";
 
 function App() {
   function onChange(value) {
@@ -30,7 +31,7 @@ function App() {
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
             <Route path="/place-order" element={<PlaceorderScreen />} />
-            {/* <Route path="/place-order" element={<PlaceorderScreen />} /> */}
+            <Route path="/order/:orderId" element={<OrderScreen />} />
             <Route path="/profile" element={<ProfileScreen />} />
             <Route path="/product/:id" element={<ProductScreen />} />
             <Route path="/cart">

@@ -28,12 +28,6 @@ const PlaceorderSreen = () => {
   const { order, success, error } = orderCreate;
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (success) {
-  //     navigate(`/order/${order._id}`);
-  //   }
-  //   // eslint-disable-next-line
-  // }, [success, navigate]);
 
   const placeOrderHandler = () => {
     dispatch(
@@ -47,7 +41,7 @@ const PlaceorderSreen = () => {
         taxPrice: cart.taxPrice,
       })
     );
-    navigate(`/order/${order._id}`);
+    navigate(`/orderlist`);
   };
 
   return (

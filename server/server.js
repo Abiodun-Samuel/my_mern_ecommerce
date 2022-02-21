@@ -21,6 +21,8 @@ app.use("/api/products", productsRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
+app.get("/api/config/clientId", (req, res) => res.send(process.env.CLIENT_ID));
+
 app.use(notFound);
 app.use(errorHandler);
 
