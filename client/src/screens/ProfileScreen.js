@@ -8,6 +8,7 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_RESET,
 } from "../constant/userConstants";
+import { myOrdersList } from "../actions/orderActions";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
@@ -27,6 +28,10 @@ const ProfileScreen = () => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const myOrders = useSelector((state) => state.myOrders);
+  const { loading: loadingOrders, error: errorOrders, orders } = myOrders;
+  console.log(orders);
+
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
@@ -34,6 +39,7 @@ const ProfileScreen = () => {
       if (!user.name || !user || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
+        dispatch(myOrdersList());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -92,6 +98,27 @@ const ProfileScreen = () => {
       </form>
 
       {/* {My orders section } */}
+      {loadingOrders ? (
+        <Loader />
+      ) : errorOrders ? (
+        <Message variant="danger">{errorOrders}</Message>
+      ) : (
+        <>
+          <span>Order Details: id, date, total, paid, delivered</span>
+          {orders.map((order) => (
+            <div key={order._id}>
+              {order._id}, {order.createdAt.substring(0, 10)},{order.totalPrice}
+              ,{order.isPaid ? order.paidAt.substring(0, 10) : <span>XXX</span>}
+              {order.isDelivered ? (
+                order.deliveredAt.substring(0, 10)
+              ) : (
+                <span>XXX</span>
+              )}
+              <Link to={`/order/${order._id}`}>Details</Link>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };
