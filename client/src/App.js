@@ -15,6 +15,7 @@ import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceorderScreen from "./screens/PlaceorderScreen";
 import OrderScreen from "./screens/OrderScreen";
+import UserListScreen from "./screens/UserListScreen";
 
 function App() {
   function onChange(value) {
@@ -38,6 +39,7 @@ function App() {
               <Route path=":id" element={<CartScreen />} />
               <Route path="" element={<CartScreen />} />
             </Route>
+            <Route path="/admin/users" element={<UserListScreen />} />
             <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>
