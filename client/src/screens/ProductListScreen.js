@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, listProducts } from "../actions/productActions";
+import {
+  deleteProduct,
+  listProducts,
+  createProduct,
+} from "../actions/productActions";
+import { PRODUCT_CREATE_RESET } from "../constant/productConstants";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,30 +25,54 @@ const ProductListScreen = () => {
     success: successDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
+
+  console.log(successCreate);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({ type: PRODUCT_CREATE_RESET });
+    if (!userInfo.isAdmin) {
       navigate("/login");
     }
-  }, [dispatch, userInfo, userInfo.isAdmin, navigate, successDelete]);
+    if (successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [
+    dispatch,
+    userInfo.isAdmin,
+    navigate,
+    successDelete,
+    createdProduct,
+    successCreate,
+  ]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Delete?")) {
       dispatch(deleteProduct(id));
     }
   };
-  const createProductHandler = (product) => {
-    //
+  const createProductHandler = () => {
+    dispatch(createProduct());
   };
 
   return (
     <>
       <h1>Product</h1>
+      <button onClick={createProductHandler}>Create Product</button>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
