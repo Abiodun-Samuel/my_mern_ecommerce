@@ -1,58 +1,70 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  } from "../actions/userActions";
+import { deleteProduct, listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
 
-const UserListScreen = () => {
+const ProductListScreen = () => {
   const dispatch = useDispatch();
-  const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userDelete = useSelector((state) => state.userDelete);
-  const { success: successDelete } = userDelete;
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listUsers());
+      dispatch(listProducts());
     } else {
       navigate("/login");
     }
-  }, [dispatch, userInfo, navigate, successDelete]);
+  }, [dispatch, userInfo, userInfo.isAdmin, navigate, successDelete]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Delete?")) dispatch(deleteUser(id));
+    if (window.confirm("Delete?")) {
+      dispatch(deleteProduct(id));
+    }
+  };
+  const createProductHandler = (product) => {
+    //
   };
 
   return (
     <>
-      <h1>Users</h1>
+      <h1>Product</h1>
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <span>ID, Name, Email, Admin</span>
-          {users.map((user) => (
-            <div key={user._id}>
-              <span>{user._id}</span>
-              <span>{user.name}</span>
+          <span>ID, Name, Price, Category, brand</span>
+          {products.map((product) => (
+            <div key={product._id}>
+              <span>{product._id}</span>
+              <span>{product.name}</span>
+              <span>{product.price}</span>
+              <span>{product.category}</span>
+              <span>{product.brand}</span>
               <span>
-                <Link to={`mailto:${user.email}`}>{user.email}</Link>
+                <Link to={`/admin/product/${product._id}/edit`}>Edit</Link>
               </span>
-              <span>{user.isAdmin ? "Admin" : "User"}</span>
               <span>
-                <Link to={`/admin/user/${user._id}/edit`}>Edit</Link>
-              </span>
-              <span>
-                <button onClick={() => deleteHandler(user._id)}>Delete</button>
+                <button onClick={() => deleteHandler(product._id)}>
+                  Delete
+                </button>
               </span>
             </div>
           ))}
@@ -62,4 +74,4 @@ const UserListScreen = () => {
   );
 };
 
-export default UserListScreen;
+export default ProductListScreen;
