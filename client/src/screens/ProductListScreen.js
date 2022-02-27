@@ -33,8 +33,6 @@ const ProductListScreen = () => {
     product: createdProduct,
   } = productCreate;
 
-  console.log(successCreate);
-
   const navigate = useNavigate();
 
   useEffect(() => {
