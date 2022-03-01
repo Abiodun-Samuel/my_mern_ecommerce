@@ -11,28 +11,49 @@ import {
 } from "react-bootstrap";
 import Rating from "../components/Rating";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductDetails } from "../actions/productActions";
+import {
+  listProductDetails,
+  createProductReview,
+} from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { addToCart } from "../actions/cartActions";
 import { toast, ToastContainer } from "react-toastify";
 import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
 
 const ProductScreen = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+
+  const {
+    loading: loadingProductReview,
+    error: errorProductReview,
+    success: successProductReview,
+  } = useSelector((state) => state.productCreateReview);
 
   useEffect(() => {
+    if (successProductReview) {
+      alert("Review Submitted");
+      setRating(0);
+      setComment("");
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    }
     dispatch(listProductDetails(id));
     return () => {
       dispatch({ type: PRODUCT_DETAILS_RESET });
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, successProductReview]);
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
+
+  const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
 
   const addToCartHandler = () => {
@@ -59,6 +80,10 @@ const ProductScreen = () => {
         </div>
       );
     }
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createProductReview(id, { rating, comment }));
   };
   return (
     <>
@@ -151,6 +176,52 @@ const ProductScreen = () => {
               </Card>
             </Col>
           </Row>
+          <div className="row">
+            <h3>Reviews</h3>
+            {product?.reviews?.length === 0 && <Message>No Reviews</Message>}
+            <ul>
+              {product?.reviews?.map((review) => (
+                <li key={review._id}>
+                  <span>{review.name}</span>
+                  <Rating value={review.rating} />
+                  <span>{review.createdAt.substring(0, 10)}</span>
+                  <span>{review.comment}</span>
+                </li>
+              ))}
+            </ul>
+            <ul>
+              <span>Write a customer review</span>
+              {errorProductReview && (
+                <Message variant="danger">{errorProductReview}</Message>
+              )}
+              {loadingProductReview && <Loader />}
+              {userInfo ? (
+                <form onSubmit={submitHandler}>
+                  <select
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                  >
+                    <option value="">Select...</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="">Select...</option>
+                    <option value="">Select...</option>
+                    <option value="5">5 - Excellent</option>
+                  </select>
+                  <input
+                    type="text"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                  <button type="submit">Comment</button>
+                </form>
+              ) : (
+                <Message>
+                  Please <Link to="/login">sign in</Link> to write a review
+                </Message>
+              )}
+            </ul>
+          </div>
         </>
       )}
     </>
