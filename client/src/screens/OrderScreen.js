@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { saveShippingAddress } from "../actions/cartActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Time from "../components/Time";
 import {
   getOrderDetails,
   payOrder,
@@ -16,6 +17,7 @@ import {
 } from "../constant/orderConstants";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
+import moment from "moment";
 
 const OrderScreen = () => {
   const { orderId } = useParams();
@@ -81,7 +83,15 @@ const OrderScreen = () => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver]);
+  }, [
+    dispatch,
+    order,
+    orderId,
+    successPay,
+    successDeliver,
+    navigate,
+    userInfo,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
@@ -114,7 +124,9 @@ const OrderScreen = () => {
         {order.shippingAddress.postalCode},{order.shippingAddress.country}
       </p>
       {order.isDelivered ? (
-        <Message variant="success"> Paid on {order.deliveredAt}</Message>
+        <Message variant="success">
+          Delivered {<Time time={order.deliveredAt} />}
+        </Message>
       ) : (
         <Message variant="danger">Not Delivered</Message>
       )}
