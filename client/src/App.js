@@ -20,6 +20,7 @@ import UserEditScreen from "./screens/UserEditScreen";
 import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
+import SearchScreen from "./screens/SearchScreen";
 
 function App() {
   function onChange(value) {
@@ -51,7 +52,7 @@ function App() {
               element={<ProductEditScreen />}
             />
             <Route path="/admin/orders" element={<OrderListScreen />} />
-            <Route path="/search/:keyword" element={<HomeScreen />} />
+            <Route path="/search/:keyword" element={<SearchScreen />} />
             <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>

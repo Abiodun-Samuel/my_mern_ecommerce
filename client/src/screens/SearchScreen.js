@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 import { Link, useParams } from "react-router-dom";
 import ProductCarousel from "../components/ProductCarousel";
 
-const HomeScreen = () => {
+const SearchScreen = () => {
   const { keyword } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
@@ -48,4 +48,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default SearchScreen;
