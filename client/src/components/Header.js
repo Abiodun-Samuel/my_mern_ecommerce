@@ -5,6 +5,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineLogin } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/userActions";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Header = () => {
                   <AiOutlineShoppingCart className="mx-1" /> Cart
                 </Nav.Link>
               </LinkContainer>
+              <SearchBox/>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
                   <LinkContainer to="/profile">

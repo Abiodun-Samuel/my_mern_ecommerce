@@ -51,6 +51,7 @@ function App() {
               element={<ProductEditScreen />}
             />
             <Route path="/admin/orders" element={<OrderListScreen />} />
+            <Route path="/search/:keyword" element={<HomeScreen />} />
             <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>
