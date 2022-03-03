@@ -7,15 +7,17 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { Link, useParams } from "react-router-dom";
 import ProductCarousel from "../components/ProductCarousel";
+import Paginate from "../components/Paginate";
 
 const SearchScreen = () => {
   const { keyword } = useParams();
+  let { pageNumber } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
   React.useEffect(() => {
-    dispatch(listProducts(keyword));
-  }, [dispatch, keyword]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <div>
@@ -34,15 +36,22 @@ const SearchScreen = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Row>
-          {products.map((product) => {
-            return (
-              <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-                <Product product={product} />
-              </Col>
-            );
-          })}
-        </Row>
+        <>
+          <Row>
+            {products.map((product) => {
+              return (
+                <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+                  <Product product={product} />
+                </Col>
+              );
+            })}
+          </Row>
+          <Paginate
+            page={page}
+            pages={pages}
+            keyword={keyword ? keyword : ""}
+          />
+        </>
       )}
     </div>
   );

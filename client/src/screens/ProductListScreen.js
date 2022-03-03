@@ -9,11 +9,17 @@ import { PRODUCT_CREATE_RESET } from "../constant/productConstants";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
+import Paginate from "../components/Paginate";
+import { useParams } from "react-router-dom";
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
+  let { pageNumber } = useParams();
+  if (!pageNumber) pageNumber = 1;
+
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
+  console.log(page, pages, products);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -43,7 +49,7 @@ const ProductListScreen = () => {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts());
+      dispatch(listProducts("", pageNumber));
     }
   }, [
     dispatch,
@@ -52,6 +58,7 @@ const ProductListScreen = () => {
     successDelete,
     createdProduct,
     successCreate,
+    pageNumber,
   ]);
 
   const deleteHandler = (id) => {
@@ -95,6 +102,7 @@ const ProductListScreen = () => {
               </span>
             </div>
           ))}
+          <Paginate page={page} pages={pages} isAdmin={true} />
         </>
       )}
     </>

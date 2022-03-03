@@ -48,11 +48,20 @@ function App() {
             <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
             <Route path="/admin/products" element={<ProductListScreen />} />
             <Route
+              path="/admin/products/:pageNumber"
+              element={<ProductListScreen />}
+            />
+            <Route
               path="/admin/product/:id/edit"
               element={<ProductEditScreen />}
             />
             <Route path="/admin/orders" element={<OrderListScreen />} />
             <Route path="/search/:keyword" element={<SearchScreen />} />
+            <Route
+              path="/search/:keyword/page/:pageNumber"
+              element={<SearchScreen />}
+            />
+            <Route path="/page/:pageNumber" element={<HomeScreen />} />
             <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>
