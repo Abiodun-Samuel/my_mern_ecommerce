@@ -19,7 +19,6 @@ const ProductListScreen = () => {
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
-  console.log(page, pages, products);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
