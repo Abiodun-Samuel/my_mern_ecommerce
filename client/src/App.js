@@ -65,12 +65,12 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>
-        <div className="App">
+        {/* <div className="App">
           <ReCAPTCHA
             sitekey={process.env.REACT_APP_RECAPTCHA_SITEKEY}
             onChange={onChange}
           />
-        </div>
+        </div> */}
       </main>
       <Footer />
     </Router>
