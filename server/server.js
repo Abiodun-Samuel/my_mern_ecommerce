@@ -29,6 +29,7 @@ app.use("/api/payment", paymentRoutes);
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
+//production
 if (process.env.MODE === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
   app.get("*", (req, res) =>
