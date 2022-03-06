@@ -22,24 +22,25 @@ const HomeScreen = () => {
   }, [dispatch, keyword, pageNumber]);
 
   return (
-    <div>
-      {!keyword ? (
-        <ProductCarousel />
-      ) : (
-        <Link className="btn btn-primary" to="/">
-          HomePage
-        </Link>
-      )}
-      <h1>Latest Products</h1>
-      {loading ? (
-        <h2>
-          <Loader />
-        </h2>
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
-      ) : (
-        <>
-          <Row>
+    <>
+      <Row>
+        {!keyword ? (
+          <ProductCarousel />
+        ) : (
+          <Link className="btn btn-primary" to="/">
+            HomePage
+          </Link>
+        )}
+      </Row>
+
+      <Row>
+        <h1>Latest Products</h1>
+        {loading ? (
+          <Loader fullPage="fullPage" imgHeight="100px" />
+        ) : error ? (
+          <Message variant="danger">{error}</Message>
+        ) : (
+          <>
             {products.map((product) => {
               return (
                 <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
@@ -47,15 +48,15 @@ const HomeScreen = () => {
                 </Col>
               );
             })}
-          </Row>
-          <Paginate
-            page={page}
-            pages={pages}
-            keyword={keyword ? keyword : ""}
-          />
-        </>
-      )}
-    </div>
+            <Paginate
+              page={page}
+              pages={pages}
+              keyword={keyword ? keyword : ""}
+            />
+          </>
+        )}
+      </Row>
+    </>
   );
 };
 

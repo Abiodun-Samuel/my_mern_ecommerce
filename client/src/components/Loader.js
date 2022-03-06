@@ -1,31 +1,72 @@
-import React from "react";
-import { Spinner } from "react-bootstrap";
-const Loader = () => {
+import loader from "../images/icon/loading.svg";
+
+const Loader = ({ small, fullPage, imgHeight }) => {
   return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{
-        height: "100vh",
-        // width: "100%",
-        position: "absolute",
-        backgroundColor: "rgba(0,0,0,0.2)",
-        // right: "100px",
-      }}
-    >
-      <div>
-        <Spinner
-          animation="border"
-          role="status"
+    <>
+      {fullPage && (
+        <div
+          className="d-flex justify-content-center align-items-center fade show"
           style={{
-            maxwidth: "100px",
-            maxheight: "100px",
-            margin: "auto",
-            display: "block",
+            height: "100vh",
+            width: "100vw",
+            backgroundColor: "rgba(255,255,255,0.4)",
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
           }}
-        ></Spinner>
-        <span className="text-primary my-2">Loading...</span>
-      </div>
-    </div>
+        >
+          <div>
+            <img
+              className="img-fluid shadow"
+              src={loader}
+              alt="Loading..."
+              style={{
+                borderRadius: "50%",
+                padding: "5px",
+                height: imgHeight,
+              }}
+            />
+          </div>
+        </div>
+      )}
+      {small && (
+        <div
+          className="d-flex justify-content-center align-items-center fade show"
+          style={
+            {
+              // height: "100vh",
+              // width: "100vw",
+              // backgroundColor: "rgba(255,255,255,0.4)",
+              // position: "absolute",
+              // top: 0,
+              // bottom: 0,
+              // right: 0,
+              // left: 0,
+            }
+          }
+        >
+          <div>
+            <img
+              className="img-fluid shadow"
+              src={loader}
+              alt="Loading..."
+              style={{
+                borderRadius: "50%",
+                padding: "5px",
+                height: imgHeight,
+              }}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
+
+Loader.defaultProps = {
+  imgHeight: "",
+};
+
 export default Loader;
