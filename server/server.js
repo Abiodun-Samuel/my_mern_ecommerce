@@ -8,13 +8,14 @@ import productsRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
-dotenv.config();
 
+dotenv.config();
 connectDB();
 
 const app = express();
-if ((process.env.NODE_ENV = "development")) {
+if ((process.env.MODE = "development")) {
   app.use(morgan("dev"));
 }
 app.use(express.json());
@@ -23,8 +24,7 @@ app.use("/api/products", productsRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
-
-app.get("/api/config/clientId", (req, res) => res.send(process.env.CLIENT_ID));
+app.use("/api/payment", paymentRoutes);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
