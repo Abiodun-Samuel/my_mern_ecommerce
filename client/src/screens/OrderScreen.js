@@ -16,13 +16,13 @@ import {
   ORDER_DELIVER_RESET,
 } from "../constant/orderConstants";
 import axios from "axios";
-import { PayPalButton } from "react-paypal-button-v2";
+import { PaystackButton } from "react-paystack";
 import moment from "moment";
 
 const OrderScreen = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
-  const [sdkReady, setSdkReady] = useState(false);
+  const [publickey, setPublickey] = useState("");
 
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -61,15 +61,17 @@ const OrderScreen = () => {
       navigate("/login");
     }
     const addPaypalScript = async () => {
-      const { data: clientId } = await axios.get("/api/config/clientId");
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
       };
-      document.body.appendChild(script);
+      const { data: clientId } = await axios.get(
+        "/api/payment/paystack_public_key",
+        config
+      );
+      setPublickey(clientId);
     };
 
     if (!order || successPay || successDeliver) {
@@ -77,11 +79,12 @@ const OrderScreen = () => {
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
-      if (!window.paypal) {
-        addPaypalScript();
-      } else {
-        setSdkReady(true);
-      }
+      // if (!window.paypal) {
+      addPaypalScript();
+
+      // } else {
+      //   setSdkReady(true);
+      // }
     }
   }, [
     dispatch,
@@ -93,9 +96,22 @@ const OrderScreen = () => {
     userInfo,
   ]);
 
-  const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
-    dispatch(payOrder(orderId, paymentResult));
+  // const handlePaystackSuccessAction = (reference) => {
+  //   console.log(reference);
+  const componentProps = {
+    // reference: 'userInfo.name',
+    email: userInfo.email,
+    amount: Number(order?.totalPrice) * 100,
+    name: userInfo.name,
+    phone: userInfo.name,
+    publicKey: publickey,
+    text: "Buy Now",
+    onSuccess: (reference) => {
+      // handlePaystackSuccessAction(reference);
+      console.log(reference);
+      dispatch(payOrder(orderId, reference));
+    },
+    onClose: () => alert("Wait! You need this oil, don't go!!!!"),
   };
 
   const deliverHandler = () => {
@@ -167,13 +183,10 @@ const OrderScreen = () => {
       {!order.isPaid && (
         <li>
           {loadingPay && <loader />}
-          {!sdkReady ? (
+          {!publickey ? (
             <Loader />
           ) : (
-            <PayPalButton
-              amount={order.totalPrice}
-              onsuccess={successPaymentHandler}
-            />
+            <PaystackButton className="paystack-button" {...componentProps} />
           )}
         </li>
       )}
