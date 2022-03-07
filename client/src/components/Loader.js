@@ -1,6 +1,6 @@
 import loader from "../images/icon/loading.svg";
 
-const Loader = ({ small, fullPage, imgHeight }) => {
+const Loader = ({ smallPage, fullPage, imgHeight }) => {
   return (
     <>
       {fullPage && (
@@ -31,7 +31,7 @@ const Loader = ({ small, fullPage, imgHeight }) => {
           </div>
         </div>
       )}
-      {small && (
+      {smallPage && (
         <div
           className="d-flex justify-content-center align-items-center fade show"
           style={

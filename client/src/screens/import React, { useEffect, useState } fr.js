@@ -22,18 +22,27 @@ import { PaystackButton } from "react-paystack";
 const OrderScreen = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [publickey, setPublickey] = useState("");
-  const { order, loading, error } = useSelector((state) => state.orderDetails);
-  const { userInfo } = useSelector((state) => state.userLogin);
+
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
+  console.log(order);
+
+  const dispatch = useDispatch();
+  // const cart = useSelector((state) => state.cart);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
   const {
     loading: loadingDeliver,
     error: errorDeliver,
     success: successDeliver,
-  } = useSelector((state) => state.orderDeliver);
-  const { loading: loadingPay, success: successPay } = useSelector(
-    (state) => state.orderPay
-  );
+  } = orderDeliver;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
 
   // calculate price
   const addDecimals = (num) => {
@@ -48,45 +57,38 @@ const OrderScreen = () => {
     );
   }
 
-  (async function addPaypalScript() {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-    const { data: clientId } = await axios.get(
-      "/api/payment/paystack_public_key",
-      config
-    );
-    setPublickey(clientId);
-  })();
-  console.log(order);
-
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
     }
-    if (!order) {
+    const addPaypalScript = async () => {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data: clientId } = await axios.get(
+        "/api/payment/paystack_public_key",
+        config
+      );
+      setPublickey(clientId);
+    };
+
+    if (!order || successPay || successDeliver) {
       dispatch({ type: ORDER_DETAILS_RESET });
       dispatch(getOrderDetails(orderId));
-    }
-    if (successPay) {
-      dispatch({ type: ORDER_PAY_RESET });
-      dispatch(getOrderDetails(orderId));
-    }
-    if (successDeliver) {
-      dispatch({ type: ORDER_DELIVER_RESET });
-      dispatch(getOrderDetails(orderId));
+    } else if (!order.isPaid) {
+      addPaypalScript();
     }
   }, [
     dispatch,
     order,
     orderId,
-    navigate,
-    userInfo,
     successPay,
     successDeliver,
+    navigate,
+    userInfo,
   ]);
 
   const componentProps = {
@@ -171,7 +173,7 @@ const OrderScreen = () => {
       </Card>
       {!order.isPaid && (
         <li>
-          {loadingPay && <Loader smallPage="smallPage" imgHeight="50px" />}
+          {loadingPay && <Loader />}
           {!publickey ? (
             <Loader />
           ) : (
@@ -179,8 +181,8 @@ const OrderScreen = () => {
           )}
         </li>
       )}
-      {loadingDeliver && <Loader smallPage="smallPage" imgHeight="50px" />}
-      {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+      {loadingDeliver && <Loader />}
+      {userInfo && userInfo.isAdmin && !order.isDelivered && (
         <button onClick={deliverHandler}>Mark As Delivered</button>
       )}
     </>

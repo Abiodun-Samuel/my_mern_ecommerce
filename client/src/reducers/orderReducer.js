@@ -20,6 +20,7 @@ import {
   ORDER_DELIVER_SUCCESS,
   ORDER_DELIVER_FAIL,
   ORDER_DELIVER_RESET,
+  ORDER_DETAILS_RESET,
 } from "../constant/orderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -46,6 +47,8 @@ export const orderDetailsReducer = (
       return { loading: false, order: action.payload };
     case ORDER_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case ORDER_DETAILS_RESET:
+      return { loading: true };
     default:
       return state;
   }
@@ -88,8 +91,8 @@ export const orderListReducer = (state = { orders: [] }, action) => {
       return { loading: false, orders: action.payload };
     case ORDER_LIST_FAIL:
       return { loading: false, error: action.payload };
-    // case ORDER_LIST_RESET:
-    //   return { orders: [] };
+    case MY_ORDER_LIST_RESET:
+      return { orders: [] };
     default:
       return state;
   }

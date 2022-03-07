@@ -4,6 +4,12 @@ import { listOrders } from "../actions/orderActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  MY_ORDER_LIST_RESET,
+  ORDER_DELIVER_RESET,
+  ORDER_DETAILS_RESET,
+  ORDER_PAY_RESET,
+} from "../constant/orderConstants";
 
 const OrderListScreen = () => {
   const dispatch = useDispatch();
@@ -22,13 +28,19 @@ const OrderListScreen = () => {
     } else {
       navigate("/login");
     }
+    return () => {
+      // dispatch({ type: ORDER_PAY_RESET });
+      // dispatch({ type: ORDER_DELIVER_RESET });
+      dispatch({ type: MY_ORDER_LIST_RESET });
+      dispatch({ type: ORDER_DETAILS_RESET });
+    };
   }, [dispatch, userInfo, navigate]);
 
   return (
     <>
       <h1>Orders</h1>
       {loading ? (
-        <Loader />
+        <Loader fullPage="fullPage" imgHeight="100px" />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
