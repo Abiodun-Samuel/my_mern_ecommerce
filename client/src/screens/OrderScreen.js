@@ -61,7 +61,6 @@ const OrderScreen = () => {
     );
     setPublickey(clientId);
   })();
-  console.log(order);
 
   useEffect(() => {
     if (!userInfo) {
@@ -103,12 +102,11 @@ const OrderScreen = () => {
   };
 
   const deliverHandler = () => {
-    dispatch({ type: ORDER_DELIVER_RESET });
     dispatch(deliverOrder(order));
   };
 
   return loading ? (
-    <Loader fullPage="fullPage" imgHeight="100px" />
+    <Loader fullPage="fullPage" imgHeight="80px" />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
@@ -171,7 +169,7 @@ const OrderScreen = () => {
       </Card>
       {!order.isPaid && (
         <li>
-          {loadingPay && <Loader smallPage="smallPage" imgHeight="50px" />}
+          {loadingPay && <Loader fullPage="fullPage" imgHeight="80px" />}
           {!publickey ? (
             <Loader />
           ) : (
@@ -179,7 +177,7 @@ const OrderScreen = () => {
           )}
         </li>
       )}
-      {loadingDeliver && <Loader smallPage="smallPage" imgHeight="50px" />}
+      {loadingDeliver && <Loader fullPage="fullPage" imgHeight="80px" />}
       {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
         <button onClick={deliverHandler}>Mark As Delivered</button>
       )}

@@ -26,6 +26,7 @@ const Loader = ({ smallPage, fullPage, imgHeight }) => {
                 borderRadius: "50%",
                 padding: "5px",
                 height: imgHeight,
+                width: imgHeight,
               }}
             />
           </div>
