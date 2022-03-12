@@ -37,7 +37,7 @@ const Header = () => {
           </Link>
 
           <div className="d-block ml-auto">
-            <div className="mobile-nav">
+            <div className="mobile-nav mr-2">
               <Link className="mobile-cart" to="/cart">
                 <span className="mobile-count">{cartItems?.length}</span>
                 <span>
@@ -45,7 +45,7 @@ const Header = () => {
                 </span>
               </Link>
             </div>
-            <div className="mobile-nav">
+            <div className="mobile-nav mr-2">
               <Link className="mobile-wish" to="/wishlist">
                 <span className="mobile-count">{wishListItems?.length}</span>
                 <span>
@@ -64,7 +64,7 @@ const Header = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon">
+            <span className="navbar--icon">
               <CgMenuGridR />
             </span>
           </button>
