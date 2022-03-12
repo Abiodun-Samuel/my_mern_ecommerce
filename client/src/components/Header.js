@@ -1,14 +1,17 @@
-import { HiOutlineShoppingCart } from "react-icons/hi";
+import { HiOutlineShoppingCart, HiOutlineUsers } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { CgMenuGridR } from "react-icons/cg";
-import { FaListOl } from "react-icons/fa";
-import { FaUserLock } from "react-icons/fa";
-import { HiOutlineUsers } from "react-icons/hi";
-import { FaUserAlt } from "react-icons/fa";
+import {
+  FaListOl,
+  FaUserLock,
+  FaUserAlt,
+  FaSignInAlt,
+  FaUserCheck,
+} from "react-icons/fa";
 import { BsFillBasket2Fill } from "react-icons/bs";
+import { ImUserCheck } from "react-icons/im";
 import { MdProductionQuantityLimits } from "react-icons/md";
-import { AiOutlineLogin } from "react-icons/ai";
-import { FaSignInAlt } from "react-icons/fa";
+import { AiOutlineLogin, AiOutlineMail } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/userActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,6 +35,25 @@ const Header = () => {
           <Link className="navbar-brand" to="/">
             Drips Empire
           </Link>
+
+          <div className="d-block ml-auto">
+            <div className="mobile-nav">
+              <Link className="mobile-cart" to="/cart">
+                <span className="mobile-count">{cartItems?.length}</span>
+                <span>
+                  <HiOutlineShoppingCart className="position-relative" />
+                </span>
+              </Link>
+            </div>
+            <div className="mobile-nav">
+              <Link className="mobile-wish" to="/wishlist">
+                <span className="mobile-count">{wishListItems?.length}</span>
+                <span>
+                  <FaListOl className="position-relative" />
+                </span>
+              </Link>
+            </div>
+          </div>
 
           <button
             className="navbar-toggler"
@@ -57,8 +79,17 @@ const Header = () => {
                   data-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <FaUserAlt className="mx-2" />
-                  Account
+                  {userInfo ? (
+                    <>
+                      <ImUserCheck className="mr-2 ml-1" />
+                      <span>{userInfo?.name}</span>
+                    </>
+                  ) : (
+                    <>
+                      <FaUserAlt className="mr-2 ml-1" />
+                      <span>Account</span>
+                    </>
+                  )}
                 </Link>
                 <div
                   className="dropdown-menu shadow"
@@ -66,19 +97,22 @@ const Header = () => {
                 >
                   {userInfo ? (
                     <>
-                      <button
-                        className="dropdown-item shadow auth"
-                        onClick={logoutHandler}
-                      >
-                        <FiLogOut className="mr-2" /> Logout
-                      </button>
-                      <hr />
                       <Link className="dropdown-item" to="/profile">
                         <FaUserAlt className="mr-2" /> Profile
                       </Link>
                       <Link className="dropdown-item" to="/orders">
                         <BsFillBasket2Fill className="mr-2" /> Orders
                       </Link>
+                      <Link className="dropdown-item" to="/inbox">
+                        <AiOutlineMail className="mr-2" /> Inbox
+                      </Link>
+                      <hr />
+                      <button
+                        className="dropdown-item shadow auth"
+                        onClick={logoutHandler}
+                      >
+                        <FiLogOut className="mr-2" /> Logout
+                      </button>
                     </>
                   ) : (
                     <>

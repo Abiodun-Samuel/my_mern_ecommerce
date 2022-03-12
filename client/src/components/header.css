@@ -66,6 +66,7 @@ button.navbar-toggler-icon:focus {
   padding: 0;
   font-weight: bolder;
   color: var(--blue);
+  margin: 0;
 }
 .nav-item.dropdown .dropdown-menu {
   border: 0 !important;
@@ -110,10 +111,43 @@ button.navbar-toggler-icon:focus {
   background-color: var(--blue-light);
 }
 
+/* mobile cart and wishlist display  */
+.mobile-nav {
+  display: none;
+}
+
 @media screen and (max-width: 992px) {
   .nav-item .nav-link,
   .nav-item .nav-link:focus {
     margin: 1rem 0;
     padding: 0.7rem 0;
+  }
+  .mobile-nav {
+    display: inline-block;
+    font-size: 0.95rem;
+  }
+  .mobile-nav .mobile-cart,
+  .mobile-nav .mobile-wish {
+    text-decoration: none;
+    margin: 0 10px;
+    color: var(--blue);
+    position: relative;
+    transition: 500ms;
+  }
+  .mobile-nav .mobile-count {
+    position: absolute;
+    top: -3px;
+    right: -5px;
+    background-color: var(--red);
+    padding: 0;
+    font-size: 0.6rem;
+    color: var(--white);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 13px;
+    width: 13px;
+    z-index: 1;
   }
 }
