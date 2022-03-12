@@ -177,7 +177,7 @@ const OrderScreen = () => {
           )}
         </li>
       )}
-      {loadingDeliver && <Loader fullPage="fullPage" imgHeight="80px" />}
+      {loadingDeliver && <Loader smallPage="smallPage" imgHeight="40px" />}
       {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
         <button onClick={deliverHandler}>Mark As Delivered</button>
       )}

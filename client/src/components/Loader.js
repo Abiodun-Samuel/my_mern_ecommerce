@@ -57,6 +57,7 @@ const Loader = ({ smallPage, fullPage, imgHeight }) => {
                 borderRadius: "50%",
                 padding: "5px",
                 height: imgHeight,
+                width: imgHeight,
               }}
             />
           </div>
@@ -67,7 +68,7 @@ const Loader = ({ smallPage, fullPage, imgHeight }) => {
 };
 
 Loader.defaultProps = {
-  imgHeight: "",
+  imgHeight: "80px",
 };
 
 export default Loader;

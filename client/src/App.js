@@ -21,6 +21,7 @@ import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import SearchScreen from "./screens/SearchScreen";
+import WishListScreen from "./screens/WishListScreen";
 
 function App() {
   function onChange(value) {
@@ -44,6 +45,7 @@ function App() {
               <Route path=":id" element={<CartScreen />} />
               <Route path="" element={<CartScreen />} />
             </Route>
+            <Route path="/wishlist" element={<WishListScreen />} />
             <Route path="/admin/users" element={<UserListScreen />} />
             <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
             <Route path="/admin/products" element={<ProductListScreen />} />

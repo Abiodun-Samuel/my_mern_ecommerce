@@ -28,8 +28,7 @@ const CartScreen = () => {
     ? Number(searchParams.get("quantity"))
     : 1;
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
+  const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (productId) {

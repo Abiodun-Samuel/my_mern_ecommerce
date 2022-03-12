@@ -13,7 +13,6 @@ const HomeScreen = () => {
   const { keyword } = useParams();
   let { pageNumber } = useParams();
   if (!pageNumber) pageNumber = 1;
-  console.log(pageNumber);
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
