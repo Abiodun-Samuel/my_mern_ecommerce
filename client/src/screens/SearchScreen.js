@@ -31,7 +31,7 @@ const SearchScreen = () => {
       <h1>Latest Products</h1>
       {loading ? (
         <h2>
-          <Loader />
+          <Loader fullPage={true} />
         </h2>
       ) : error ? (
         <Message variant="danger">{error}</Message>

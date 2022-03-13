@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaSearch, FaHome } from "react-icons/fa";
+import { RiHealthBookLine } from "react-icons/ri";
+import { FiSmartphone } from "react-icons/fi";
+import "./searchbox.css";
 
 const SearchBox = () => {
   const [keyword, setKeyword] = useState("");
@@ -14,14 +18,22 @@ const SearchBox = () => {
   };
   return (
     <div>
-      <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          placeholder="search products..."
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-        />
-        <button type="submit">Search</button>
+      <form onSubmit={submitHandler} className="mb-2">
+        <div className="searchform">
+          <p>Search Product...</p>
+          <input
+            className="searchtext"
+            type="text"
+            pattern="[a-zA-Z0-9]+"
+            placeholder="Product name..."
+            title="Invalid product name"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+          <button className="searchbutton" type="submit">
+            <FaSearch />
+          </button>
+        </div>
       </form>
     </div>
   );

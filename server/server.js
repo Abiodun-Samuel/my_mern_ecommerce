@@ -8,6 +8,7 @@ import productsRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
@@ -24,6 +25,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/category", categoryRoutes);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

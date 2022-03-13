@@ -1,13 +1,7 @@
 import { HiOutlineShoppingCart, HiOutlineUsers } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { CgMenuGridR } from "react-icons/cg";
-import {
-  FaListOl,
-  FaUserLock,
-  FaUserAlt,
-  FaSignInAlt,
-  FaUserCheck,
-} from "react-icons/fa";
+import { FaListOl, FaUserLock, FaUserAlt, FaSignInAlt } from "react-icons/fa";
 import { BsFillBasket2Fill } from "react-icons/bs";
 import { ImUserCheck } from "react-icons/im";
 import { MdProductionQuantityLimits } from "react-icons/md";
