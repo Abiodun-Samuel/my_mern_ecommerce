@@ -15,7 +15,7 @@ const HomeScreen = () => {
   if (!pageNumber) pageNumber = 1;
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  let { loading, error, products, page, pages } = productList;
   React.useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
@@ -35,7 +35,7 @@ const HomeScreen = () => {
       <Row>
         <h1>Latest Products</h1>
         {loading ? (
-          <Loader fullPage="fullPage" imgHeight="100px" />
+          <Loader fullPage={true} imgHeight="100px" />
         ) : error ? (
           <Message variant="danger">{error}</Message>
         ) : (

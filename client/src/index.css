@@ -4,7 +4,9 @@
   --blue-light: #dedef8;
   --blue-light-1: #54549c;
   --black: #242424;
+  --red-1: #c94f74;
   --shadow-1: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  --shadow-2: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 main {
