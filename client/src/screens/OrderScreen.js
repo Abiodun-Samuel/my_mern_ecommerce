@@ -170,11 +170,14 @@ const OrderScreen = () => {
       {!order.isPaid && (
         <li>
           {loadingPay && <Loader fullPage="fullPage" imgHeight="80px" />}
-          {!publickey ? (
+          {userInfo && order && !order.isPaid && (
+            <PaystackButton className="paystack-button" {...componentProps} />
+          )}
+          {/* {!publickey ? (
             <Loader />
           ) : (
             <PaystackButton className="paystack-button" {...componentProps} />
-          )}
+          )} */}
         </li>
       )}
       {loadingDeliver && <Loader smallPage="smallPage" imgHeight="40px" />}
