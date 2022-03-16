@@ -1,32 +1,15 @@
 import "./App.css";
 import { Suspense, lazy } from "react";
 // import ReCAPTCHA from "react-google-recaptcha";
+
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Loader from "./components/Loader";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CartScreen from "./screens/CartScreen";
-import "bootstrap/dist/css/bootstrap.min.css";
-
-
-// import ProductEditScreen from "./screens/ProductEditScreen";
-// import OrderListScreen from "./screens/OrderListScreen";
-// import SearchScreen from "./screens/SearchScreen";
-// import WishListScreen from "./screens/WishListScreen";
-import Loader from "./components/Loader";
-
-// import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceorderScreen from "./screens/PlaceorderScreen";
-import OrderScreen from "./screens/OrderScreen";
-import UserListScreen from "./screens/UserListScreen";
-import UserEditScreen from "./screens/UserEditScreen";
-// import ProductListScreen from "./screens/ProductListScreen";
 
 const ProductEditScreen = lazy(() => import("./screens/ProductEditScreen"));
 const OrderListScreen = lazy(() => import("./screens/OrderListScreen"));
@@ -34,14 +17,16 @@ const SearchScreen = lazy(() => import("./screens/SearchScreen"));
 const WishListScreen = lazy(() => import("./screens/WishListScreen"));
 const LoginScreen = lazy(() => import("./screens/LoginScreen"));
 const ProductListScreen = lazy(() => import("./screens/ProductListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
-const WishListScreen = lazy(() => import("./screens/WishListScreen"));
+const UserEditScreen = lazy(() => import("./screens/UserEditScreen"));
+const UserListScreen = lazy(() => import("./screens/UserListScreen"));
+const OrderScreen = lazy(() => import("./screens/OrderScreen"));
+const PlaceorderScreen = lazy(() => import("./screens/PlaceorderScreen"));
+const ShippingScreen = lazy(() => import("./screens/ShippingScreen"));
+const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));
+const ProfileScreen = lazy(() => import("./screens/ProfileScreen"));
+const PaymentScreen = lazy(() => import("./screens/PaymentScreen"));
+const ProductScreen = lazy(() => import("./screens/ProductScreen"));
+const CartScreen = lazy(() => import("./screens/CartScreen"));
 
 function App() {
   // function onChange(value) {
