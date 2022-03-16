@@ -9,7 +9,6 @@ import { AiOutlineLogin, AiOutlineMail } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/userActions";
 import { Link, useNavigate } from "react-router-dom";
-import "./header.css";
 
 const Header = () => {
   const dispatch = useDispatch();

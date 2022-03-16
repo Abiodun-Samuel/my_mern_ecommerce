@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaSearch, FaHome } from "react-icons/fa";
-import { RiHealthBookLine } from "react-icons/ri";
-import { FiSmartphone } from "react-icons/fi";
-import "./searchbox.css";
+import { useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 
 const SearchBox = () => {
   const [keyword, setKeyword] = useState("");

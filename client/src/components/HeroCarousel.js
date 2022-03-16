@@ -3,7 +3,6 @@ import { Carousel, Image } from "react-bootstrap";
 import hero1 from "../images/bg/hero1.jpg";
 import hero2 from "../images/bg/hero2.jpg";
 import hero3 from "../images/bg/hero3.jpg";
-import "./herocarousel.css";
 
 const HeroCarousel = () => {
   const images = [hero1, hero2, hero3];

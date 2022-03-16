@@ -1,10 +1,8 @@
-import "./App.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { Suspense, lazy } from "react";
 // import ReCAPTCHA from "react-google-recaptcha";
-
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import Loader from "./components/Loader";
 import Header from "./components/Header";

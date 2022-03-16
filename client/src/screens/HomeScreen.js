@@ -9,7 +9,6 @@ import Paginate from "../components/Paginate";
 import { Link, useParams } from "react-router-dom";
 import ProductCarousel from "../components/ProductCarousel";
 import video from "../images/bg/hero-video.mp4";
-import "./homescreen.css";
 import HeroCarousel from "../components/HeroCarousel";
 import SearchBox from "../components/SearchBox";
 import { getCategories } from "../actions/categoryActions";
