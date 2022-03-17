@@ -22,7 +22,7 @@ const SearchBox = () => {
             className="searchtext"
             type="text"
             pattern="[a-zA-Z0-9]+"
-            placeholder="Product name..."
+            placeholder="Product name"
             title="Invalid product name"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
