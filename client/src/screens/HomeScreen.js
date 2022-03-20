@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 import Product from "../components/Product";
@@ -12,7 +12,7 @@ import video from "../images/bg/hero-video.mp4";
 import HeroCarousel from "../components/HeroCarousel";
 import SearchBox from "../components/SearchBox";
 import { getCategories } from "../actions/categoryActions";
-import { GrFireball } from "react-icons/gr";
+import Category from "../components/Category";
 
 const HomeScreen = () => {
   const { keyword } = useParams();
@@ -29,9 +29,9 @@ const HomeScreen = () => {
   let { loading, error, products, page, pages } = productList;
   React.useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
-    // dispatch(getCategories());
+    dispatch(getCategories());
   }, [dispatch, keyword, pageNumber]);
-  useMemo(() => dispatch(getCategories()), [dispatch]);
+  // useMemo(() => dispatch(getCategories()), [dispatch]);
 
   return (
     <>
@@ -40,19 +40,12 @@ const HomeScreen = () => {
           <SearchBox />
           <div className="category-box shadow p-3">
             <h5>Categories</h5>
-            {loadingCategory ? (
-              <Loader smallPage={true} />
-            ) : errorCategory ? (
-              <Message variant="danger">{errorCategory}</Message>
-            ) : (
-              categories?.map((cat) => (
-                <p key={cat.category_slug}>
-                  <Link to={`/category/${cat.category_slug}`}>
-                    <GrFireball className="mr-1" /> {cat.category_name}
-                  </Link>
-                </p>
-              ))
-            )}
+            <Category
+              loadingCategory={loadingCategory}
+              errorCategory={errorCategory}
+              categories={categories}
+            />
+
             {/* {loadingCategory && <Loader smallPage={true} />}
             {errorCategory && (
               <Message variant="danger">{errorCategory}</Message>

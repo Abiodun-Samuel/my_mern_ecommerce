@@ -20,6 +20,9 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  PRODUCTS_LIST_BY_CATEGORY_REQUEST,
+  PRODUCTS_LIST_BY_CATEGORY_SUCCESS,
+  PRODUCTS_LIST_BY_CATEGORY_FAIL,
 } from "../constant/productConstants";
 import axios from "axios";
 
@@ -42,6 +45,23 @@ export const listProducts =
       });
     }
   };
+
+export const productsListByCategory = (slug) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_REQUEST });
+    const { data } = await axios.get(`/api/category/${slug}`);
+
+    dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCTS_LIST_BY_CATEGORY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
