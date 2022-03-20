@@ -332,3 +332,21 @@ div.carousel-indicators button {
   color: var(--black);
   background-color: var(--blue-light);
 }
+
+/* class  */
+.section_title {
+  background-color: var(--blue-light);
+  box-shadow: var(--shadow-1);
+}
+.section_title_header {
+  color: var(--blue);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+/* .section_title_desc {
+  color: var(--black-1);
+  font-size: 1.1rem;
+} */

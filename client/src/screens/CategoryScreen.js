@@ -32,7 +32,16 @@ const CategoryScreen = () => {
       dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_RESET });
     };
   }, [dispatch, slug]);
-  console.log(loading);
+
+  const formatSlug = (slug) => {
+    if (!loadingCategory && !error && categories) {
+      const [filtered] = categories.filter((x) => {
+        return x.category_slug === slug;
+      });
+      return filtered?.category_name;
+    }
+  };
+
   return (
     <>
       <div className="row mt-5">
@@ -55,30 +64,31 @@ const CategoryScreen = () => {
       </div>
 
       <div className="row my-2">
-        {/* <div className="col-lg-12">
-          <h3>Products By Category</h3>
-        </div> */}
-        {loading ? (
-          <Loader fullPage={true} />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
-          <>
-            <p>
-              You have searched for all the products in <b>{}</b> Category
-            </p>
-            <div className="row">
-              {products?.map((product) => {
-                return (
-                  <div className="col-lg-3" key={product._id}>
-                    <Product product={product} key={product._id} />
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        )}
-        {/* {loading && <Loader fullPage={true} />}
+        <div className="col-lg-12">
+          <div className="section_title p-2 rounded">
+            <h5 className="section_title_header">{formatSlug(slug)}</h5>
+          </div>
+        </div>
+      </div>
+
+      {loading ? (
+        <Loader fullPage={true} />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <>
+          <div className="row">
+            {products?.map((product) => {
+              return (
+                <div className="col-lg-3" key={product._id}>
+                  <Product product={product} key={product._id} />
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+      {/* {loading && <Loader fullPage={true} />}
           {error && <Message>{error}</Message>}
           {products &&
             products.map((product) => {
@@ -88,7 +98,6 @@ const CategoryScreen = () => {
                 </Col>
               );
             })} */}
-      </div>
     </>
   );
 };

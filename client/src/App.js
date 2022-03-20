@@ -34,7 +34,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <main className="container py-3">
+      <main className="container pt-3">
         <Suspense fallback={<Loader fullPage={true} />}>
           <Routes>
             <Route path="/login" element={<LoginScreen />} />
