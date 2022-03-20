@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 import Product from "../components/Product";
@@ -29,8 +29,9 @@ const HomeScreen = () => {
   let { loading, error, products, page, pages } = productList;
   React.useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
-    dispatch(getCategories());
+    // dispatch(getCategories());
   }, [dispatch, keyword, pageNumber]);
+  useMemo(() => dispatch(getCategories()), [dispatch]);
 
   return (
     <>

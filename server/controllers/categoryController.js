@@ -1,6 +1,7 @@
 import Order from "../models/orderModel.js";
 import asyncHandler from "express-async-handler";
 import Category from "../models/categoryModel.js";
+import Product from "../models/productModel.js";
 
 //@desc create new category
 //@route Post api/category
@@ -32,4 +33,23 @@ const getCategory = asyncHandler(async (req, res) => {
   res.json(categories);
 });
 
-export { addCategory, getCategory };
+//@desc fetch a products by category
+//@route GET api/:category/products
+//@access public
+const getProductsByCategory = asyncHandler(async (req, res) => {
+  const [category] = await Category.find({
+    category_slug: req.params.slug,
+  });
+  if (category) {
+    const cat_name = category.category_name;
+    const products = await Product.find({
+      category: cat_name,
+    });
+    res.json(products);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+
+export { addCategory, getCategory, getProductsByCategory };

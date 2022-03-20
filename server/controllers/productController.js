@@ -1,5 +1,6 @@
 import Product from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
+import Category from "../models/categoryModel.js";
 
 //@desc fetch all products
 //@route GET api/products
@@ -35,9 +36,6 @@ const getProductById = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Product not found");
   }
-  //  } else {
-  //    res.status(404).json({ message: "Product does not exist" });
-  //  }
 });
 
 // Admin Privileges
