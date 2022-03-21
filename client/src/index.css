@@ -334,19 +334,36 @@ div.carousel-indicators button {
 }
 
 /* class  */
-.section_title {
+.section {
   background-color: var(--blue-light);
   box-shadow: var(--shadow-1);
+  padding: 10px;
+  border-radius: 5px;
 }
-.section_title_header {
+.section_header {
   color: var(--blue);
-  font-size: 1rem;
+  font-size: 1.2rem;
   letter-spacing: 0.5px;
   font-weight: bold;
   padding: 0;
   margin: 0;
 }
-/* .section_title_desc {
+.section_desc {
   color: var(--black-1);
-  font-size: 1.1rem;
-} */
+  font-size: 0.9rem;
+  padding: 0;
+  margin: 0;
+}
+
+/* media queries  */
+
+@media screen and (max-width: 576px) {
+}
+@media screen and (min-width: 576px) and (max-width: 768px) {
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+}
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+}
+@media screen and (min-width: 1200px) {
+}

@@ -19,7 +19,8 @@ const getProducts = asyncHandler(async (req, res) => {
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
     .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    .skip(pageSize * (page - 1))
+    .sort({ updatedAt: -1 });
   // res.status(401);
   // throw new Error("not authorized");
   res.json({ products, page, pages: Math.ceil(count / pageSize) });

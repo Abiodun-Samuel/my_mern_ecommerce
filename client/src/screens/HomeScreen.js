@@ -13,9 +13,11 @@ import HeroCarousel from "../components/HeroCarousel";
 import SearchBox from "../components/SearchBox";
 import { getCategories } from "../actions/categoryActions";
 import Category from "../components/Category";
+import SectionHeader from "../components/SectionHeader";
 
 const HomeScreen = () => {
-  const { keyword } = useParams();
+  const { keyword } = false;
+  // const { keyword } = useParams();
   let { pageNumber } = useParams();
   if (!pageNumber) pageNumber = 1;
   const dispatch = useDispatch();
@@ -35,7 +37,8 @@ const HomeScreen = () => {
 
   return (
     <>
-      <div className="row mt-5">
+      {/* hero section  */}
+      <div className="row mt-5 mb-4">
         <div className="col-lg-4 my-2">
           <SearchBox />
           <div className="category-box shadow p-3">
@@ -45,18 +48,6 @@ const HomeScreen = () => {
               errorCategory={errorCategory}
               categories={categories}
             />
-
-            {/* {loadingCategory && <Loader smallPage={true} />}
-            {errorCategory && (
-              <Message variant="danger">{errorCategory}</Message>
-            )}
-            {categories?.map((cat) => (
-              <p key={cat.category_slug}>
-                <Link to={`/category/${cat.category_slug}`}>
-                  {cat.category_name}
-                </Link>
-              </p>
-            ))} */}
           </div>
         </div>
         <div className="col-lg-8 my-2">
@@ -65,44 +56,50 @@ const HomeScreen = () => {
           </div>
         </div>
       </div>
+
+      {/* All products  */}
+      <div className="row my-1">
+        <div className="col-lg-12">
+          <SectionHeader header="Latest Products" />
+        </div>
+      </div>
+
+      <div className="row my-3">
+        {loading ? (
+          <Loader fullPage={true} />
+        ) : error ? (
+          <Message variant="danger">{error}</Message>
+        ) : (
+          <>
+            {products.map((product) => {
+              return (
+                <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+                  <Product product={product} />
+                </Col>
+              );
+            })}
+            <Paginate
+              page={page}
+              pages={pages}
+              keyword={keyword ? keyword : ""}
+            />
+          </>
+        )}
+      </div>
     </>
   );
 };
 
-//  <>
-//       <Row>
-//         {!keyword ? (
-//           <ProductCarousel />
-//         ) : (
-//           <Link className="btn btn-primary" to="/">
-//             HomePage
-//           </Link>
-//         )}
-//       </Row>
-
-//       <Row>
-//         <h1>Latest Products</h1>
-//         {loading ? (
-//           <Loader fullPage={true} imgHeight="100px" />
-//         ) : error ? (
-//           <Message variant="danger">{error}</Message>
-//         ) : (
-//           <>
-//             {products.map((product) => {
-//               return (
-//                 <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-//                   <Product product={product} />
-//                 </Col>
-//               );
-//             })}
-//             <Paginate
-//               page={page}
-//               pages={pages}
-//               keyword={keyword ? keyword : ""}
-//             />
-//           </>
-//         )}
-//       </Row>
-//     </>
+// {
+/* <Row>
+        {!keyword ? (
+          <ProductCarousel />
+        ) : (
+          <Link className="btn btn-primary" to="/">
+            HomePage
+          </Link>
+        )}
+      </Row> */
+// }
 
 export default HomeScreen;

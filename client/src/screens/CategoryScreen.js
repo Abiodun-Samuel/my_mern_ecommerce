@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Product from "../components/Product";
 import SearchBox from "../components/SearchBox";
+import SectionHeader from "../components/SectionHeader";
 import { PRODUCTS_LIST_BY_CATEGORY_RESET } from "../constant/productConstants";
 
 const CategoryScreen = () => {
@@ -44,7 +45,7 @@ const CategoryScreen = () => {
 
   return (
     <>
-      <div className="row mt-5">
+      <div className="row mt-5 mb-4">
         <div className="col-lg-4 my-2">
           <SearchBox />
           <div className="category-box shadow p-3">
@@ -63,11 +64,13 @@ const CategoryScreen = () => {
         </div>
       </div>
 
-      <div className="row my-2">
+      <div className="row my-1">
         <div className="col-lg-12">
-          <div className="section_title p-2 rounded">
-            <h5 className="section_title_header">{formatSlug(slug)}</h5>
-          </div>
+          <SectionHeader
+            header={
+              formatSlug(slug) ? `${formatSlug(slug)} Products` : "Products"
+            } desc="Your Search Results"
+          />
         </div>
       </div>
 
