@@ -8,7 +8,7 @@ const Category = ({ loadingCategory, errorCategory, categories }) => {
   return (
     <>
       {loadingCategory ? (
-        <Loader smallPage={true} />
+        <Loader fullPage={false} />
       ) : errorCategory ? (
         <Message variant="danger">{errorCategory}</Message>
       ) : (
