@@ -12,9 +12,6 @@
 body {
   overflow-x: hidden;
 }
-main {
-  min-height: 80vh;
-}
 a {
   text-decoration: none;
 }

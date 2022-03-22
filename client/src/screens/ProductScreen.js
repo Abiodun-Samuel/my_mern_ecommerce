@@ -87,7 +87,6 @@ const ProductScreen = () => {
   };
   return (
     <>
-      <ToastContainer />
       <Link to="/" className="btn btn-dark my-3">
         Go Back
       </Link>

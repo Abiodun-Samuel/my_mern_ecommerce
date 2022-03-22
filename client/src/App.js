@@ -8,6 +8,7 @@ import Loader from "./components/Loader";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
+import { ToastContainer } from "react-toastify";
 
 const ProductEditScreen = lazy(() => import("./screens/ProductEditScreen"));
 const OrderListScreen = lazy(() => import("./screens/OrderListScreen"));
@@ -32,55 +33,59 @@ function App() {
   //   console.log("Captcha value:", value);
   // }
   return (
-    <Router>
-      <Header />
-      <main className="container pt-3">
-        <Suspense fallback={<Loader fullPage={true} />}>
-          <Routes>
-            <Route path="/login" element={<LoginScreen />} />
-            <Route path="/register" element={<RegisterScreen />} />
-            <Route path="/shipping" element={<ShippingScreen />} />
-            <Route path="/payment" element={<PaymentScreen />} />
-            <Route path="/place-order" element={<PlaceorderScreen />} />
-            <Route path="/order/:orderId" element={<OrderScreen />} />
-            <Route path="/profile" element={<ProfileScreen />} />
-            <Route path="/product/:id" element={<ProductScreen />} />
-            <Route path="/cart">
-              <Route path=":id" element={<CartScreen />} />
-              <Route path="" element={<CartScreen />} />
-            </Route>
-            <Route path="/wishlist" element={<WishListScreen />} />
-            <Route path="/category/:slug" element={<CategoryScreen />} />
-            <Route path="/admin/users" element={<UserListScreen />} />
-            <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
-            <Route path="/admin/products" element={<ProductListScreen />} />
-            <Route
-              path="/admin/products/:pageNumber"
-              element={<ProductListScreen />}
-            />
-            <Route
-              path="/admin/product/:id/edit"
-              element={<ProductEditScreen />}
-            />
-            <Route path="/admin/orders" element={<OrderListScreen />} />
-            <Route path="/search/:keyword" element={<SearchScreen />} />
-            <Route
-              path="/search/:keyword/page/:pageNumber"
-              element={<SearchScreen />}
-            />
-            <Route path="/page/:pageNumber" element={<HomeScreen />} />
-            <Route path="/" element={<HomeScreen />} />
-          </Routes>
-        </Suspense>
-        {/* <div className="App">
+    <>
+      <Router>
+        <Header />
+        <main className="container pt-3">
+          <Suspense fallback={<Loader fullPage={true} />}>
+            <Routes>
+              <Route path="/login" element={<LoginScreen />} />
+              <Route path="/register" element={<RegisterScreen />} />
+              <Route path="/shipping" element={<ShippingScreen />} />
+              <Route path="/payment" element={<PaymentScreen />} />
+              <Route path="/place-order" element={<PlaceorderScreen />} />
+              <Route path="/order/:orderId" element={<OrderScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/product/:id" element={<ProductScreen />} />
+              <Route path="/cart">
+                <Route path=":id" element={<CartScreen />} />
+                <Route path="" element={<CartScreen />} />
+              </Route>
+              <Route path="/wishlist" element={<WishListScreen />} />
+              <Route path="/category/:slug" element={<CategoryScreen />} />
+              <Route path="/admin/users" element={<UserListScreen />} />
+              <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
+              <Route path="/admin/products" element={<ProductListScreen />} />
+              <Route
+                path="/admin/products/:pageNumber"
+                element={<ProductListScreen />}
+              />
+              <Route
+                path="/admin/product/:id/edit"
+                element={<ProductEditScreen />}
+              />
+              <Route path="/admin/orders" element={<OrderListScreen />} />
+              <Route path="/search/:keyword" element={<SearchScreen />} />
+              <Route
+                path="/search/:keyword/page/:pageNumber"
+                element={<SearchScreen />}
+              />
+              <Route path="/page/:pageNumber" element={<HomeScreen />} />
+              <Route path="/" element={<HomeScreen />} />
+            </Routes>
+          </Suspense>
+          {/* <div className="App">
           <ReCAPTCHA
             sitekey={process.env.REACT_APP_RECAPTCHA_SITEKEY}
             onChange={onChange}
           />
         </div> */}
-      </main>
-      <Footer />
-    </Router>
+        </main>
+        <Footer />
+      </Router>
+      {/* Toast Container  */}
+      <ToastContainer />
+    </>
   );
 }
 

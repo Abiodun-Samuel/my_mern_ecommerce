@@ -14,6 +14,7 @@ import SearchBox from "../components/SearchBox";
 import { getCategories } from "../actions/categoryActions";
 import Category from "../components/Category";
 import SectionHeader from "../components/SectionHeader";
+import { addToCart } from "../actions/cartActions";
 
 const HomeScreen = () => {
   const { keyword } = false;
@@ -34,7 +35,6 @@ const HomeScreen = () => {
     products: topProducts,
   } = useSelector((state) => state.productTopRated);
 
-  console.log(topProducts);
 
   const { loading, error, products, page, pages } = productList;
   React.useEffect(() => {
@@ -43,6 +43,7 @@ const HomeScreen = () => {
     dispatch(listTopProducts());
   }, [dispatch, keyword, pageNumber]);
   // useMemo(() => dispatch(getCategories()), [dispatch]);
+  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <>
@@ -73,18 +74,21 @@ const HomeScreen = () => {
         </div>
       </div>
 
-      <div className="row my-1">
-        {loading ? (
-          <Loader fullPage={true} />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
-          <>
+      {loading ? (
+        <Loader fullPage={true} />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <>
+          <div className="row my-1">
             {products.map((product) => {
               return (
-                <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+                <div
+                  className="col-lg-2 col-md-4 col-sm-6 col-6"
+                  key={product._id}
+                >
                   <Product product={product} />
-                </Col>
+                </div>
               );
             })}
             <Paginate
@@ -92,9 +96,9 @@ const HomeScreen = () => {
               pages={pages}
               keyword={keyword ? keyword : ""}
             />
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
 
       {/* Top Rated Products  */}
       <div className="row my-1">
@@ -103,23 +107,26 @@ const HomeScreen = () => {
         </div>
       </div>
 
-      <div className="row my-1">
-        {loading ? (
-          <Loader fullPage={true} />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
-          <>
+      {loading ? (
+        <Loader fullPage={true} />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <>
+          <div className="row my-1">
             {topProducts.map((product) => {
               return (
-                <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+                <div
+                  className="col-lg-2 col-md-4 col-sm-6 col-6"
+                  key={product._id}
+                >
                   <Product product={product} />
-                </Col>
+                </div>
               );
             })}
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

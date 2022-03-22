@@ -15,6 +15,7 @@ const ProductEditScreen = () => {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
+  const [inflatedPrice, setInflatedPrice] = useState(0);
   const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
@@ -52,6 +53,7 @@ const ProductEditScreen = () => {
       } else {
         setName(product.name);
         setPrice(product.price);
+        setInflatedPrice(product.inflatedPrice);
         setImage(product.image);
         setBrand(product.brand);
         setCategory(product.category);
@@ -72,6 +74,7 @@ const ProductEditScreen = () => {
         _id: id,
         name,
         price,
+        inflatedPrice,
         image,
         brand,
         category,
@@ -128,6 +131,13 @@ const ProductEditScreen = () => {
             placeholder="Enter your price"
             className="form-control"
             onChange={(e) => setPrice(e.target.value)}
+          />
+          <input
+            type="number"
+            value={inflatedPrice}
+            placeholder="Enter your price(market price)"
+            className="form-control"
+            onChange={(e) => setInflatedPrice(e.target.value)}
           />
           <input
             type="text"
