@@ -13,7 +13,6 @@ const Product = ({ product }) => {
 
   const discountPercentage = (inflatedPrice, price) => {
     let value = ((inflatedPrice - price) / inflatedPrice) * 100;
-
     return Math.round(value) <= 0.5
       ? `0${Math.round(value)}%`
       : Math.round(value) < 10
