@@ -21,6 +21,14 @@ const Product = ({ product }) => {
       : `-${Math.round(value)}%`;
   };
 
+  const formatProductName = (name) => {
+    if (name.length < 18) {
+      return `${name.substring(0, 17).toUpperCase()}`;
+    } else {
+      return `${name.substring(0, 17).toUpperCase()}...`;
+    }
+  };
+
   const addToCartHandler = () => {
     dispatch(addToCart(product._id, quantity));
     const existItem = cartItems.filter(
@@ -49,7 +57,10 @@ const Product = ({ product }) => {
 
   return (
     <>
-      <div className="card my-2 rounded border-0 shadow-sm bg-white">
+      <div
+        className="card my-2 rounded border-0 shadow-sm bg-white"
+        id="product_component"
+      >
         <div className="discount_percentage">
           <p>{discountPercentage(product.inflatedPrice, product.price)}</p>
         </div>
@@ -58,28 +69,42 @@ const Product = ({ product }) => {
             src={product.image}
             className="card-img-top"
             alt={product.name}
+            height="150px"
+            width="auto"
           />
         </Link>
         <div className="card-body">
           <Link to={`/product/${product._id}`}>
-            <h6 className="card-title">{product.name}</h6>
+            <h6 className="card-title product_name">
+              {formatProductName(product.name)}
+            </h6>
           </Link>
 
-          <div className="discount_price d-flex justify-content-between">
-            <p>&#8358; {product.price}</p>
-            <p>&#8358; {product.inflatedPrice}</p>
+          <div className="discount d-flex justify-content-between">
+            <p className="price">
+              &#8358;
+              {product.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+            </p>
+            <p className="inflatedprice">
+              &#8358;{" "}
+              {product.inflatedPrice
+                .toFixed(2)
+                .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+            </p>
           </div>
 
-          <div className="card-text">
+          <div className="my-1">
             <Rating value={product.rating} />
           </div>
           <button
-            className="shadow"
+            className="shadow btn-block product_btn"
             onClick={addToCartHandler}
             disabled={product.countInStock === 0}
           >
-            <HiOutlineShoppingCart className="mx-2" />
-            Cart
+            <span className="d-flex align-items-center justify-content-center">
+              <HiOutlineShoppingCart className="mr-2" />
+              Cart
+            </span>
           </button>
         </div>
       </div>
