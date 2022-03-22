@@ -352,7 +352,21 @@ div.carousel-indicators button {
   margin: 0;
 }
 
-/* products  */
+/* products  component */
+.discount_percentage {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+.discount_percentage p {
+  background-color: var(--red-1);
+  color: var(--white);
+  border-radius: 2px;
+  /* text-decoration: line-through; */
+  padding: 3px;
+  font-weight: 500;
+  font-size: 0.7rem;
+}
 
 /* media queries  */
 
