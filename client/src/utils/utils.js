@@ -13,30 +13,3 @@ export const customSweetAlert = (title, text, icon, btn_text, onSuccess) => {
   });
 };
 
-// export const deleteSwal = (
-//   title,
-//   icon,
-//   dangerMode,
-//   dispatch,
-//   deleteProduct,
-//   id
-// ) => {
-//   swal({
-//     title,
-//     //  text: "Once deleted, you will not be able to recover this imaginary file!",
-//     icon: icon,
-//     buttons: true,
-//     dangerMode: false,
-//   }).then((willDelete) => {
-//     if (willDelete) {
-//       swal("Poof! Your imaginary file has been deleted!", {
-//         icon: "success",
-//       });
-//       dispatch(deleteProduct(id));
-//       // console.log(true);
-//       // dispatch(deleteProduct(id));
-//     } else {
-//       swal("Your imaginary file is safe!");
-//     }
-//   });
-// };

@@ -105,7 +105,7 @@ const ProductListScreen = () => {
       ) : (
         <>
           <div className="table-responsive">
-            <table className="table table-hover shadow">
+            <table className="table table-hover shadow-sm">
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">S/N</th>
