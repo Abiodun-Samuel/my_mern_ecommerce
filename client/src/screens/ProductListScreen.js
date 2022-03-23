@@ -11,6 +11,9 @@ import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
 import Paginate from "../components/Paginate";
 import { useParams } from "react-router-dom";
+import SectionHeader from "../components/SectionHeader";
+import { GrChapterAdd } from "react-icons/gr";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -71,37 +74,65 @@ const ProductListScreen = () => {
 
   return (
     <>
-      <h1>Product</h1>
-      <button onClick={createProductHandler}>Create Product</button>
+      <div className="row mb-1 mt-5">
+        <div className="col-lg-12">
+          <SectionHeader header="All Products" />
+        </div>
+      </div>
+      <button onClick={createProductHandler}>
+        <GrChapterAdd className="mr-1" /> Create Product
+      </button>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}
       {errorCreate && <Message variant="danger">{errorCreate}</Message>}
       {loading ? (
-        <Loader />
+        <Loader fullPage={true} />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <span>ID, Name, Price, Category, brand</span>
-          {products.map((product) => (
-            <div key={product._id}>
-              <span>{product._id}</span>
-              <span>{product.name}</span>
-              <span>{product.price}</span>
-              <span>{product.category}</span>
-              <span>{product.brand}</span>
-              <span>
-                <Link to={`/admin/product/${product._id}/edit`}>Edit</Link>
-              </span>
-              <span>
-                <button onClick={() => deleteHandler(product._id)}>
-                  Delete
-                </button>
-              </span>
-            </div>
-          ))}
-          <Paginate page={page} pages={pages} isAdmin={true} />
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead className="thead-dark">
+                <tr>
+                  <th scope="col">S/N</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Brand</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product, index) => (
+                  <tr key={product._id}>
+                    <th scope="row">{index}</th>
+                    <td>{product._id}</td>
+                    <td>{product.name}</td>
+                    <td>{product.price}</td>
+                    <td>{product.category}</td>
+                    <td>{product.brand}</td>
+                    <td>
+                      <Link to={`/admin/product/${product._id}/edit`}>
+                        <AiFillEdit />
+                      </Link>
+                      <button
+                        onClick={() => deleteHandler(product._id)}
+                        className="d-inline-block px-1 py-0"
+                      >
+                        <AiFillDelete />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="my-2">
+            <Paginate page={page} pages={pages} isAdmin={true} />
+          </div>
         </>
       )}
     </>
