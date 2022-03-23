@@ -401,6 +401,31 @@ div.carousel-indicators button {
   justify-content: center;
   align-items: center;
 }
+
+/* sweet alert  */
+.swal-modal {
+  background-color: var(--white);
+  box-shadow: var(--shadow-1);
+}
+.swal-modal .swal-icon {
+  margin: 10px auto;
+}
+
+.swal-modal .swal-title {
+  color: var(--blue);
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 3px 0;
+  padding: 3px 0;
+}
+.swal-modal .swal-text {
+  color: var(--black);
+  font-size: 1rem;
+  padding: 2px 0;
+}
+.swal-modal .swal-button {
+  padding: 4px 8px;
+}
 /* products  component */
 #product_component.card {
   transition: 500ms;

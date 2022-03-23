@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Abiodun-Samuel/my_mern_ecommerce#readme",
   "dependencies": {
+    "@sweetalert/with-react": "^0.1.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.0",

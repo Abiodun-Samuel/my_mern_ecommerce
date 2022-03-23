@@ -13,6 +13,8 @@ import Paginate from "../components/Paginate";
 import { useParams } from "react-router-dom";
 import SectionHeader from "../components/SectionHeader";
 import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
+import { customSweetAlert } from "../utils/utils";
+import swal from "@sweetalert/with-react";
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -63,9 +65,16 @@ const ProductListScreen = () => {
   ]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Delete?")) {
-      dispatch(deleteProduct(id));
-    }
+    customSweetAlert(
+      "Caution",
+      "Do you want to delete this product?",
+      "warning",
+      "Delete",
+      () => {
+        dispatch(deleteProduct(id));
+        swal("Complete", `Product has been deleted successfully`, "success");
+      }
+    );
   };
   const createProductHandler = () => {
     dispatch(createProduct());
