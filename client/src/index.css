@@ -380,7 +380,26 @@ div.carousel-indicators button {
 
 /* table  */
 .table tr {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+}
+.table .table_del_btn {
+  background-color: transparent;
+  border: none;
+  color: var(--danger);
+  font-size: 0.9rem;
+  margin: 5px;
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.table .table_edit_btn {
+  color: var(--success);
+  font-size: 0.9rem;
+  margin: 5px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 /* products  component */
 #product_component.card {

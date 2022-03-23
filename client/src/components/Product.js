@@ -58,7 +58,7 @@ const Product = ({ product }) => {
   return (
     <>
       <div
-        className="card my-2 rounded border-0 bg-white"
+        className="card my-3 rounded border-0 bg-white"
         id="product_component"
       >
         <div className="discount_percentage">

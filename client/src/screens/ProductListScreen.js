@@ -96,7 +96,7 @@ const ProductListScreen = () => {
       ) : (
         <>
           <div className="table-responsive">
-            <table className="table table-hover">
+            <table className="table table-hover shadow">
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">S/N</th>
@@ -119,13 +119,16 @@ const ProductListScreen = () => {
                     <td>{product.category}</td>
                     <td>{product.countInStock}</td>
                     <td>{product.brand}</td>
-                    <td>
-                      <Link to={`/admin/product/${product._id}/edit`}>
+                    <td className="d-flex align-items-center justify-content-center">
+                      <Link
+                        to={`/admin/product/${product._id}/edit`}
+                        className="table_edit_btn"
+                      >
                         <AiFillEdit />
                       </Link>
                       <button
                         onClick={() => deleteHandler(product._id)}
-                        className="d-inline-block px-1 py-0"
+                        className="table_del_btn"
                       >
                         <AiFillDelete />
                       </button>
