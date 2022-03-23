@@ -5,6 +5,7 @@ import { addToCart } from "../actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import { FaListOl } from "react-icons/fa";
 
 const Product = ({ product }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -79,17 +80,25 @@ const Product = ({ product }) => {
             </h6>
           </Link>
 
-          <div className="discount d-flex justify-content-between">
-            <p className="price">
-              &#8358;
-              {product.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-            </p>
-            <p className="inflatedprice">
-              &#8358;{" "}
-              {product.inflatedPrice
-                .toFixed(2)
-                .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-            </p>
+          <div className="discount d-flex justify-content-between my-1">
+            <button className="wish_btn" onClick={addToCartHandler}>
+              <span>
+                <FaListOl />
+              </span>
+            </button>
+
+            <div>
+              <p className="price">
+                &#8358;
+                {product.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+              </p>
+              <p className="inflatedprice">
+                &#8358;
+                {product.inflatedPrice
+                  .toFixed(2)
+                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+              </p>
+            </div>
           </div>
 
           <div className="mt-1 mb-2">

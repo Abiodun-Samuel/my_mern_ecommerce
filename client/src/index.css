@@ -19,7 +19,7 @@ h3 {
   padding: 1rem;
 }
 .rating span {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   padding: 0;
 }
 
@@ -408,7 +408,7 @@ div.carousel-indicators button {
 }
 #product_component a .product_name {
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   text-decoration: none;
   color: var(--black);
   margin: 2px 0;
@@ -423,20 +423,33 @@ div.carousel-indicators button {
   margin: 2px 0;
 }
 #product_component .discount .inflatedprice {
-  color: var(--blue);
+  color: var(--red-1);
   font-size: 0.8rem;
   padding: 0;
   margin: 2px 0;
   text-decoration: line-through;
 }
+#product_component .wish_btn {
+  border: none;
+  background: transparent;
+  color: var(--blue-light-1);
+  padding: 0;
+  margin: 0;
+}
 #product_component .product_btn {
   border: 1.5px solid var(--blue);
   background-color: var(--blue);
   color: var(--white);
-  /* outline: 1.5px solid var(--blue); */
+  outline: 1.5px solid var(--blue);
   font-size: 0.85rem;
   box-shadow: var(--shadow-2);
   border-radius: 4px;
+  transition: 500ms;
+}
+#product_component .product_btn:hover {
+  border: 1.5px solid var(--blue-light-1);
+  background-color: var(--blue-light-1);
+  outline: 1.5px solid var(--blue-light-1);
 }
 #product_component .product_btn:disabled,
 #product_component .product_btn[disabled] {
