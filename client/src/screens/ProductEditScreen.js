@@ -186,7 +186,6 @@ const ProductEditScreen = () => {
         </form>
       )}
 
-      <div></div>
     </div>
   );
 };

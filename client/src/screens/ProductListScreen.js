@@ -12,8 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Paginate from "../components/Paginate";
 import { useParams } from "react-router-dom";
 import SectionHeader from "../components/SectionHeader";
-import { GrChapterAdd } from "react-icons/gr";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -77,11 +76,15 @@ const ProductListScreen = () => {
       <div className="row mb-1 mt-5">
         <div className="col-lg-12">
           <SectionHeader header="All Products" />
+          <div className="d-flex justify-content-end">
+            <button onClick={createProductHandler} className="btn_one my-2">
+              <AiOutlinePlus className="mr-1" />
+              Product
+            </button>
+          </div>
         </div>
       </div>
-      <button onClick={createProductHandler}>
-        <GrChapterAdd className="mr-1" /> Create Product
-      </button>
+
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}
@@ -97,10 +100,11 @@ const ProductListScreen = () => {
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">S/N</th>
-                  <th scope="col">ID</th>
                   <th scope="col">Name</th>
+                  <th scope="col">Price (2)</th>
                   <th scope="col">Price</th>
                   <th scope="col">Category</th>
+                  <th scope="col">In Stock</th>
                   <th scope="col">Brand</th>
                   <th scope="col">Action</th>
                 </tr>
@@ -108,11 +112,12 @@ const ProductListScreen = () => {
               <tbody>
                 {products.map((product, index) => (
                   <tr key={product._id}>
-                    <th scope="row">{index}</th>
-                    <td>{product._id}</td>
+                    <th scope="row">{index + 1}</th>
                     <td>{product.name}</td>
+                    <td>{product.inflatedPrice}</td>
                     <td>{product.price}</td>
                     <td>{product.category}</td>
+                    <td>{product.countInStock}</td>
                     <td>{product.brand}</td>
                     <td>
                       <Link to={`/admin/product/${product._id}/edit`}>

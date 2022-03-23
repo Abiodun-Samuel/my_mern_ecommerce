@@ -21,10 +21,10 @@ const Product = ({ product }) => {
   };
 
   const formatProductName = (name) => {
-    if (name.length < 18) {
-      return `${name.substring(0, 17).toUpperCase()}`;
+    if (name.length < 16) {
+      return `${name.substring(0, 16).toUpperCase()}`;
     } else {
-      return `${name.substring(0, 17).toUpperCase()}...`;
+      return `${name.substring(0, 16).toUpperCase()}...`;
     }
   };
 
@@ -57,7 +57,7 @@ const Product = ({ product }) => {
   return (
     <>
       <div
-        className="card my-2 rounded border-0 shadow-sm bg-white"
+        className="card my-2 rounded border-0 bg-white"
         id="product_component"
       >
         <div className="discount_percentage">
@@ -92,7 +92,7 @@ const Product = ({ product }) => {
             </p>
           </div>
 
-          <div className="my-1">
+          <div className="mt-1 mb-2">
             <Rating value={product.rating} />
           </div>
           <button

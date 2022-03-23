@@ -6,7 +6,7 @@ import Category from "../models/categoryModel.js";
 //@route GET api/products
 //@access public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 12;
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? {
@@ -88,6 +88,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     countInStock,
   } = req.body;
 
+  console.log(req.body);
+
   const product = await Product.findById(req.params.id);
   if (product) {
     product.name = name;
@@ -97,7 +99,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.image = image;
     product.brand = brand;
     product.category = category;
-    product.countcountInStock = countInStock;
+    product.countInStock = countInStock;
 
     const updatedProduct = await product.save();
     res.status(201).json(updatedProduct);

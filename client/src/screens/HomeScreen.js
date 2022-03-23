@@ -35,7 +35,6 @@ const HomeScreen = () => {
     products: topProducts,
   } = useSelector((state) => state.productTopRated);
 
-
   const { loading, error, products, page, pages } = productList;
   React.useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
@@ -91,11 +90,15 @@ const HomeScreen = () => {
                 </div>
               );
             })}
-            <Paginate
-              page={page}
-              pages={pages}
-              keyword={keyword ? keyword : ""}
-            />
+          </div>
+          <div className="row my-1">
+            <div className="col-lg-12">
+              <Paginate
+                page={page}
+                pages={pages}
+                keyword={keyword ? keyword : ""}
+              />
+            </div>
           </div>
         </>
       )}
