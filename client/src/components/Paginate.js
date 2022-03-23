@@ -8,11 +8,21 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
     pages > 1 && (
       <nav aria-label="Page navigation example">
         <ul className="pagination">
-          {/* //     <li class="page-item">
-    //       <a class="page-link" href="#" aria-label="Previous">
-    //         <span aria-hidden="true">&laquo;</span>
-    //       </a>
-    //     </li> */}
+          <li className={`page-item  ${page === 1 && "disabled"} `}>
+            <Link
+              className="page-link"
+              to={
+                !isAdmin
+                  ? keyword
+                    ? `/search/${keyword}/page/${page - 1}`
+                    : `/page/${page - 1}`
+                  : `/admin/products/${page - 1}`
+              }
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </Link>
+          </li>
           {[...Array(pages).keys()].map((x) => (
             <li
               className={`page-item ${x + 1 === page && "active"} `}
@@ -33,6 +43,21 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
               </Link>
             </li>
           ))}
+          <li className={`page-item  ${page === pages && "disabled"} `}>
+            <Link
+              className="page-link"
+              to={
+                !isAdmin
+                  ? keyword
+                    ? `/search/${keyword}/page/${page + 1}`
+                    : `/page/${page + 1}`
+                  : `/admin/products/${page + 1}`
+              }
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     )
