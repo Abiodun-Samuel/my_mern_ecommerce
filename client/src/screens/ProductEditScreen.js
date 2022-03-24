@@ -9,6 +9,7 @@ import {
   PRODUCT_UPDATE_RESET,
 } from "../constant/productConstants";
 import axios from "axios";
+import { Image } from "cloudinary-react";
 
 const ProductEditScreen = () => {
   const { id } = useParams();
@@ -91,7 +92,6 @@ const ProductEditScreen = () => {
   const [errMsg, setErrMsg] = useState("");
 
   const uploadImage = async (base64EncodedImage) => {
-    console.log(base64EncodedImage);
     // original
     // const file = e.target.files[0];
     // const formData = new FormData();
@@ -108,7 +108,7 @@ const ProductEditScreen = () => {
         JSON.stringify({ data: base64EncodedImage }),
         config
       );
-      // console.log(data);
+      console.log(data);
       setImage(data.public_id);
       setUpLoading(false);
     } catch (error) {
@@ -225,6 +225,14 @@ const ProductEditScreen = () => {
           <input type="submit" value="Update" className="btn btn-primary" />
         </form>
       )}
+      <Image
+        cloudName="psalmzie"
+        publicId="flyt9bsmrykmkldpptym"
+        width="150"
+        height="150"
+        crop="scale"
+        alt="pro"
+      />
     </div>
   );
 };
