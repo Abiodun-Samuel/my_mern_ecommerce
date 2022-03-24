@@ -2,6 +2,10 @@ import express from "express";
 import multer from "multer";
 const router = express.Router();
 import path from "path";
+import { uploadToCloudinary } from "../controllers/uploadController.js";
+
+// post route to cloudinary
+router.post("/upload-cloudinary", uploadToCloudinary);
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {

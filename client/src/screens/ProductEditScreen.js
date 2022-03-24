@@ -84,24 +84,64 @@ const ProductEditScreen = () => {
     );
   };
 
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("image", file);
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+
+  const uploadImage = async (base64EncodedImage) => {
+    console.log(base64EncodedImage);
+    // original
+    // const file = e.target.files[0];
+    // const formData = new FormData();
+    // formData.append("image", file);
     setUpLoading(true);
     try {
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post("/api/upload", formData, config);
-      setImage(data);
+      const { data } = await axios.post(
+        "/api/upload/upload-cloudinary",
+        JSON.stringify({ data: base64EncodedImage }),
+        config
+      );
+      // console.log(data);
+      setImage(data.public_id);
       setUpLoading(false);
     } catch (error) {
       console.error(error);
       setUpLoading(false);
     }
+    // try {
+    //   await fetch("/api/upload", {
+    //     method: "POST",
+    //     body: JSON.stringify({ data: base64EncodedImage }),
+    //     headers: { "Content-Type": "application/json" },
+    //   });
+    //   setSuccessMsg("Image uploaded successfully");
+    // } catch (err) {
+    //   console.error(err);
+    //   setErrMsg("Something went wrong!");
+    // }
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      uploadImage(reader.result);
+    };
+
+    reader.onerror = () => {
+      console.error("AHHHHHHHH!!");
+      setErrMsg("something went wrong!");
+    };
   };
 
   return (
@@ -152,7 +192,7 @@ const ProductEditScreen = () => {
             id="file"
             onChange={uploadFileHandler}
           />
-          {uploading && <Loader />}
+          {uploading && <Loader smallPage={true} />}
           <input
             type="text"
             value={brand}
@@ -185,7 +225,6 @@ const ProductEditScreen = () => {
           <input type="submit" value="Update" className="btn btn-primary" />
         </form>
       )}
-
     </div>
   );
 };
