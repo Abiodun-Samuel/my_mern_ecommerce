@@ -10,8 +10,19 @@ import {
 } from "../constant/productConstants";
 import axios from "axios";
 import { Image } from "cloudinary-react";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
+import hero2 from "../images/bg/hero2.jpg";
 
 const ProductEditScreen = () => {
+  const [crop, setCrop] = useState({
+    unit: "px", // Can be 'px' or '%'
+    x: 0,
+    y: 0,
+    width: 150,
+    height: 150,
+  });
+  console.log(crop)
   const { id } = useParams();
 
   const [name, setName] = useState("");
@@ -85,12 +96,6 @@ const ProductEditScreen = () => {
     );
   };
 
-  const [fileInputState, setFileInputState] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
-  const [selectedFile, setSelectedFile] = useState();
-  const [successMsg, setSuccessMsg] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-
   const uploadImage = async (base64EncodedImage) => {
     // original
     // const file = e.target.files[0];
@@ -140,7 +145,6 @@ const ProductEditScreen = () => {
 
     reader.onerror = () => {
       console.error("AHHHHHHHH!!");
-      setErrMsg("something went wrong!");
     };
   };
 
@@ -225,14 +229,15 @@ const ProductEditScreen = () => {
           <input type="submit" value="Update" className="btn btn-primary" />
         </form>
       )}
-      <Image
+      {/* <Image
         cloudName="psalmzie"
         publicId="flyt9bsmrykmkldpptym"
         width="150"
         height="150"
         crop="scale"
         alt="pro"
-      />
+      /> */}
+      <button onClick={() => {}}>upload</button>
     </div>
   );
 };
