@@ -13,7 +13,6 @@ import SectionHeader from "../components/SectionHeader";
 
 const ProductEditScreen = () => {
   const { id } = useParams();
-
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [inflatedPrice, setInflatedPrice] = useState(0);
@@ -41,13 +40,6 @@ const ProductEditScreen = () => {
     error: errorUpdate,
     success: successUpdate,
   } = productUpdate;
-
-  //   const userUpdate = useSelector((state) => state.userUpdate);
-  //   const {
-  //     loading: loadingUpdate,
-  //     error: errorUpdate,
-  //     success: successUpdate,
-  //   } = userUpdate;
 
   useEffect(() => {
     if (successUpdate) {
@@ -171,13 +163,7 @@ const ProductEditScreen = () => {
                   className="form-control"
                   onChange={(e) => setImage(e.target.value)}
                 />
-                <input
-                  type="file"
-                  label="choose file"
-                  id="file"
-                  onChange={uploadFileHandler}
-                />
-                {uploading && <Loader smallPage={true} />}
+
                 <input
                   type="text"
                   value={brand}
@@ -206,6 +192,12 @@ const ProductEditScreen = () => {
                   className="form-control"
                   onChange={(e) => setDescription(e.target.value)}
                 />
+                <label>
+                  <input type="file" onChange={uploadFileHandler} />
+                  <span>Select Files</span>
+                </label>
+                {/* <input type="file" id="file" /> */}
+                {uploading && <Loader smallPage={true} />}
 
                 <input
                   type="submit"
@@ -214,7 +206,6 @@ const ProductEditScreen = () => {
                 />
               </form>
             )}
-          
           </div>
         </div>
       </div>

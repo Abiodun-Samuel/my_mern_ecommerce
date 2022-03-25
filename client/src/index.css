@@ -426,6 +426,30 @@ div.carousel-indicators button {
 .swal-modal .swal-button {
   padding: 4px 8px;
 }
+
+/* custom input file style  */
+label input[type="file"] {
+  display: none;
+}
+label span {
+  cursor: pointer;
+  background: linear-gradient(to bottom, #09f 0%, #024 100%);
+  font: 13pt Tahoma;
+  text-shadow: -1px -1px 0 #024;
+  color: #fff;
+  border: 2px solid #06e;
+  border-radius: 4px;
+  padding: 10px 20px;
+  box-shadow: 1px 3px 0 #012;
+}
+label span:hover {
+  border-color: #09f;
+}
+label span:active {
+  background: linear-gradient(to top, #09f 0%, #024 100%);
+  box-shadow: 1px 1px 0 #012;
+}
+/* custom input file style  */
 /* products  component */
 #product_component.card {
   transition: 500ms;

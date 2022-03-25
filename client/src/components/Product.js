@@ -66,14 +66,6 @@ const Product = ({ product }) => {
           <p>{discountPercentage(product.inflatedPrice, product.price)}</p>
         </div>
         <Link to={`/product/${product._id}`}>
-          {/* <img
-            src="https://res.cloudinary.com/psalmzie/image/upload/v1648178851/ecommerce/topvcb5mhsprzufoscib.png"
-            // src={product.image}
-            className="card-img-top"
-            alt={product.name}
-            height="150px"
-            width="auto"
-          /> */}
           <Image
             cloudName="psalmzie"
             publicId={product.image}
