@@ -3,12 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import {
   Row,
   Col,
-  Image,
+  // Image,
   ListGroup,
   Card,
   Button,
   Form,
 } from "react-bootstrap";
+import { Image } from "cloudinary-react";
 import Rating from "../components/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,6 +22,7 @@ import { addToCart } from "../actions/cartActions";
 import { toast, ToastContainer } from "react-toastify";
 import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
+import PageHeader from "../components/PageHeader";
 
 const ProductScreen = () => {
   const { id } = useParams();
@@ -87,20 +89,26 @@ const ProductScreen = () => {
   };
   return (
     <>
-      <Link to="/" className="btn btn-dark my-3">
-        Go Back
-      </Link>
       {loading ? (
-        <Loader />
+        <Loader fullPage={true} />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Row>
-            <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
-            </Col>
-            <Col md={3}>
+          <div className="row mt-5">
+            <div className="col-lg-12 mb-2">
+              <PageHeader header="Product Details" />
+            </div>
+            <div className="col-lg-6 my-2">
+              <Image
+                cloudName="psalmzie"
+                publicId={product.image}
+                alt={product.name}
+                className="img-fluid shadow rounded"
+                loading="lazy"
+              />
+            </div>
+            <div className="col-lg-3 my-2">
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
@@ -116,8 +124,8 @@ const ProductScreen = () => {
                   Description: ${product.description}
                 </ListGroup.Item>
               </ListGroup>
-            </Col>
-            <Col md={3}>
+            </div>
+            <div className="col-lg-3 my-2">
               <Card>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
@@ -163,7 +171,7 @@ const ProductScreen = () => {
                       onClick={addToCartHandler}
                       className="btn btn-block"
                       type="button"
-                     pro
+                      pro
                     >
                       Add To Cart
                     </Button>
@@ -173,9 +181,10 @@ const ProductScreen = () => {
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
-            </Col>
-          </Row>
-          <div className="row">
+            </div>
+          </div>
+
+          <div className="row my-2">
             <h3>Reviews</h3>
             {product?.reviews?.length === 0 && <Message>No Reviews</Message>}
             <ul>
