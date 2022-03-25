@@ -36,7 +36,7 @@ function App() {
     <>
       <Router>
         <Header />
-        <main className="container pt-3">
+        <main className="container pt-3" style={{ minHeight: "100vh" }}>
           <Suspense fallback={<Loader fullPage={true} />}>
             <Routes>
               <Route path="/login" element={<LoginScreen />} />

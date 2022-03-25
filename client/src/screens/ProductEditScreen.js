@@ -9,7 +9,7 @@ import {
   PRODUCT_UPDATE_RESET,
 } from "../constant/productConstants";
 import axios from "axios";
-import { Image } from "cloudinary-react";
+import SectionHeader from "../components/SectionHeader";
 
 const ProductEditScreen = () => {
   const { id } = useParams();
@@ -18,6 +18,11 @@ const ProductEditScreen = () => {
   const [price, setPrice] = useState(0);
   const [inflatedPrice, setInflatedPrice] = useState(0);
   const [image, setImage] = useState("");
+  const images = [
+    "ecommerce/dj2pmfuc6xamqmslkap8",
+    "ecommerce/topvcb5mhsprzufoscib",
+  ];
+  // const [images, setImages] = useState([]);
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
@@ -56,6 +61,7 @@ const ProductEditScreen = () => {
         setPrice(product.price);
         setInflatedPrice(product.inflatedPrice);
         setImage(product.image);
+        // setImages(product.images);
         setBrand(product.brand);
         setCategory(product.category);
         setCountInStock(product.countInStock);
@@ -77,6 +83,7 @@ const ProductEditScreen = () => {
         price,
         inflatedPrice,
         image,
+        images,
         brand,
         category,
         countInStock,
@@ -86,10 +93,6 @@ const ProductEditScreen = () => {
   };
 
   const uploadImage = async (base64EncodedImage) => {
-    // original
-    // const file = e.target.files[0];
-    // const formData = new FormData();
-    // formData.append("image", file);
     setUpLoading(true);
     try {
       const config = {
@@ -109,17 +112,6 @@ const ProductEditScreen = () => {
       console.error(error);
       setUpLoading(false);
     }
-    // try {
-    //   await fetch("/api/upload", {
-    //     method: "POST",
-    //     body: JSON.stringify({ data: base64EncodedImage }),
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    //   setSuccessMsg("Image uploaded successfully");
-    // } catch (err) {
-    //   console.error(err);
-    //   setErrMsg("Something went wrong!");
-    // }
   };
 
   const uploadFileHandler = async (e) => {
@@ -138,102 +130,95 @@ const ProductEditScreen = () => {
   };
 
   return (
-    <div>
-      <Link className="btn btn-primary" to="/admin/products">
-        Go Back
-      </Link>
-      <h2>Update User</h2>
-      {loadingUpdate && <Loader />}
-      {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
-      ) : (
-        <form onSubmit={submitHandler}>
-          <input
-            type="text"
-            value={name}
-            placeholder="Enter your name"
-            className="form-control"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="number"
-            value={price}
-            placeholder="Enter your price"
-            className="form-control"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          <input
-            type="number"
-            value={inflatedPrice}
-            placeholder="Enter your price(market price)"
-            className="form-control"
-            onChange={(e) => setInflatedPrice(e.target.value)}
-          />
-          <input
-            type="text"
-            value={image}
-            placeholder="Enter your email"
-            className="form-control"
-            onChange={(e) => setImage(e.target.value)}
-          />
-          <input
-            type="file"
-            label="choose file"
-            id="file"
-            onChange={uploadFileHandler}
-          />
-          {uploading && <Loader smallPage={true} />}
-          <input
-            type="text"
-            value={brand}
-            placeholder="Enter your brand"
-            className="form-control"
-            onChange={(e) => setBrand(e.target.value)}
-          />
-          <input
-            type="number"
-            value={countInStock}
-            placeholder="Enter your count in stock"
-            className="form-control"
-            onChange={(e) => setCountInStock(e.target.value)}
-          />
-          <input
-            type="text"
-            value={category}
-            placeholder="Enter your category"
-            className="form-control"
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <input
-            type="text"
-            value={description}
-            placeholder="Enter your description"
-            className="form-control"
-            onChange={(e) => setDescription(e.target.value)}
-          />
+    <>
+      <div className="row mt-5">
+        <div className="col-lg-12">
+          <SectionHeader header="Update Product" />
+          <div>
+            {loadingUpdate && <Loader />}
+            {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
+            ) : (
+              <form onSubmit={submitHandler}>
+                <input
+                  type="text"
+                  value={name}
+                  placeholder="Enter your name"
+                  className="form-control"
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  type="number"
+                  value={price}
+                  placeholder="Enter your price"
+                  className="form-control"
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+                <input
+                  type="number"
+                  value={inflatedPrice}
+                  placeholder="Enter your price(market price)"
+                  className="form-control"
+                  onChange={(e) => setInflatedPrice(e.target.value)}
+                />
+                <input
+                  type="text"
+                  value={image}
+                  placeholder="Enter your email"
+                  className="form-control"
+                  onChange={(e) => setImage(e.target.value)}
+                />
+                <input
+                  type="file"
+                  label="choose file"
+                  id="file"
+                  onChange={uploadFileHandler}
+                />
+                {uploading && <Loader smallPage={true} />}
+                <input
+                  type="text"
+                  value={brand}
+                  placeholder="Enter your brand"
+                  className="form-control"
+                  onChange={(e) => setBrand(e.target.value)}
+                />
+                <input
+                  type="number"
+                  value={countInStock}
+                  placeholder="Enter your count in stock"
+                  className="form-control"
+                  onChange={(e) => setCountInStock(e.target.value)}
+                />
+                <input
+                  type="text"
+                  value={category}
+                  placeholder="Enter your category"
+                  className="form-control"
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+                <input
+                  type="text"
+                  value={description}
+                  placeholder="Enter your description"
+                  className="form-control"
+                  onChange={(e) => setDescription(e.target.value)}
+                />
 
-          <input type="submit" value="Update" className="btn btn-primary" />
-        </form>
-      )}
-      {/* <Image
-        cloudName="psalmzie"
-        publicId="flyt9bsmrykmkldpptym"
-        width="150"
-        height="150"
-        crop="scale"
-        alt="pro"
-      /> */}
-      <button
-        onClick={() => {
-          // myWidget.open();
-        }}
-      >
-        upload
-      </button>
-    </div>
+                <input
+                  type="submit"
+                  value="Update"
+                  className="btn btn-primary"
+                />
+              </form>
+            )}
+          
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

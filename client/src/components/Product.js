@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FaListOl } from "react-icons/fa";
+import { Image } from "cloudinary-react";
 
 const Product = ({ product }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -65,12 +66,21 @@ const Product = ({ product }) => {
           <p>{discountPercentage(product.inflatedPrice, product.price)}</p>
         </div>
         <Link to={`/product/${product._id}`}>
-          <img
-            src={product.image}
+          {/* <img
+            src="https://res.cloudinary.com/psalmzie/image/upload/v1648178851/ecommerce/topvcb5mhsprzufoscib.png"
+            // src={product.image}
             className="card-img-top"
             alt={product.name}
             height="150px"
             width="auto"
+          /> */}
+          <Image
+            cloudName="psalmzie"
+            publicId={product.image}
+            width="150"
+            height="150"
+            // crop="scale"
+            alt="pro"
           />
         </Link>
         <div className="card-body">

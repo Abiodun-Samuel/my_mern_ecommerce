@@ -500,6 +500,11 @@ div.carousel-indicators button {
   background-color: var(--blue-light-1);
   border: 1.5px solid var(--blue-light-1);
 }
+@media screen and (max-width: 576px) {
+  #product_component a .product_name {
+    font-size: 0.78rem;
+  }
+}
 /* media queries  */
 
 @media screen and (max-width: 576px) {
