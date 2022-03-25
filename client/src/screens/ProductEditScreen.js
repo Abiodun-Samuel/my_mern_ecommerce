@@ -10,19 +10,8 @@ import {
 } from "../constant/productConstants";
 import axios from "axios";
 import { Image } from "cloudinary-react";
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
-import hero2 from "../images/bg/hero2.jpg";
 
 const ProductEditScreen = () => {
-  const [crop, setCrop] = useState({
-    unit: "px", // Can be 'px' or '%'
-    x: 0,
-    y: 0,
-    width: 150,
-    height: 150,
-  });
-  console.log(crop)
   const { id } = useParams();
 
   const [name, setName] = useState("");
@@ -237,7 +226,13 @@ const ProductEditScreen = () => {
         crop="scale"
         alt="pro"
       /> */}
-      <button onClick={() => {}}>upload</button>
+      <button
+        onClick={() => {
+          // myWidget.open();
+        }}
+      >
+        upload
+      </button>
     </div>
   );
 };
