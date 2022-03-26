@@ -52,7 +52,8 @@ const Rating = ({ value, text, color }) => {
           <IoIosStarOutline />
         )}
       </span>
-      <span>{text && text}</span>
+      <br />
+      {text && <span>{text}</span>}
     </div>
   );
 };

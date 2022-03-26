@@ -72,7 +72,7 @@ const Product = ({ product }) => {
             width="150"
             height="150"
             // crop="scale"
-            alt="pro"
+            alt={product.name}
             className="img-fluid"
           />
         </Link>

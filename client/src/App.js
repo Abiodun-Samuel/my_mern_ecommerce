@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
 import { ToastContainer } from "react-toastify";
+import "swiper/css/bundle";
 // import Loader from "./components/Loader";
 // import ReCAPTCHA from "react-google-recaptcha";
 

@@ -90,7 +90,8 @@ const HomeScreen = () => {
                 </div>
               );
             })}
-          </div>
+              </div>
+              
           <div className="row my-1">
             <div className="col-lg-12">
               <Paginate

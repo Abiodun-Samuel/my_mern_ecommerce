@@ -19,10 +19,17 @@ import {
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { addToCart } from "../actions/cartActions";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
 import PageHeader from "../components/PageHeader";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
 const ProductScreen = () => {
   const { id } = useParams();
@@ -30,12 +37,21 @@ const ProductScreen = () => {
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const {
     loading: loadingProductReview,
     error: errorProductReview,
     success: successProductReview,
   } = useSelector((state) => state.productCreateReview);
+
+  const { loading, error, product } = useSelector(
+    (state) => state.productDetails
+  );
+  console.log(loading);
+
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (successProductReview) {
@@ -50,13 +66,6 @@ const ProductScreen = () => {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     };
   }, [dispatch, id, successProductReview]);
-
-  const { loading, error, product } = useSelector(
-    (state) => state.productDetails
-  );
-
-  const { userInfo } = useSelector((state) => state.userLogin);
-  const { cartItems } = useSelector((state) => state.cart);
 
   const addToCartHandler = () => {
     dispatch(addToCart(product._id, quantity));
@@ -89,26 +98,92 @@ const ProductScreen = () => {
   };
   return (
     <>
+      <div className="row mt-5 mb-2">
+        <div className="col-lg-12 mb-2">
+          <PageHeader header="Product Details" />
+        </div>
+      </div>
+
       {loading ? (
         <Loader fullPage={true} />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <div className="row my-1">
+          <div className="col-lg-12">
+            <Message variant="danger">{error}</Message>
+          </div>
+        </div>
       ) : (
         <>
-          <div className="row mt-5">
-            <div className="col-lg-12 mb-2">
-              <PageHeader header="Product Details" />
+          <div className="row my-2">
+            <div className="col-lg-4 col-md-6 my-2">
+              <Swiper
+                style={{
+                  "--swiper-navigation-color": "#fff",
+                  "--swiper-pagination-color": "#fff",
+                }}
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="mySwiper2"
+              >
+                <SwiperSlide>
+                  <Image
+                    cloudName="psalmzie"
+                    publicId={product.image}
+                    alt={product.name}
+                    width="400"
+                    height="400"
+                    className="img-fluid shadow-sm rounded"
+                    loading="lazy"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Image
+                    cloudName="psalmzie"
+                    publicId={product.image}
+                    alt={product.name}
+                    width="400"
+                    height="400"
+                    className="img-fluid shadow-sm rounded"
+                    loading="lazy"
+                  />
+                </SwiperSlide>
+              </Swiper>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="mySwiper"
+              >
+                <SwiperSlide>
+                  <Image
+                    cloudName="psalmzie"
+                    publicId={product.image}
+                    alt={product.name}
+                    width="400"
+                    height="400"
+                    className="img-fluid shadow-sm rounded"
+                    loading="lazy"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Image
+                    cloudName="psalmzie"
+                    publicId={product.image}
+                    alt={product.name}
+                    width="400"
+                    height="400"
+                    className="img-fluid shadow-sm rounded"
+                    loading="lazy"
+                  />
+                </SwiperSlide>
+              </Swiper>
             </div>
-            <div className="col-lg-6 my-2">
-              <Image
-                cloudName="psalmzie"
-                publicId={product.image}
-                alt={product.name}
-                className="img-fluid shadow rounded"
-                loading="lazy"
-              />
-            </div>
-            <div className="col-lg-3 my-2">
+            <div className="col-lg-4 col-md-6 my-2">
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
@@ -125,7 +200,7 @@ const ProductScreen = () => {
                 </ListGroup.Item>
               </ListGroup>
             </div>
-            <div className="col-lg-3 my-2">
+            <div className="col-lg-4 col-md-6 my-2">
               <Card>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
@@ -171,7 +246,6 @@ const ProductScreen = () => {
                       onClick={addToCartHandler}
                       className="btn btn-block"
                       type="button"
-                      pro
                     >
                       Add To Cart
                     </Button>
@@ -184,7 +258,7 @@ const ProductScreen = () => {
             </div>
           </div>
 
-          <div className="row my-2">
+          {/* <div className="row my-2">
             <h3>Reviews</h3>
             {product?.reviews?.length === 0 && <Message>No Reviews</Message>}
             <ul>
@@ -229,7 +303,7 @@ const ProductScreen = () => {
                 </Message>
               )}
             </ul>
-          </div>
+          </div> */}
         </>
       )}
     </>
