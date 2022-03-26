@@ -48,9 +48,8 @@ const ProductScreen = () => {
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
-  console.log(loading);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  // const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
@@ -114,7 +113,7 @@ const ProductScreen = () => {
         </div>
       ) : (
         <>
-          <div className="row my-2">
+          <div className="row my-2 bg-white">
             <div className="col-lg-4 col-md-6 my-2">
               <Swiper
                 style={{
@@ -127,29 +126,21 @@ const ProductScreen = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
               >
-                <SwiperSlide>
-                  <Image
-                    cloudName="psalmzie"
-                    publicId={product.image}
-                    alt={product.name}
-                    width="400"
-                    height="400"
-                    className="img-fluid shadow-sm rounded"
-                    loading="lazy"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Image
-                    cloudName="psalmzie"
-                    publicId={product.image}
-                    alt={product.name}
-                    width="400"
-                    height="400"
-                    className="img-fluid shadow-sm rounded"
-                    loading="lazy"
-                  />
-                </SwiperSlide>
+                {product?.images?.map((x, index) => (
+                  <SwiperSlide key={x + index}>
+                    <Image
+                      cloudName="psalmzie"
+                      publicId={x}
+                      alt={x}
+                      width="400"
+                      height="400"
+                      className="img-fluid shadow-sm rounded"
+                      loading="lazy"
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
+
               <Swiper
                 onSwiper={setThumbsSwiper}
                 spaceBetween={10}
@@ -159,30 +150,20 @@ const ProductScreen = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
               >
-                <SwiperSlide>
-                  <Image
-                    cloudName="psalmzie"
-                    publicId={product.image}
-                    alt={product.name}
-                    width="400"
-                    height="400"
-                    className="img-fluid shadow-sm rounded"
-                    loading="lazy"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Image
-                    cloudName="psalmzie"
-                    publicId={product.image}
-                    alt={product.name}
-                    width="400"
-                    height="400"
-                    className="img-fluid shadow-sm rounded"
-                    loading="lazy"
-                  />
-                </SwiperSlide>
+                {product?.images?.map((x, index) => (
+                  <SwiperSlide key={x + index}>
+                    <Image
+                      cloudName="psalmzie"
+                      publicId={x}
+                      alt={x}
+                      className="img-fluid shadow-sm rounded"
+                      loading="lazy"
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
+
             <div className="col-lg-4 col-md-6 my-2">
               <ListGroup variant="flush">
                 <ListGroup.Item>

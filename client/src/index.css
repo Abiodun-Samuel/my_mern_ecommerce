@@ -381,18 +381,23 @@ div.carousel-indicators button {
 }
 
 .mySwiper {
-  height: 20%;
+  height: 15%;
   box-sizing: border-box;
+  margin-top: 10px;
   padding: 10px 0;
 }
 
 .mySwiper .swiper-slide {
   width: 25%;
   height: 100%;
-  opacity: 0.4;
+  opacity: 0.3;
+  padding: 3px;
 }
 .mySwiper .swiper-slide-thumb-active {
   opacity: 1;
+  border: 1px solid var(--blue-light);
+  background-color: var(--blue-light);
+  border-radius: 4px;
 }
 .swiper-slide img {
   display: block;

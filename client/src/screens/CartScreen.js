@@ -18,7 +18,6 @@ import {
 import Message from "../components/Message";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 import "react-toastify/dist/ReactToastify.css";
-// import { ToastContainer, toast } from "react-toastify";
 
 const CartScreen = () => {
   const { id } = useParams();
