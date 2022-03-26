@@ -94,24 +94,40 @@ const ProductScreen = () => {
     dispatch(createProductReview(slug, { rating, comment }));
   };
   const increaseQuantity = () => {
-    // () => setQuantity(quantity + 1);
+    if (quantity < product.countInStock) {
+      setQuantity(quantity + 1);
+    } else {
+      return "disabled";
+    }
   };
   const decreaseQuantity = () => {
-    // () => setQuantity(quantity + 1);
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    } else {
+      return "disabled";
+    }
   };
+
   return (
     <>
+      <div className="row mt-5">
+        <div className="col-lg-12">
+          <SectionHeader header="Product Details" />
+        </div>
+      </div>
+
+      {loading && <Loader fullPage={true} />}
+      {error && <Message variant="danger">{error}</Message>}
+
       {loading ? (
-        <Loader fullPage={true} />
+        ""
       ) : error ? (
         <div className="row my-1">
-          <div className="col-lg-12">
-            <Message variant="danger">{error}</Message>
-          </div>
+          <div className="col-lg-12"></div>
         </div>
       ) : (
         <>
-          <div className="row mt-5 mb-2 bg-white">
+          <div className="row my-4 mb-2 bg-white">
             <div className="col-lg-5 col-md-6 my-2">
               <Swiper
                 style={{
@@ -181,7 +197,8 @@ const ProductScreen = () => {
                 <hr />
                 <p className="price">
                   <b>Status:</b>
-                  {product.countInStock > 0 ? " In Stock" : " Out Of Stock"}
+                  {product.countInStock > 0 ? " In Stock " : " Out Of Stock "} (
+                  {product.countInStock})
                 </p>
                 <hr />
                 <p className="price d-flex">
