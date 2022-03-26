@@ -1,14 +1,11 @@
-// import "bootstrap/dist/css/bootstrap.min.css";
 import { Suspense, lazy } from "react";
-// import ReCAPTCHA from "react-google-recaptcha";
-import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Loader from "./components/Loader";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
 import { ToastContainer } from "react-toastify";
+// import Loader from "./components/Loader";
+// import ReCAPTCHA from "react-google-recaptcha";
 
 const ProductEditScreen = lazy(() => import("./screens/ProductEditScreen"));
 const OrderListScreen = lazy(() => import("./screens/OrderListScreen"));
@@ -29,62 +26,56 @@ const CartScreen = lazy(() => import("./screens/CartScreen"));
 const CategoryScreen = lazy(() => import("./screens/CategoryScreen"));
 
 function App() {
-  // function onChange(value) {
-  //   console.log("Captcha value:", value);
-  // }
   return (
     <>
-      <Router>
-        <Header />
-        <main className="container pt-3" style={{ minHeight: "100vh" }}>
-          <Suspense fallback={<Loader fullPage={true} />}>
-            <Routes>
-              <Route path="/login" element={<LoginScreen />} />
-              <Route path="/register" element={<RegisterScreen />} />
-              <Route path="/shipping" element={<ShippingScreen />} />
-              <Route path="/payment" element={<PaymentScreen />} />
-              <Route path="/place-order" element={<PlaceorderScreen />} />
-              <Route path="/order/:orderId" element={<OrderScreen />} />
-              <Route path="/profile" element={<ProfileScreen />} />
-              <Route path="/product/:id" element={<ProductScreen />} />
-              <Route path="/cart">
-                <Route path=":id" element={<CartScreen />} />
-                <Route path="" element={<CartScreen />} />
-              </Route>
-              <Route path="/wishlist" element={<WishListScreen />} />
-              <Route path="/category/:slug" element={<CategoryScreen />} />
-              <Route path="/admin/users" element={<UserListScreen />} />
-              <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
-              <Route path="/admin/products" element={<ProductListScreen />} />
-              <Route
-                path="/admin/products/:pageNumber"
-                element={<ProductListScreen />}
-              />
-              <Route
-                path="/admin/product/:id/edit"
-                element={<ProductEditScreen />}
-              />
-              <Route path="/admin/orders" element={<OrderListScreen />} />
-              <Route path="/search/:keyword" element={<SearchScreen />} />
-              <Route
-                path="/search/:keyword/page/:pageNumber"
-                element={<SearchScreen />}
-              />
-              <Route path="/page/:pageNumber" element={<HomeScreen />} />
-              <Route path="/" element={<HomeScreen />} />
-            </Routes>
-          </Suspense>
-          {/* <div className="App">
-          <ReCAPTCHA
+      <Header />
+      <main className="container pt-3" style={{ minHeight: "90vh" }}>
+        <Suspense fallback={<div></div>}>
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/login" element={<LoginScreen />} />
+            <Route path="/product/:id" element={<ProductScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
+            <Route path="/shipping" element={<ShippingScreen />} />
+            <Route path="/payment" element={<PaymentScreen />} />
+            <Route path="/place-order" element={<PlaceorderScreen />} />
+            <Route path="/order/:orderId" element={<OrderScreen />} />
+            <Route path="/profile" element={<ProfileScreen />} />
+
+            <Route path="/cart">
+              <Route path=":id" element={<CartScreen />} />
+              <Route path="" element={<CartScreen />} />
+            </Route>
+            <Route path="/wishlist" element={<WishListScreen />} />
+            <Route path="/category/:slug" element={<CategoryScreen />} />
+            <Route path="/admin/users" element={<UserListScreen />} />
+            <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
+            <Route path="/admin/products" element={<ProductListScreen />} />
+            <Route
+              path="/admin/products/:pageNumber"
+              element={<ProductListScreen />}
+            />
+            <Route
+              path="/admin/product/:id/edit"
+              element={<ProductEditScreen />}
+            />
+            <Route path="/admin/orders" element={<OrderListScreen />} />
+            <Route path="/search/:keyword" element={<SearchScreen />} />
+            <Route
+              path="/search/:keyword/page/:pageNumber"
+              element={<SearchScreen />}
+            />
+            <Route path="/page/:pageNumber" element={<HomeScreen />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <ToastContainer />
+      <Footer />
+
+      {/* <ReCAPTCHA
             sitekey={process.env.REACT_APP_RECAPTCHA_SITEKEY}
             onChange={onChange}
-          />
-        </div> */}
-        </main>
-        <Footer />
-      </Router>
-      {/* Toast Container  */}
-      <ToastContainer />
+          /> */}
     </>
   );
 }

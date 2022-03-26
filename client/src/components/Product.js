@@ -73,6 +73,7 @@ const Product = ({ product }) => {
             height="150"
             // crop="scale"
             alt="pro"
+            className="img-fluid"
           />
         </Link>
         <div className="card-body">
