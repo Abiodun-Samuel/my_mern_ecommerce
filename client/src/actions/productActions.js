@@ -49,7 +49,7 @@ export const listProducts =
 export const productsListByCategory = (slug) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_REQUEST });
-    const { data } = await axios.get(`/api/category/${slug}`);
+    const { data } = await axios.get(`/api/products/category/${slug}`);
 
     dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_SUCCESS, payload: data });
   } catch (error) {
@@ -63,10 +63,10 @@ export const productsListByCategory = (slug) => async (dispatch) => {
   }
 };
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listProductDetails = (slug) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`/api/products/${slug}`);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -184,7 +184,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(
-      `/api/products/${product._id}`,
+      `/api/products/${product.slug}`,
       product,
       config
     );

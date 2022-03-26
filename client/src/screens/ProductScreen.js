@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  Row,
-  Col,
-  // Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-} from "react-bootstrap";
 import { Image } from "cloudinary-react";
 import Rating from "../components/Rating";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +7,7 @@ import {
   listProductDetails,
   createProductReview,
 } from "../actions/productActions";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { addToCart } from "../actions/cartActions";
@@ -23,6 +15,7 @@ import { toast } from "react-toastify";
 import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
 import PageHeader from "../components/PageHeader";
+import { formatCurrency } from "../utils/utils";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 // Import Swiper styles
@@ -30,9 +23,11 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import SectionHeader from "../components/SectionHeader";
+import { HiOutlineShoppingCart } from "react-icons/hi";
 
 const ProductScreen = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
@@ -49,7 +44,6 @@ const ProductScreen = () => {
     (state) => state.productDetails
   );
 
-  // const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
@@ -59,12 +53,12 @@ const ProductScreen = () => {
       setComment("");
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-    dispatch(listProductDetails(id));
+    dispatch(listProductDetails(slug));
     return () => {
       dispatch({ type: PRODUCT_DETAILS_RESET });
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     };
-  }, [dispatch, id, successProductReview]);
+  }, [dispatch, slug, successProductReview]);
 
   const addToCartHandler = () => {
     dispatch(addToCart(product._id, quantity));
@@ -93,7 +87,7 @@ const ProductScreen = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createProductReview(id, { rating, comment }));
+    dispatch(createProductReview(slug, { rating, comment }));
   };
   return (
     <>
@@ -114,11 +108,11 @@ const ProductScreen = () => {
       ) : (
         <>
           <div className="row my-2 bg-white">
-            <div className="col-lg-4 col-md-6 my-2">
+            <div className="col-lg-5 col-md-6 my-2">
               <Swiper
                 style={{
-                  "--swiper-navigation-color": "#fff",
-                  "--swiper-pagination-color": "#fff",
+                  "--swiper-navigation-color": "#c94f74",
+                  "--swiper-pagination-color": "#c94f74",
                 }}
                 spaceBetween={10}
                 navigation={true}
@@ -132,8 +126,8 @@ const ProductScreen = () => {
                       cloudName="psalmzie"
                       publicId={x}
                       alt={x}
-                      width="400"
-                      height="400"
+                      width="500"
+                      height="500"
                       className="img-fluid shadow-sm rounded"
                       loading="lazy"
                     />
@@ -164,78 +158,60 @@ const ProductScreen = () => {
               </Swiper>
             </div>
 
-            <div className="col-lg-4 col-md-6 my-2">
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h3>{product.name}</h3>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListGroup.Item>
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-                <ListGroup.Item>
-                  Description: ${product.description}
-                </ListGroup.Item>
-              </ListGroup>
-            </div>
-            <div className="col-lg-4 col-md-6 my-2">
-              <Card>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>
-                        <strong>${product.price}</strong>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
+            <div className="col-lg-7 col-md-6 my-2">
+              <div className="productdetails">
+                <h3 className="header">{product.name}</h3>
+                <hr />
+                <p className="desc">
+                  <b>Description:</b> {product.description}
+                </p>
+                <hr />
+                <p className="price">
+                  <b>Price:</b> &#8358;{formatCurrency(product.price)}
+                </p>
+                <hr />
+                <Rating
+                  value={product.rating}
+                  text={`${product.numReviews} review(s)`}
+                />
+                <hr />
+                <p className="price">
+                  <b>Status:</b>
+                  {product.countInStock > 0 ? " In Stock" : " Out Of Stock"}
+                </p>
+                <hr />
+                <p className="price">
                   {product.countInStock > 0 && (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Quantity:</Col>
-                        <Col>
-                          <Form.Control
-                            as="select"
-                            value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
-                          >
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
+                    <>
+                      <b>Quantity:</b>
+                      <select
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                      >
+                        {[...Array(product.countInStock).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </>
                   )}
-                  <ListGroup.Item>
-                    <Button
-                      onClick={addToCartHandler}
-                      className="btn btn-block"
-                      type="button"
-                    >
-                      Add To Cart
-                    </Button>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Link to="/cart">Cart</Link>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
+                </p>
+                <hr />
+
+                <div className="d-flex">
+                  <button
+                    onClick={addToCartHandler}
+                    className="btn_two mr-3"
+                    type="button"
+                  >
+                    <HiOutlineShoppingCart className="mr-2" /> Add To Cart
+                  </button>
+                  <Link className="btn btn_two ml-3" to="/cart">
+                    <AiOutlineArrowRight className="mr-2" /> Checkout
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -287,6 +263,12 @@ const ProductScreen = () => {
           </div> */}
         </>
       )}
+
+      <div className="row my-2">
+        <div className="col-lg-12">
+          <SectionHeader header="Reviews" />
+        </div>
+      </div>
     </>
   );
 };

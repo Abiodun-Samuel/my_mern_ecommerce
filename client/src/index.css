@@ -475,11 +475,29 @@ div.carousel-indicators button {
 }
 
 .btn_one:hover {
+  color: var(--white);
   background-color: var(--blue-light-1);
   border: 1.5px solid var(--blue-light-1);
   outline: 1.5px solid var(--blue-light-1);
 }
-
+.btn_two {
+  background-color: var(--blue);
+  border-radius: 2px;
+  border: 1.5px solid var(--blue);
+  outline: 1.5px solid var(--blue);
+  outline-offset: 3px;
+  color: var(--white);
+  padding: 0.3rem 0.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 500ms;
+  cursor: pointer;
+}
 /* table  */
 .table tr {
   font-size: 0.9rem;
@@ -552,6 +570,7 @@ label span:active {
   box-shadow: 1px 1px 0 #012;
 }
 /* custom input file style  */
+
 /* products  component */
 #product_component.card {
   transition: 500ms;
@@ -631,6 +650,22 @@ label span:active {
     font-size: 0.78rem;
   }
 }
+
+/* product details  */
+.productdetails .header {
+  color: var(--blue);
+  letter-spacing: 0.3px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 0 0 5px 0;
+  margin: 0 0 5px 0;
+}
+.productdetails .price,
+.productdetails .desc {
+  color: var(--black);
+  font-size: 0.95rem;
+}
+/* product details  */
 /* media queries  */
 
 @media screen and (max-width: 576px) {

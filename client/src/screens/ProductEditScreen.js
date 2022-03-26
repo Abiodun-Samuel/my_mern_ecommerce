@@ -12,7 +12,7 @@ import axios from "axios";
 import SectionHeader from "../components/SectionHeader";
 
 const ProductEditScreen = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [inflatedPrice, setInflatedPrice] = useState(0);
@@ -46,8 +46,8 @@ const ProductEditScreen = () => {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       navigate("/admin/products");
     } else {
-      if (!product || product._id !== id) {
-        dispatch(listProductDetails(id));
+      if (!product || product.slug !== slug) {
+        dispatch(listProductDetails(slug));
       } else {
         setName(product.name);
         setPrice(product.price);
@@ -64,13 +64,13 @@ const ProductEditScreen = () => {
     return () => {
       dispatch({ type: PRODUCT_CREATE_RESET });
     };
-  }, [product, dispatch, id, navigate, successUpdate]);
+  }, [product, dispatch, slug, navigate, successUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
       updateProduct({
-        _id: id,
+        slug,
         name,
         price,
         inflatedPrice,

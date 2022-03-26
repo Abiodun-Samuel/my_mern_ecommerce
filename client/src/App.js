@@ -34,21 +34,20 @@ function App() {
         <Suspense fallback={<div></div>}>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
+            <Route path="/product/:slug" element={<ProductScreen />} />
+            <Route path="/category/:slug" element={<CategoryScreen />} />
+            <Route path="/cart">
+              <Route path=":id" element={<CartScreen />} />
+              <Route path="" element={<CartScreen />} />
+            </Route>
+            <Route path="/wishlist" element={<WishListScreen />} />
             <Route path="/login" element={<LoginScreen />} />
-            <Route path="/product/:id" element={<ProductScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
             <Route path="/place-order" element={<PlaceorderScreen />} />
             <Route path="/order/:orderId" element={<OrderScreen />} />
             <Route path="/profile" element={<ProfileScreen />} />
-
-            <Route path="/cart">
-              <Route path=":id" element={<CartScreen />} />
-              <Route path="" element={<CartScreen />} />
-            </Route>
-            <Route path="/wishlist" element={<WishListScreen />} />
-            <Route path="/category/:slug" element={<CategoryScreen />} />
             <Route path="/admin/users" element={<UserListScreen />} />
             <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
             <Route path="/admin/products" element={<ProductListScreen />} />
@@ -57,7 +56,7 @@ function App() {
               element={<ProductListScreen />}
             />
             <Route
-              path="/admin/product/:id/edit"
+              path="/admin/product/:slug/edit"
               element={<ProductEditScreen />}
             />
             <Route path="/admin/orders" element={<OrderListScreen />} />
@@ -67,12 +66,12 @@ function App() {
               element={<SearchScreen />}
             />
             <Route path="/page/:pageNumber" element={<HomeScreen />} />
+            <Route path="*" element={<>Not Found</>} />
           </Routes>
         </Suspense>
       </main>
       <ToastContainer />
       <Footer />
-
       {/* <ReCAPTCHA
             sitekey={process.env.REACT_APP_RECAPTCHA_SITEKEY}
             onChange={onChange}

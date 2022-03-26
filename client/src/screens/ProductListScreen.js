@@ -50,7 +50,7 @@ const ProductListScreen = () => {
       navigate("/login");
     }
     if (successCreate) {
-      navigate(`/admin/product/${createdProduct._id}/edit`);
+      navigate(`/admin/product/${createdProduct.slug}/edit`);
     } else {
       dispatch(listProducts("", pageNumber));
     }

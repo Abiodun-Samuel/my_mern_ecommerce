@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FaListOl } from "react-icons/fa";
 import { Image } from "cloudinary-react";
+import { formatCurrency } from "../utils/utils";
 
 const Product = ({ product }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -65,7 +66,7 @@ const Product = ({ product }) => {
         <div className="discount_percentage">
           <p>{discountPercentage(product.inflatedPrice, product.price)}</p>
         </div>
-        <Link to={`/product/${product._id}`}>
+        <Link to={`/product/${product.slug}`}>
           <Image
             cloudName="psalmzie"
             publicId={product.image}
@@ -77,7 +78,7 @@ const Product = ({ product }) => {
           />
         </Link>
         <div className="card-body">
-          <Link to={`/product/${product._id}`}>
+          <Link to={`/product/${product.slug}`}>
             <h6 className="card-title product_name">
               {formatProductName(product.name)}
             </h6>
@@ -91,15 +92,9 @@ const Product = ({ product }) => {
             </button>
 
             <div>
-              <p className="price">
-                &#8358;
-                {product.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-              </p>
+              <p className="price">&#8358; {formatCurrency(product.price)}</p>
               <p className="inflatedprice">
-                &#8358;
-                {product.inflatedPrice
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+                &#8358; {formatCurrency(product.inflatedPrice)}
               </p>
             </div>
           </div>
