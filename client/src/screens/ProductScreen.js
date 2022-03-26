@@ -7,7 +7,11 @@ import {
   listProductDetails,
   createProductReview,
 } from "../actions/productActions";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import {
+  AiOutlineArrowRight,
+  AiOutlinePlus,
+  AiOutlineMinus,
+} from "react-icons/ai";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { addToCart } from "../actions/cartActions";
@@ -61,9 +65,9 @@ const ProductScreen = () => {
   }, [dispatch, slug, successProductReview]);
 
   const addToCartHandler = () => {
-    dispatch(addToCart(product._id, quantity));
+    dispatch(addToCart(product.slug, quantity));
     const existItem = cartItems.filter(
-      (item) => item.product === product._id && item.quantity === quantity
+      (item) => item.product === product.slug && item.quantity === quantity
     );
     if (existItem.length > 0) {
       toast.error(
@@ -89,14 +93,14 @@ const ProductScreen = () => {
     e.preventDefault();
     dispatch(createProductReview(slug, { rating, comment }));
   };
+  const increaseQuantity = () => {
+    // () => setQuantity(quantity + 1);
+  };
+  const decreaseQuantity = () => {
+    // () => setQuantity(quantity + 1);
+  };
   return (
     <>
-      <div className="row mt-5 mb-2">
-        <div className="col-lg-12 mb-2">
-          <PageHeader header="Product Details" />
-        </div>
-      </div>
-
       {loading ? (
         <Loader fullPage={true} />
       ) : error ? (
@@ -107,7 +111,7 @@ const ProductScreen = () => {
         </div>
       ) : (
         <>
-          <div className="row my-2 bg-white">
+          <div className="row mt-5 mb-2 bg-white">
             <div className="col-lg-5 col-md-6 my-2">
               <Swiper
                 style={{
@@ -180,11 +184,19 @@ const ProductScreen = () => {
                   {product.countInStock > 0 ? " In Stock" : " Out Of Stock"}
                 </p>
                 <hr />
-                <p className="price">
+                <p className="price d-flex">
+                  <b>Quantity:</b>
+                  <button className="btn_one mx-3" onClick={decreaseQuantity}>
+                    <AiOutlineMinus className="mx-1" />
+                  </button>
+                  {quantity}
+                  <button className="btn_one mx-3" onClick={increaseQuantity}>
+                    <AiOutlinePlus className="mx-1" />
+                  </button>
                   {product.countInStock > 0 && (
                     <>
-                      <b>Quantity:</b>
-                      <select
+                      {/* <select
+                        className="select"
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
                       >
@@ -193,7 +205,7 @@ const ProductScreen = () => {
                             {x + 1}
                           </option>
                         ))}
-                      </select>
+                      </select> */}
                     </>
                   )}
                 </p>
@@ -202,7 +214,7 @@ const ProductScreen = () => {
                 <div className="d-flex">
                   <button
                     onClick={addToCartHandler}
-                    className="btn_two mr-3"
+                    className="btn_two ml-1 mr-3"
                     type="button"
                   >
                     <HiOutlineShoppingCart className="mr-2" /> Add To Cart
@@ -214,8 +226,16 @@ const ProductScreen = () => {
               </div>
             </div>
           </div>
+        </>
+      )}
 
-          {/* <div className="row my-2">
+      <div className="row my-4">
+        <div className="col-lg-12">
+          <SectionHeader header="Reviews" />
+        </div>
+      </div>
+
+      {/* <div className="row my-2">
             <h3>Reviews</h3>
             {product?.reviews?.length === 0 && <Message>No Reviews</Message>}
             <ul>
@@ -261,14 +281,6 @@ const ProductScreen = () => {
               )}
             </ul>
           </div> */}
-        </>
-      )}
-
-      <div className="row my-2">
-        <div className="col-lg-12">
-          <SectionHeader header="Reviews" />
-        </div>
-      </div>
     </>
   );
 };

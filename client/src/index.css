@@ -498,6 +498,12 @@ div.carousel-indicators button {
   transition: 500ms;
   cursor: pointer;
 }
+.btn_two:hover {
+  color: var(--white);
+  background-color: var(--blue-light-1);
+  border: 1.5px solid var(--blue-light-1);
+  outline: 1.5px solid var(--blue-light-1);
+}
 /* table  */
 .table tr {
   font-size: 0.9rem;
@@ -655,7 +661,7 @@ label span:active {
 .productdetails .header {
   color: var(--blue);
   letter-spacing: 0.3px;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: bold;
   padding: 0 0 5px 0;
   margin: 0 0 5px 0;
@@ -665,6 +671,12 @@ label span:active {
   color: var(--black);
   font-size: 0.95rem;
 }
+/* .productdetails .select {
+  margin-left: 10px;
+  padding: 3px 10px;
+  color: var(--blue);
+  border-color: var(--blue-light-1);
+} */
 /* product details  */
 /* media queries  */
 
