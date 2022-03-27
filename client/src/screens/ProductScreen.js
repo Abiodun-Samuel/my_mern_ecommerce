@@ -216,10 +216,15 @@ const ProductScreen = () => {
             )}
 
             {product?.reviews?.map((review) => (
-              <div className="my-2 p-2 shadow-sm" key={review._id}>
-                <span>{review.name}</span>
+              <div
+                className="my-2 px-3 py-2 shadow-sm reviewbox"
+                key={review._id}
+              >
+                <span>
+                  <b>{review.name.toUpperCase()}</b>
+                </span>
+                <span> ({timeFormat(review.createdAt)})</span>
                 <Rating value={review.rating} />
-                <span> {timeFormat(review.createdAt)}</span>
                 <span>{review.comment}</span>
               </div>
             ))}

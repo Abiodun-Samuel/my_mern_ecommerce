@@ -701,6 +701,11 @@ label span:active {
   border: 1.5px solid var(--blue-light-1);
   outline: 1.5px solid var(--blue-light-1);
 }
+
+.productreview .reviewbox span {
+  color: var(--black-1);
+  font-size: 0.85rem;
+}
 /* product details  */
 /* media queries  */
 
