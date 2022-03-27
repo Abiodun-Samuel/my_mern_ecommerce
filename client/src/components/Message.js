@@ -1,14 +1,16 @@
 import React from "react";
-import { Alert } from "react-bootstrap";
 
-const Message = ({ variant, children }) => {
+const Message = ({ type = "", message = "", children }) => {
   return (
-    <div>
-      <Alert variant={variant}>{children}</Alert>
-    </div>
+    <>
+      <div className={`alert alert-${type}`} role="alert">
+        {message && <p className="py-0 my-0 font-weight-bold">{message}</p>}
+        {children && <p className="py-0 my-0 font-weight-bold">{children}</p>}
+      </div>
+    </>
   );
 };
-Message.defaultProps = {
-  variant: "info",
-};
+// Message.defaultProps = {
+//   variant: "info",
+// };
 export default Message;

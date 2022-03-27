@@ -112,7 +112,7 @@ export const createProductReview =
   };
 
 // Admin Privileges
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deleteProduct = (slug) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
 
@@ -126,7 +126,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.delete(`/api/products/${id}`, config);
+    const { data } = await axios.delete(`/api/products/${slug}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data });
   } catch (error) {

@@ -23,6 +23,7 @@ const ProductEditScreen = () => {
   ];
   // const [images, setImages] = useState([]);
   const [category, setCategory] = useState("");
+  const [category_slug, setCategorySlug] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
@@ -56,6 +57,7 @@ const ProductEditScreen = () => {
         // setImages(product.images);
         setBrand(product.brand);
         setCategory(product.category);
+        setCategorySlug(product.category_slug);
         setCountInStock(product.countInStock);
         setDescription(product.description);
       }
@@ -78,6 +80,7 @@ const ProductEditScreen = () => {
         images,
         brand,
         category,
+        category_slug,
         countInStock,
         description,
       })
@@ -184,6 +187,13 @@ const ProductEditScreen = () => {
                   placeholder="Enter your category"
                   className="form-control"
                   onChange={(e) => setCategory(e.target.value)}
+                />
+                <input
+                  type="text"
+                  value={category_slug}
+                  placeholder="Enter your category"
+                  className="form-control"
+                  onChange={(e) => setCategorySlug(e.target.value)}
                 />
                 <input
                   type="text"

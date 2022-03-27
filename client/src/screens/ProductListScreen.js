@@ -64,14 +64,14 @@ const ProductListScreen = () => {
     pageNumber,
   ]);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = (slug) => {
     customSweetAlert(
       "Caution",
       "Do you want to delete this product?",
       "warning",
       "Delete",
       () => {
-        dispatch(deleteProduct(id));
+        dispatch(deleteProduct(slug));
         swal("Complete", `Product has been deleted successfully`, "success");
       }
     );
@@ -130,13 +130,13 @@ const ProductListScreen = () => {
                     <td>{product.brand}</td>
                     <td className="d-flex align-items-center justify-content-center">
                       <Link
-                        to={`/admin/product/${product._id}/edit`}
+                        to={`/admin/product/${product.slug}/edit`}
                         className="table_edit_btn"
                       >
                         <AiFillEdit />
                       </Link>
                       <button
-                        onClick={() => deleteHandler(product._id)}
+                        onClick={() => deleteHandler(product.slug)}
                         className="table_del_btn"
                       >
                         <AiFillDelete />

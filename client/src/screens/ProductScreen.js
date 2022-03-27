@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   listProductDetails,
   createProductReview,
+  productsListByCategory,
 } from "../actions/productActions";
 import {
   AiOutlineArrowRight,
@@ -19,7 +20,7 @@ import { toast } from "react-toastify";
 import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
 import PageHeader from "../components/PageHeader";
-import { formatCurrency, toastMessage } from "../utils/utils";
+import { formatCurrency, timeFormat, toastMessage } from "../utils/utils";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 // Import Swiper styles
@@ -49,6 +50,9 @@ const ProductScreen = () => {
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
+  if (product) {
+    dispatch(productsListByCategory(product.category_slug));
+  }
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -183,27 +187,12 @@ const ProductScreen = () => {
                 <p className="price d-flex">
                   <b>Quantity:</b>
                   <button className="btn_one mx-3" onClick={decreaseQuantity}>
-                    <AiOutlineMinus className="mx-1" />
+                    <AiOutlineMinus className="mx-2" />
                   </button>
                   {quantity}
                   <button className="btn_one mx-3" onClick={increaseQuantity}>
-                    <AiOutlinePlus className="mx-1" />
+                    <AiOutlinePlus className="mx-2" />
                   </button>
-                  {product.countInStock > 0 && (
-                    <>
-                      {/* <select
-                        className="select"
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                      >
-                        {[...Array(product.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select> */}
-                    </>
-                  )}
                 </p>
                 <hr />
 
@@ -232,48 +221,68 @@ const ProductScreen = () => {
       </div>
 
       <div className="row my-2">
-        {product?.reviews?.length === 0 && <Message va>No Reviews</Message>}
-        <ul>
-          {product?.reviews?.map((review) => (
-            <li key={review._id}>
-              <span>{review.name}</span>
-              <Rating value={review.rating} />
-              <span>{review.createdAt.substring(0, 10)}</span>
-              <span>{review.comment}</span>
-            </li>
-          ))}
-        </ul>
-        <ul>
-          <span>Write a customer review</span>
-          {errorProductReview && toastMessage("error", errorProductReview)}
-          {loadingProductReview && <Loader smallPage={true} />}
+        <div className="col-lg-4 col-md-6 my-2">
+          <div className="productreview my-2">
+            <h4 className="header">Verified Customer Feedback</h4>
 
-          {userInfo ? (
-            <form onSubmit={submitHandler}>
-              <select
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}
-              >
-                <option value="">Select...</option>
-                <option value="1">1 - Poor</option>
-                <option value="2">2 - Fair</option>
-                <option value="3">3 - Good</option>
-                <option value="4">4 -Very Good</option>
-                <option value="5">5 - Excellent</option>
-              </select>
-              <input
-                type="text"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              />
-              <button type="submit">Comment</button>
-            </form>
-          ) : (
-            <Message>
-              Please <Link to="/login">sign in</Link> to write a review
-            </Message>
-          )}
-        </ul>
+            {product?.reviews?.length === 0 && (
+              <Message type="danger" message="No Reviews" />
+            )}
+            {errorProductReview && toastMessage("error", errorProductReview)}
+
+            {userInfo ? (
+              <>
+                <form onSubmit={submitHandler} className="reviews">
+                  <div className="form-group my-3">
+                    <select
+                      value={rating}
+                      onChange={(e) => setRating(e.target.value)}
+                    >
+                      <option value="">Select Rating</option>
+                      <option value="1">1 - Poor</option>
+                      <option value="2">2 - Fair</option>
+                      <option value="3">3 - Good</option>
+                      <option value="4">4 -Very Good</option>
+                      <option value="5">5 - Excellent</option>
+                    </select>
+                  </div>
+                  <div className="form-group my-3">
+                    <input
+                      type="text"
+                      placeholder="Write your review"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    />
+                  </div>
+                  <button className="btn-block btn_one my-3" type="submit">
+                    Comment
+                  </button>
+                </form>
+                {loadingProductReview && <Loader smallPage={true} />}
+              </>
+            ) : (
+              <Message type="danger">
+                Please <Link to="/login">sign in</Link> to write a review for
+                this product
+              </Message>
+            )}
+
+            {product?.reviews?.map((review) => (
+              <div className="my-2 p-2 shadow-sm" key={review._id}>
+                <span>{review.name}</span>
+                <Rating value={review.rating} />
+                <span> {timeFormat(review.createdAt)}</span>
+                <span>{review.comment}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="row my-4">
+        <div className="col-lg-12">
+          <SectionHeader header="Similar Products" />
+        </div>
       </div>
     </>
   );

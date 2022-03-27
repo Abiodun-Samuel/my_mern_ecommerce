@@ -674,6 +674,30 @@ label span:active {
   color: var(--black);
   font-size: 0.95rem;
 }
+
+.productreview .header {
+  color: var(--blue);
+  letter-spacing: 0.2px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 0 0 5px 0;
+  margin: 0 0 5px 0;
+}
+.productreview .reviews input,
+.productreview .reviews select {
+  border: 1.5px solid var(--blue-light);
+  outline: 1.5px solid var(--blue-light);
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--black-1);
+}
+
+.productreview .reviews input:focus,
+.productreview .reviews select:focus {
+  border: 1.5px solid var(--blue-light-1);
+  outline: 1.5px solid var(--blue-light-1);
+}
 /* product details  */
 /* media queries  */
 

@@ -1,5 +1,6 @@
 import swal from "@sweetalert/with-react";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 export const customSweetAlert = (title, text, icon, btn_text, onSuccess) => {
   swal(title, text, icon, {
@@ -41,5 +42,11 @@ export const toastMessage = (type, message) => {
         <span className="toastify">{message}</span>
       </div>
     );
+  }
+};
+
+export const timeFormat = (time) => {
+  if (time) {
+    return moment(time).fromNow();
   }
 };
