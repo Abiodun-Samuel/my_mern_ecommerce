@@ -16,6 +16,7 @@ const Loader = ({ smallPage = false, fullPage = false }) => {
             bottom: 0,
             right: 0,
             left: 0,
+            zIndex: 100000000000,
           }}
         >
           <div className="loadingio-spinner-double-ring-oyrkz54zs9b fade show">
@@ -38,6 +39,7 @@ const Loader = ({ smallPage = false, fullPage = false }) => {
           style={{
             backgroundColor: "rgba(255,255,255,0.4)",
             position: "relative",
+            zIndex: 100000000000,
           }}
         >
           <div className="loadingio-spinner-double-ring-5xmp70v5d0e">

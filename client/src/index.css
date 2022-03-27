@@ -639,7 +639,7 @@ label span:active {
   background-color: var(--blue);
   color: var(--white);
   outline: 1.5px solid var(--blue);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   box-shadow: var(--shadow-2);
   border-radius: 4px;
   transition: 500ms;

@@ -16,18 +16,9 @@ import {
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { addToCart } from "../actions/cartActions";
-import { toast } from "react-toastify";
 import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
-import PageHeader from "../components/PageHeader";
 import { formatCurrency, timeFormat, toastMessage } from "../utils/utils";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Thumbs } from "swiper";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
 import SectionHeader from "../components/SectionHeader";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 
@@ -37,7 +28,6 @@ const ProductScreen = () => {
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const {
     loading: loadingProductReview,
@@ -50,8 +40,8 @@ const ProductScreen = () => {
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
-  
-  if (product) {
+
+  if (product && product?._id) {
     dispatch(productsListByCategory(product.category_slug));
   }
 
@@ -63,12 +53,15 @@ const ProductScreen = () => {
       setRating(0);
       setComment("");
     }
+    if (errorProductReview) {
+      toastMessage("error", errorProductReview);
+    }
     dispatch(listProductDetails(slug));
     return () => {
       dispatch({ type: PRODUCT_DETAILS_RESET });
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     };
-  }, [dispatch, slug, successProductReview]);
+  }, [dispatch, slug, successProductReview, errorProductReview]);
 
   const addToCartHandler = () => {
     dispatch(addToCart(product.slug, quantity));
@@ -98,7 +91,7 @@ const ProductScreen = () => {
       setQuantity(quantity - 1);
     }
   };
-  console.log(errorProductReview);
+
   return (
     <>
       <div className="row mt-5">
@@ -109,10 +102,10 @@ const ProductScreen = () => {
 
       {loading && <Loader fullPage={true} />}
       {error && toastMessage(error)}
-      {product && (
+      {product && product?._id && (
         <>
           <div className="row my-4 mb-2 bg-white">
-            <div className="col-lg-5 col-md-6 my-2">
+            {/* <div className="col-lg-5 col-md-6 my-2">
               <Swiper
                 style={{
                   "--swiper-navigation-color": "#c94f74",
@@ -160,11 +153,11 @@ const ProductScreen = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            </div>
+            </div> */}
 
             <div className="col-lg-7 col-md-6 my-2">
               <div className="productdetails">
-                <h3 className="header">{product.name}</h3>
+                <h3 className="header">{product.name.toUpperCase()}</h3>
                 <hr />
                 <p className="desc">
                   <b>Description:</b> {product.description}
@@ -229,7 +222,7 @@ const ProductScreen = () => {
             {product?.reviews?.length === 0 && (
               <Message type="danger" message="No Reviews" />
             )}
-            {errorProductReview && toastMessage("error", errorProductReview)}
+            {/* {errorProductReview && toastMessage("error", errorProductReview)} */}
 
             {userInfo ? (
               <>
