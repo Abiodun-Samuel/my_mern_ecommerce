@@ -47,10 +47,11 @@ h3 {
 }
 
 .toastify {
-  font-weight: bold;
-  color: #000000;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--black);
 }
-/* #2c2c6c */
+
 /* header  */
 .navbar-brand {
   text-transform: capitalize;
@@ -474,7 +475,8 @@ div.carousel-indicators button {
   cursor: pointer;
 }
 
-.btn_one:hover {
+.btn_one:hover,
+.btn_one:focus {
   color: var(--white);
   background-color: var(--blue-light-1);
   border: 1.5px solid var(--blue-light-1);
@@ -498,7 +500,8 @@ div.carousel-indicators button {
   transition: 500ms;
   cursor: pointer;
 }
-.btn_two:hover {
+.btn_two:hover,
+.btn_two:focus {
   color: var(--white);
   background-color: var(--blue-light-1);
   border: 1.5px solid var(--blue-light-1);
@@ -671,12 +674,6 @@ label span:active {
   color: var(--black);
   font-size: 0.95rem;
 }
-/* .productdetails .select {
-  margin-left: 10px;
-  padding: 3px 10px;
-  color: var(--blue);
-  border-color: var(--blue-light-1);
-} */
 /* product details  */
 /* media queries  */
 

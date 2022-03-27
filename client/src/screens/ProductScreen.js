@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
 import PageHeader from "../components/PageHeader";
-import { formatCurrency } from "../utils/utils";
+import { formatCurrency, toastMessage } from "../utils/utils";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 // Import Swiper styles
@@ -44,6 +44,8 @@ const ProductScreen = () => {
     success: successProductReview,
   } = useSelector((state) => state.productCreateReview);
 
+  const { userInfo } = useSelector((state) => state.userLogin);
+
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
@@ -52,10 +54,9 @@ const ProductScreen = () => {
 
   useEffect(() => {
     if (successProductReview) {
-      alert("Review Submitted");
+      toastMessage("success", "Your review has been added for this product");
       setRating(0);
       setComment("");
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductDetails(slug));
     return () => {
@@ -70,22 +71,11 @@ const ProductScreen = () => {
       (item) => item.product === product.slug && item.quantity === quantity
     );
     if (existItem.length > 0) {
-      toast.error(
-        <div>
-          <span className="toastify">
-            {product.name + " (" + quantity + ") "}
-          </span>
-          already exist in your cart
-        </div>
-      );
+      toastMessage("error", `${product.name}(${quantity}) exists in your cart`);
     } else {
-      toast.success(
-        <div>
-          <span className="toastify">
-            {product.name + " (" + quantity + ") "}
-          </span>
-          has been added to your cart
-        </div>
+      toastMessage(
+        "success",
+        `${product.name}(${quantity}) has been added to your cart`
       );
     }
   };
@@ -96,15 +86,11 @@ const ProductScreen = () => {
   const increaseQuantity = () => {
     if (quantity < product.countInStock) {
       setQuantity(quantity + 1);
-    } else {
-      return "disabled";
     }
   };
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
-    } else {
-      return "disabled";
     }
   };
 
@@ -117,15 +103,8 @@ const ProductScreen = () => {
       </div>
 
       {loading && <Loader fullPage={true} />}
-      {error && <Message variant="danger">{error}</Message>}
-
-      {loading ? (
-        ""
-      ) : error ? (
-        <div className="row my-1">
-          <div className="col-lg-12"></div>
-        </div>
-      ) : (
+      {error && toastMessage(error)}
+      {product && (
         <>
           <div className="row my-4 mb-2 bg-white">
             <div className="col-lg-5 col-md-6 my-2">
@@ -252,52 +231,50 @@ const ProductScreen = () => {
         </div>
       </div>
 
-      {/* <div className="row my-2">
-            <h3>Reviews</h3>
-            {product?.reviews?.length === 0 && <Message>No Reviews</Message>}
-            <ul>
-              {product?.reviews?.map((review) => (
-                <li key={review._id}>
-                  <span>{review.name}</span>
-                  <Rating value={review.rating} />
-                  <span>{review.createdAt.substring(0, 10)}</span>
-                  <span>{review.comment}</span>
-                </li>
-              ))}
-            </ul>
-            <ul>
-              <span>Write a customer review</span>
-              {errorProductReview && (
-                <Message variant="danger">{errorProductReview}</Message>
-              )}
-              {loadingProductReview && <Loader />}
-              {userInfo ? (
-                <form onSubmit={submitHandler}>
-                  <select
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                  >
-                    <option value="">Select...</option>
-                    <option value="1">1 - Poor</option>
-                    <option value="2">2 - Fair</option>
-                    <option value="">Select...</option>
-                    <option value="">Select...</option>
-                    <option value="5">5 - Excellent</option>
-                  </select>
-                  <input
-                    type="text"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                  />
-                  <button type="submit">Comment</button>
-                </form>
-              ) : (
-                <Message>
-                  Please <Link to="/login">sign in</Link> to write a review
-                </Message>
-              )}
-            </ul>
-          </div> */}
+      <div className="row my-2">
+        {product?.reviews?.length === 0 && <Message va>No Reviews</Message>}
+        <ul>
+          {product?.reviews?.map((review) => (
+            <li key={review._id}>
+              <span>{review.name}</span>
+              <Rating value={review.rating} />
+              <span>{review.createdAt.substring(0, 10)}</span>
+              <span>{review.comment}</span>
+            </li>
+          ))}
+        </ul>
+        <ul>
+          <span>Write a customer review</span>
+          {errorProductReview && toastMessage("error", errorProductReview)}
+          {loadingProductReview && <Loader smallPage={true} />}
+
+          {userInfo ? (
+            <form onSubmit={submitHandler}>
+              <select
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+              >
+                <option value="">Select...</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 -Very Good</option>
+                <option value="5">5 - Excellent</option>
+              </select>
+              <input
+                type="text"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+              <button type="submit">Comment</button>
+            </form>
+          ) : (
+            <Message>
+              Please <Link to="/login">sign in</Link> to write a review
+            </Message>
+          )}
+        </ul>
+      </div>
     </>
   );
 };

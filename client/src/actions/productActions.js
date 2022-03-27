@@ -80,7 +80,7 @@ export const listProductDetails = (slug) => async (dispatch) => {
 };
 
 export const createProductReview =
-  (productId, review) => async (dispatch, getState) => {
+  (productSlug, review) => async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
 
@@ -95,11 +95,10 @@ export const createProductReview =
         },
       };
       const { data } = await axios.post(
-        `/api/products/${productId}/reviews`,
+        `/api/products/${productSlug}/reviews`,
         review,
         config
       );
-
       dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
     } catch (error) {
       dispatch({
