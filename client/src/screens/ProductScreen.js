@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Image } from "cloudinary-react";
 import Rating from "../components/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,6 +20,7 @@ import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
 import { formatCurrency, timeFormat, toastMessage } from "../utils/utils";
 import SectionHeader from "../components/SectionHeader";
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import Carousel from "../components/Carousel";
 
 const ProductScreen = () => {
   const { slug } = useParams();
@@ -105,55 +105,9 @@ const ProductScreen = () => {
       {product && product?._id && (
         <>
           <div className="row my-4 mb-2 bg-white">
-            {/* <div className="col-lg-5 col-md-6 my-2">
-              <Swiper
-                style={{
-                  "--swiper-navigation-color": "#c94f74",
-                  "--swiper-pagination-color": "#c94f74",
-                }}
-                spaceBetween={10}
-                navigation={true}
-                thumbs={{ swiper: thumbsSwiper }}
-                modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper2"
-              >
-                {product?.images?.map((x, index) => (
-                  <SwiperSlide key={x + index}>
-                    <Image
-                      cloudName="psalmzie"
-                      publicId={x}
-                      alt={x}
-                      width="500"
-                      height="500"
-                      className="img-fluid shadow-sm rounded"
-                      loading="lazy"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-
-              <Swiper
-                onSwiper={setThumbsSwiper}
-                spaceBetween={10}
-                slidesPerView={4}
-                freeMode={true}
-                watchSlidesProgress={true}
-                modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
-              >
-                {product?.images?.map((x, index) => (
-                  <SwiperSlide key={x + index}>
-                    <Image
-                      cloudName="psalmzie"
-                      publicId={x}
-                      alt={x}
-                      className="img-fluid shadow-sm rounded"
-                      loading="lazy"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div> */}
+            <div className="col-lg-5 col-md-6 my-2">
+              <Carousel images={product.images} source="cloudinary" />
+            </div>
 
             <div className="col-lg-7 col-md-6 my-2">
               <div className="productdetails">

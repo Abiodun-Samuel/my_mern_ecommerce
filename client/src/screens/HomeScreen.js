@@ -1,24 +1,23 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts, listTopProducts } from "../actions/productActions";
 import Product from "../components/Product";
-import { Row, Col } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import Paginate from "../components/Paginate";
-import { Link, useParams } from "react-router-dom";
-import ProductCarousel from "../components/ProductCarousel";
-import video from "../images/bg/hero-video.mp4";
-import HeroCarousel from "../components/HeroCarousel";
+import { useParams } from "react-router-dom";
 import SearchBox from "../components/SearchBox";
 import { getCategories } from "../actions/categoryActions";
 import Category from "../components/Category";
 import SectionHeader from "../components/SectionHeader";
-import { addToCart } from "../actions/cartActions";
+import hero1 from "../images/bg/hero1.jpg";
+import hero2 from "../images/bg/hero2.jpg";
+import hero3 from "../images/bg/hero3.jpg";
+import Carousel from "../components/Carousel";
 
 const HomeScreen = () => {
+  const images = [hero1, hero2, hero3];
   const { keyword } = false;
-  // const { keyword } = useParams();
   let { pageNumber } = useParams();
   if (!pageNumber) pageNumber = 1;
   const dispatch = useDispatch();
@@ -36,13 +35,13 @@ const HomeScreen = () => {
   } = useSelector((state) => state.productTopRated);
 
   const { loading, error, products, page, pages } = productList;
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
     dispatch(getCategories());
     dispatch(listTopProducts());
   }, [dispatch, keyword, pageNumber]);
-  // useMemo(() => dispatch(getCategories()), [dispatch]);
-  const { cartItems } = useSelector((state) => state.cart);
+
+  // const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <>
@@ -61,7 +60,7 @@ const HomeScreen = () => {
         </div>
         <div className="col-lg-8 my-2">
           <div className="hero-img">
-            <HeroCarousel />
+            <Carousel images={images} source='local'/>
           </div>
         </div>
       </div>
@@ -90,8 +89,8 @@ const HomeScreen = () => {
                 </div>
               );
             })}
-              </div>
-              
+          </div>
+
           <div className="row my-1">
             <div className="col-lg-12">
               <Paginate
@@ -105,7 +104,7 @@ const HomeScreen = () => {
       )}
 
       {/* Top Rated Products  */}
-      <div className="row my-1">
+      <div className="row my-2">
         <div className="col-lg-12">
           <SectionHeader header="Top Rated Products" />
         </div>
@@ -117,7 +116,7 @@ const HomeScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <div className="row my-1">
+          <div className="row my-2">
             {topProducts.map((product) => {
               return (
                 <div
@@ -134,17 +133,5 @@ const HomeScreen = () => {
     </>
   );
 };
-
-// {
-/* <Row>
-        {!keyword ? (
-          <ProductCarousel />
-        ) : (
-          <Link className="btn btn-primary" to="/">
-            HomePage
-          </Link>
-        )}
-      </Row> */
-// }
 
 export default HomeScreen;
