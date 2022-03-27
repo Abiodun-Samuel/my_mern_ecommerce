@@ -2,12 +2,13 @@ import express from "express";
 const router = express.Router();
 import {
   getProducts,
-  getProductById,
+  getProductBySlug,
   deleteProduct,
   createProduct,
   updateProduct,
   createProductReview,
   getTopProducts,
+  getProductsByCategory,
 } from "../controllers/productController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 
@@ -17,17 +18,18 @@ router.get("/", getProducts);
 // router.route("/").get(getProducts);
 
 router.get("/top", getTopProducts);
-router.get("/:id", getProductById);
-router.get("/category/:slug", getProductById);
+router.get("/:slug", getProductBySlug);
+router.get("/category/:category_slug", getProductsByCategory);
+// router.get("/category/:slug", getProductById);
 
 //Autheticated Users Routes
-router.post("/:id/reviews", protect, createProductReview);
+router.post("/:slug/reviews", protect, createProductReview);
 //or
 // router.route("/:id").get(getProductById);
 
 // Admin Routes
-router.delete("/:id", protect, admin, deleteProduct);
+router.delete("/:slug", protect, admin, deleteProduct);
 router.post("/", protect, admin, createProduct);
-router.put("/:id", protect, admin, updateProduct);
+router.put("/:slug", protect, admin, updateProduct);
 
 export default router;

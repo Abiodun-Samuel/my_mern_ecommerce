@@ -25,17 +25,25 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+    },
     image: {
       type: String,
       required: true,
     },
+    images: [String],
     brand: {
       type: String,
-      required: true,
+      // required: true,
     },
     category: {
       type: String,
       required: true,
+    },
+    category_slug: {
+      type: String,
+      // required: true,
     },
     description: {
       type: String,
