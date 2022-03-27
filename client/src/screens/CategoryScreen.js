@@ -64,12 +64,13 @@ const CategoryScreen = () => {
         </div>
       </div>
 
-      <div className="row my-1">
+      <div className="row my-3">
         <div className="col-lg-12">
           <SectionHeader
             header={
               formatSlug(slug) ? `${formatSlug(slug)} Products` : "Products"
-            } desc="Your Search Results"
+            }
+            desc="Your Search Results"
           />
         </div>
       </div>
@@ -77,13 +78,16 @@ const CategoryScreen = () => {
       {loading ? (
         <Loader fullPage={true} />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message type="danger">{error}</Message>
       ) : (
         <>
           <div className="row">
             {products?.map((product) => {
               return (
-                <div className="col-lg-3" key={product._id}>
+                <div
+                  className="col-lg-2 col-md-4 col-sm-6 col-6"
+                  key={product._id}
+                >
                   <Product product={product} key={product._id} />
                 </div>
               );
@@ -91,16 +95,6 @@ const CategoryScreen = () => {
           </div>
         </>
       )}
-      {/* {loading && <Loader fullPage={true} />}
-          {error && <Message>{error}</Message>}
-          {products &&
-            products.map((product) => {
-              return (
-                <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-                  <Product product={product} />
-                </Col>
-              );
-            })} */}
     </>
   );
 };
