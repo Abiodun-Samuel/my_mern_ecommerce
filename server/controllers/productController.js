@@ -32,17 +32,18 @@ const getProducts = asyncHandler(async (req, res) => {
 //@access public
 const getProductBySlug = asyncHandler(async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
- 
+
   if (product) {
     const similarProducts = await Product.find({
       category_slug: product.category_slug,
       slug: { $nin: req.params.slug },
     });
-    res.json(similarProducts);
-    res.json(product);
+    res.json({ product, similarProducts });
   } else {
     res.status(404);
-    throw new Error("Product not found");
+    throw new Error(
+      "This product is not avalaible in our record, Make a request"
+    );
   }
 });
 

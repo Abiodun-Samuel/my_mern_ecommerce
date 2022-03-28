@@ -29,6 +29,10 @@ import {
   PRODUCTS_LIST_BY_CATEGORY_SUCCESS,
   PRODUCTS_LIST_BY_CATEGORY_FAIL,
   PRODUCTS_LIST_BY_CATEGORY_RESET,
+  PRODUCT_SIMILAR_REQUEST,
+  PRODUCT_SIMILAR_SUCCESS,
+  PRODUCT_SIMILAR_FAIL,
+  PRODUCT_SIMILAR_RESET,
 } from "../constant/productConstants";
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -156,7 +160,25 @@ export const productTopRatedReducer = (state = { products: [] }, action) => {
     case PRODUCT_TOP_FAIL:
       return { loading: false, error: action.payload };
     case PRODUCT_TOP_RESET:
-      return { product: [] };
+      return { products: [] };
+    default:
+      return state;
+  }
+};
+
+export const productSimilarReducer = (
+  state = { similarProducts: [] },
+  action
+) => {
+  switch (action.type) {
+    case PRODUCT_SIMILAR_REQUEST:
+      return { loading: true };
+    case PRODUCT_SIMILAR_SUCCESS:
+      return { loading: false, similarProducts: action.payload };
+    case PRODUCT_SIMILAR_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_SIMILAR_RESET:
+      return { similarProducts: [] };
     default:
       return state;
   }

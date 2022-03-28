@@ -23,6 +23,9 @@ import {
   PRODUCTS_LIST_BY_CATEGORY_REQUEST,
   PRODUCTS_LIST_BY_CATEGORY_SUCCESS,
   PRODUCTS_LIST_BY_CATEGORY_FAIL,
+  PRODUCT_SIMILAR_SUCCESS,
+  PRODUCT_SIMILAR_REQUEST,
+  PRODUCT_SIMILAR_FAIL,
 } from "../constant/productConstants";
 import axios from "axios";
 
@@ -66,11 +69,20 @@ export const productsListByCategory = (slug) => async (dispatch) => {
 export const listProductDetails = (slug) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
+    dispatch({ type: PRODUCT_SIMILAR_REQUEST });
     const { data } = await axios.get(`/api/products/${slug}`);
-    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.product });
+    dispatch({ type: PRODUCT_SIMILAR_SUCCESS, payload: data.similarProducts });
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+    dispatch({
+      type: PRODUCT_SIMILAR_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

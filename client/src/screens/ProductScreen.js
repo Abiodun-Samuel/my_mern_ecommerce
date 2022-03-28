@@ -15,12 +15,16 @@ import {
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { addToCart } from "../actions/cartActions";
-import { PRODUCT_DETAILS_RESET } from "../constant/productConstants";
+import {
+  PRODUCT_DETAILS_RESET,
+  PRODUCT_SIMILAR_RESET,
+} from "../constant/productConstants";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constant/productConstants";
 import { formatCurrency, timeFormat, toastMessage } from "../utils/utils";
 import SectionHeader from "../components/SectionHeader";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import Carousel from "../components/Carousel";
+import Product from "../components/Product";
 
 const ProductScreen = () => {
   const { slug } = useParams();
@@ -42,12 +46,10 @@ const ProductScreen = () => {
   );
 
   const {
-    loading: productByCategoryLoading,
-    products: productByCategory,
-    error: productByCategoryError,
-  } = useSelector((state) => state.productListByCategory);
-
-  console.log(product);
+    loading: similarProductsLoading,
+    similarProducts,
+    error: similarProductsError,
+  } = useSelector((state) => state.productSimilar);
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -60,23 +62,15 @@ const ProductScreen = () => {
     if (errorProductReview) {
       toastMessage("error", errorProductReview);
     }
-    // if (!product?.slug) {
-    dispatch(listProductDetails(slug));
-    // }
 
-    // dispatch(productsListByCategory("electronics"));
+    dispatch(listProductDetails(slug));
+
     return () => {
       dispatch({ type: PRODUCT_DETAILS_RESET });
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+      dispatch({ type: PRODUCT_SIMILAR_RESET });
     };
-  }, [
-    dispatch,
-    slug,
-    successProductReview,
-    errorProductReview,
-    // product.slug,
-    productByCategory,
-  ]);
+  }, [dispatch, slug, successProductReview, errorProductReview]);
 
   const addToCartHandler = () => {
     dispatch(addToCart(product.slug, quantity));
@@ -114,7 +108,6 @@ const ProductScreen = () => {
           <SectionHeader header="Product Details" />
         </div>
       </div>
-
       {loading && <Loader fullPage={true} />}
       {error && toastMessage(error)}
       {product && product?._id && (
@@ -182,13 +175,11 @@ const ProductScreen = () => {
           </div>
         </>
       )}
-
       <div className="row my-3">
         <div className="col-lg-12">
           <SectionHeader header="Verified Customer Feedback" />
         </div>
       </div>
-
       <div className="row">
         <div className="col-lg-4 col-md-6 my-3">
           <div className="productreview">
@@ -250,11 +241,30 @@ const ProductScreen = () => {
         </div>
       </div>
 
+      {/* similarProducts */}
       <div className="row my-3">
         <div className="col-lg-12">
           <SectionHeader header="Similar Products" />
         </div>
       </div>
+
+      {similarProductsLoading && <Loader fullPage={true} />}
+      {similarProductsError && toastMessage(similarProductsError)}
+      {similarProducts?.length > 0 && (
+        <div className="row my-2">
+          {similarProducts.map((product) => {
+            return (
+              <div
+                className="col-lg-2 col-md-4 col-sm-6 col-6 my-2"
+                key={product._id}
+              >
+                <Product product={product} />
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {}
     </>
   );
 };
