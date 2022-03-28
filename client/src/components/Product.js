@@ -70,7 +70,7 @@ const Product = ({ product }) => {
           <Image
             cloudName="psalmzie"
             publicId={product.image}
-            width="150"
+            width="auto"
             height="150"
             // crop="scale"
             alt={product.name}

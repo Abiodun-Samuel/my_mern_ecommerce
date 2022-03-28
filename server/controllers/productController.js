@@ -171,14 +171,28 @@ const getTopProducts = asyncHandler(async (req, res) => {
 //@route GET api/:category/products
 //@access public
 const getProductsByCategory = asyncHandler(async (req, res) => {
-  const products = await Product.find({
-    category_slug: req.params.category_slug,
-  });
-  if (products.length > 0) {
-    res.json(products);
+  const productId = req.query.productId;
+  if (productId) {
+    const products = await Product.find({
+      category_slug: req.params.category_slug,
+      _id: { $nin: productId },
+    });
+    if (products.length > 0) {
+      res.json(products);
+    } else {
+      res.status(404);
+      throw new Error("No products was found in this Category");
+    }
   } else {
-    res.status(404);
-    throw new Error("No products was found in this Category");
+    const products = await Product.find({
+      category_slug: req.params.category_slug,
+    });
+    if (products.length > 0) {
+      res.json(products);
+    } else {
+      res.status(404);
+      throw new Error("No products was found in this Category");
+    }
   }
 });
 

@@ -42,7 +42,7 @@ const ProductScreen = () => {
   );
 
   if (product && product?._id) {
-    dispatch(productsListByCategory(product.category_slug));
+    dispatch(productsListByCategory(product.category_slug, product._id));
   }
 
   const { cartItems } = useSelector((state) => state.cart);

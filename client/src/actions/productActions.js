@@ -46,22 +46,26 @@ export const listProducts =
     }
   };
 
-export const productsListByCategory = (slug) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_REQUEST });
-    const { data } = await axios.get(`/api/products/category/${slug}`);
+export const productsListByCategory =
+  (slug, id = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_REQUEST });
+      const { data } = await axios.get(
+        `/api/products/category/${slug}?productId=${id}`
+      );
 
-    dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: PRODUCTS_LIST_BY_CATEGORY_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({ type: PRODUCTS_LIST_BY_CATEGORY_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCTS_LIST_BY_CATEGORY_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const listProductDetails = (slug) => async (dispatch) => {
   try {
