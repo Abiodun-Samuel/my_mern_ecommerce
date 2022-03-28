@@ -46,21 +46,23 @@ const HomeScreen = () => {
   return (
     <>
       {/* hero section  */}
-      <div className="row mt-5 mb-4">
-        <div className="col-lg-4 my-2">
-          <SearchBox />
-          <div className="category-box shadow p-3">
-            <h5>Categories</h5>
-            <Category
-              loadingCategory={loadingCategory}
-              errorCategory={errorCategory}
-              categories={categories}
-            />
+      <div className="container-fluid">
+        <div className="row mt-5 mb-4">
+          <div className="col-lg-4 my-2">
+            <SearchBox />
+            <div className="category-box shadow p-3">
+              <h5>Categories</h5>
+              <Category
+                loadingCategory={loadingCategory}
+                errorCategory={errorCategory}
+                categories={categories}
+              />
+            </div>
           </div>
-        </div>
-        <div className="col-lg-8 my-2">
-          <div className="hero-img">
-            <Carousel images={images} source='local'/>
+          <div className="col-lg-8 my-2">
+            <div className="hero-img">
+              <Carousel images={images} source="local" />
+            </div>
           </div>
         </div>
       </div>
@@ -71,7 +73,6 @@ const HomeScreen = () => {
           <SectionHeader header="Latest Products" />
         </div>
       </div>
-
       {loading ? (
         <Loader fullPage={true} />
       ) : error ? (
@@ -102,14 +103,12 @@ const HomeScreen = () => {
           </div>
         </>
       )}
-
       {/* Top Rated Products  */}
       <div className="row my-2">
         <div className="col-lg-12">
           <SectionHeader header="Top Rated Products" />
         </div>
       </div>
-
       {loading ? (
         <Loader fullPage={true} />
       ) : error ? (

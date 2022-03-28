@@ -23,9 +23,9 @@ const Header = () => {
 
   return (
     <header>
-      <nav className="navbar navbar-expand-lg bg-white shadow fixed-top">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
+      <div className="container-fluid">
+        <nav className="navbar navbar-expand-lg bg-white shadow fixed-top">
+          <Link className="navbar-brand m-0 p-0" to="/">
             Drips Empire
           </Link>
 
@@ -172,8 +172,8 @@ const Header = () => {
               )}
             </ul>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
   );
 };

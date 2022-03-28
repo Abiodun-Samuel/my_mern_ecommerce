@@ -47,11 +47,7 @@ const ProductScreen = () => {
     error: productByCategoryError,
   } = useSelector((state) => state.productListByCategory);
 
-  // if (productByCategory.length <= 0) {
-  //   dispatch(productsListByCategory("electronics"));
-  // }
-
-  console.log(productByCategory.length);
+  console.log(product);
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -64,10 +60,11 @@ const ProductScreen = () => {
     if (errorProductReview) {
       toastMessage("error", errorProductReview);
     }
+    // if (!product?.slug) {
     dispatch(listProductDetails(slug));
-    // if (product._id) {
-    //
     // }
+
+    // dispatch(productsListByCategory("electronics"));
     return () => {
       dispatch({ type: PRODUCT_DETAILS_RESET });
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
@@ -77,8 +74,8 @@ const ProductScreen = () => {
     slug,
     successProductReview,
     errorProductReview,
-    // product.category_slug,
-    // product._id,
+    // product.slug,
+    productByCategory,
   ]);
 
   const addToCartHandler = () => {
@@ -152,11 +149,17 @@ const ProductScreen = () => {
                 <hr />
                 <p className="price d-flex">
                   <b>Quantity:</b>
-                  <button className="btn_one mx-3" onClick={decreaseQuantity}>
+                  <button
+                    className="btn_one mx-3"
+                    onClick={() => decreaseQuantity()}
+                  >
                     <AiOutlineMinus className="mx-2" />
                   </button>
                   {quantity}
-                  <button className="btn_one mx-3" onClick={increaseQuantity}>
+                  <button
+                    className="btn_one mx-3"
+                    onClick={() => increaseQuantity()}
+                  >
                     <AiOutlinePlus className="mx-2" />
                   </button>
                 </p>
@@ -164,7 +167,7 @@ const ProductScreen = () => {
 
                 <div className="d-flex">
                   <button
-                    onClick={addToCartHandler}
+                    onClick={() => addToCartHandler()}
                     className="btn_two ml-1 mr-3"
                     type="button"
                   >
@@ -182,15 +185,13 @@ const ProductScreen = () => {
 
       <div className="row my-4">
         <div className="col-lg-12">
-          <SectionHeader header="Reviews" />
+          <SectionHeader header="Verified Customer Feedback" />
         </div>
       </div>
 
       <div className="row my-2">
         <div className="col-lg-4 col-md-6 my-2">
-          <div className="productreview my-2">
-            <h4 className="header">Verified Customer Feedback</h4>
-
+          <div className="productreview">
             {product?.reviews?.length === 0 && (
               <Message type="danger" message="No Reviews" />
             )}
