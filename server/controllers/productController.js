@@ -32,7 +32,13 @@ const getProducts = asyncHandler(async (req, res) => {
 //@access public
 const getProductBySlug = asyncHandler(async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
+ 
   if (product) {
+    const similarProducts = await Product.find({
+      category_slug: product.category_slug,
+      slug: { $nin: req.params.slug },
+    });
+    res.json(similarProducts);
     res.json(product);
   } else {
     res.status(404);
@@ -171,30 +177,20 @@ const getTopProducts = asyncHandler(async (req, res) => {
 //@route GET api/:category/products
 //@access public
 const getProductsByCategory = asyncHandler(async (req, res) => {
-  const productId = req.query.productId;
-  if (productId) {
-    const products = await Product.find({
-      category_slug: req.params.category_slug,
-      _id: { $nin: productId },
-    });
-    if (products.length > 0) {
-      res.json(products);
-    } else {
-      res.status(404);
-      throw new Error("No products was found in this Category");
-    }
+  const products = await Product.find({
+    category_slug: req.params.category_slug,
+  });
+  if (products.length > 0) {
+    res.json(products);
   } else {
-    const products = await Product.find({
-      category_slug: req.params.category_slug,
-    });
-    if (products.length > 0) {
-      res.json(products);
-    } else {
-      res.status(404);
-      throw new Error("No products was found in this Category");
-    }
+    res.status(404);
+    throw new Error("No products was found in this Category");
   }
 });
+
+// /@desc fetch similar products
+//@route GET api/:products/products
+//@access public
 
 export {
   getProducts,

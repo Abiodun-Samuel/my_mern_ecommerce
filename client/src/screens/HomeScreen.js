@@ -14,6 +14,7 @@ import hero1 from "../images/bg/hero1.jpg";
 import hero2 from "../images/bg/hero2.jpg";
 import hero3 from "../images/bg/hero3.jpg";
 import Carousel from "../components/Carousel";
+import { toastMessage } from "../utils/utils";
 
 const HomeScreen = () => {
   const images = [hero1, hero2, hero3];
@@ -71,7 +72,7 @@ const HomeScreen = () => {
           <SectionHeader header="Latest Products" />
         </div>
       </div>
-      
+
       {loading ? (
         <Loader fullPage={true} />
       ) : error ? (
@@ -91,7 +92,7 @@ const HomeScreen = () => {
             })}
           </div>
 
-          <div className="row my-1">
+          <div className="row my-2">
             <div className="col-lg-12">
               <Paginate
                 page={page}
@@ -109,17 +110,19 @@ const HomeScreen = () => {
           <SectionHeader header="Top Rated Products" />
         </div>
       </div>
-      {loading ? (
-        <Loader fullPage={true} />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
+
+      {topProductsLoading ? (
+        <Loader smallPage={true} />
+      ) : topProductsError ? (
+        toastMessage("error", topProductsError)
       ) : (
+        /* <Message variant="danger">{topProductsError}</Message> */
         <>
           <div className="row my-2">
             {topProducts.map((product) => {
               return (
                 <div
-                  className="col-lg-2 col-md-4 col-sm-6 col-6"
+                  className="col-lg-2 col-md-4 col-sm-6 col-6 my-2"
                   key={product._id}
                 >
                   <Product product={product} />

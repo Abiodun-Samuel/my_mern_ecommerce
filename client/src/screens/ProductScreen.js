@@ -119,12 +119,12 @@ const ProductScreen = () => {
       {error && toastMessage(error)}
       {product && product?._id && (
         <>
-          <div className="row my-4 mb-2 bg-white">
-            <div className="col-lg-5 col-md-6 my-2">
+          <div className="row">
+            <div className="col-lg-5 col-md-6 my-4">
               <Carousel images={product.images} source="cloudinary" />
             </div>
 
-            <div className="col-lg-7 col-md-6 my-2">
+            <div className="col-lg-7 col-md-6 my-4">
               <div className="productdetails">
                 <h3 className="header">{product.name.toUpperCase()}</h3>
                 <hr />
@@ -183,19 +183,18 @@ const ProductScreen = () => {
         </>
       )}
 
-      <div className="row my-4">
+      <div className="row my-3">
         <div className="col-lg-12">
           <SectionHeader header="Verified Customer Feedback" />
         </div>
       </div>
 
-      <div className="row my-2">
-        <div className="col-lg-4 col-md-6 my-2">
+      <div className="row">
+        <div className="col-lg-4 col-md-6 my-3">
           <div className="productreview">
             {product?.reviews?.length === 0 && (
               <Message type="danger" message="No Reviews" />
             )}
-            {/* {errorProductReview && toastMessage("error", errorProductReview)} */}
 
             {userInfo ? (
               <>
@@ -222,7 +221,7 @@ const ProductScreen = () => {
                     />
                   </div>
                   <button className="btn-block btn_one my-3" type="submit">
-                    Comment
+                    Comment &#8594;
                   </button>
                 </form>
                 {loadingProductReview && <Loader smallPage={true} />}
@@ -251,7 +250,7 @@ const ProductScreen = () => {
         </div>
       </div>
 
-      <div className="row my-4">
+      <div className="row my-3">
         <div className="col-lg-12">
           <SectionHeader header="Similar Products" />
         </div>
