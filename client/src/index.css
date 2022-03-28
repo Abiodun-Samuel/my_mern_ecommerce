@@ -2,6 +2,7 @@
 :root {
   --blue: #2c2c6c;
   --blue-light: #dedef8;
+  --blue-light-2: #ffffff;
   --blue-light-1: #54549c;
   --black: #242424;
   --black-1: #575757;
@@ -11,6 +12,7 @@
 }
 body {
   overflow-x: hidden;
+  background-color: var(--blue-light-2);
 }
 a {
   text-decoration: none;
@@ -279,7 +281,7 @@ ol.carousel-indicators li.active {
 
 /* homescreen  */
 .category-box {
-  max-height: 315px;
+  max-height: 336px;
   overflow-y: scroll;
 }
 
@@ -418,7 +420,8 @@ ol.carousel-indicators li.active {
   background-size: cover;
   box-shadow: var(--shadow-1);
   padding: 10px;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .section_header {
   color: var(--blue);

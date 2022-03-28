@@ -46,44 +46,43 @@ const HomeScreen = () => {
   return (
     <>
       {/* hero section  */}
-      <div className="container-fluid">
-        <div className="row mt-5 mb-4">
-          <div className="col-lg-4 my-2">
-            <SearchBox />
-            <div className="category-box shadow p-3">
-              <h5>Categories</h5>
-              <Category
-                loadingCategory={loadingCategory}
-                errorCategory={errorCategory}
-                categories={categories}
-              />
-            </div>
+      <div className="row my-5">
+        <div className="col-lg-4 my-2">
+          <SearchBox />
+          <div className="category-box shadow p-3">
+            <h5>Categories</h5>
+            <Category
+              loadingCategory={loadingCategory}
+              errorCategory={errorCategory}
+              categories={categories}
+            />
           </div>
-          <div className="col-lg-8 my-2">
-            <div className="hero-img">
-              <Carousel images={images} source="local" />
-            </div>
+        </div>
+        <div className="col-lg-8 my-2">
+          <div className="hero-img">
+            <Carousel images={images} source="local" />
           </div>
         </div>
       </div>
 
       {/* All products  */}
-      <div className="row my-1">
+      <div className="row my-2">
         <div className="col-lg-12">
           <SectionHeader header="Latest Products" />
         </div>
       </div>
+      
       {loading ? (
         <Loader fullPage={true} />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <div className="row my-1">
+          <div className="row">
             {products.map((product) => {
               return (
                 <div
-                  className="col-lg-2 col-md-4 col-sm-6 col-6"
+                  className="col-lg-2 col-md-4 col-sm-6 col-6 my-2"
                   key={product._id}
                 >
                   <Product product={product} />
@@ -103,6 +102,7 @@ const HomeScreen = () => {
           </div>
         </>
       )}
+
       {/* Top Rated Products  */}
       <div className="row my-2">
         <div className="col-lg-12">

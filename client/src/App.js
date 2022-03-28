@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="pt-3" style={{ minHeight: "90vh" }}>
+      <main className="container-fluid pt-3" style={{ minHeight: "90vh" }}>
         <Suspense fallback={<div></div>}>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
