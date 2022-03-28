@@ -41,9 +41,17 @@ const ProductScreen = () => {
     (state) => state.productDetails
   );
 
-  if (product && product?._id) {
-    dispatch(productsListByCategory(product.category_slug, product._id));
-  }
+  const {
+    loading: productByCategoryLoading,
+    products: productByCategory,
+    error: productByCategoryError,
+  } = useSelector((state) => state.productListByCategory);
+
+  // if (productByCategory.length <= 0) {
+  //   dispatch(productsListByCategory("electronics"));
+  // }
+
+  console.log(productByCategory.length);
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -57,11 +65,21 @@ const ProductScreen = () => {
       toastMessage("error", errorProductReview);
     }
     dispatch(listProductDetails(slug));
+    // if (product._id) {
+    //
+    // }
     return () => {
       dispatch({ type: PRODUCT_DETAILS_RESET });
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     };
-  }, [dispatch, slug, successProductReview, errorProductReview]);
+  }, [
+    dispatch,
+    slug,
+    successProductReview,
+    errorProductReview,
+    // product.category_slug,
+    // product._id,
+  ]);
 
   const addToCartHandler = () => {
     dispatch(addToCart(product.slug, quantity));

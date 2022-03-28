@@ -213,7 +213,7 @@ button.navbar-toggler-icon:focus {
 /* carousel  */
 ol.carousel-indicators {
   position: absolute;
-  bottom: 0px;
+  bottom: -30px;
   display: flex;
   height: 10px;
   padding: 5px;
