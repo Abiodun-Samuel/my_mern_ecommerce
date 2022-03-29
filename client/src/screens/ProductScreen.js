@@ -25,6 +25,8 @@ import SectionHeader from "../components/SectionHeader";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import Carousel from "../components/Carousel";
 import Product from "../components/Product";
+import { sendProductRequestMail } from "../actions/mailActions";
+import { MAIL_RESET } from "../constant/mailConstants";
 
 const ProductScreen = () => {
   const { slug } = useParams();
@@ -53,6 +55,12 @@ const ProductScreen = () => {
   } = useSelector((state) => state.productSimilar);
 
   const { cartItems } = useSelector((state) => state.cart);
+  const {
+    response,
+    loading: mailLoading,
+    error: mailError,
+    success: mailSuccess,
+  } = useSelector((state) => state.sendProductRequestMail);
 
   useEffect(() => {
     if (successProductReview) {
@@ -106,7 +114,15 @@ const ProductScreen = () => {
 
   const handleRequest = (e) => {
     e.preventDefault();
-    console.log(request);
+    dispatch(
+      sendProductRequestMail({
+        request,
+        product: product.name,
+        id: product._id,
+      })
+    );
+    toastMessage("success", "Mail has been sent successfully");
+    setRequest("");
   };
 
   return (
@@ -253,7 +269,7 @@ const ProductScreen = () => {
             <h4 className="header text-center">Contact Us</h4>
             <p className="desc text-center">
               Need more info about this product? Or you want to make a specific
-              request about this product?
+              request?
             </p>
             {userInfo ? (
               <>
@@ -266,6 +282,10 @@ const ProductScreen = () => {
                       placeholder="Enter your text here"
                       onChange={(e) => setRequest(e.target.value)}
                     />
+                    {/* {mailSuccess &&
+                     } */}
+                    {mailLoading && <Loader smallPage={true} />}
+                    {mailError && <Message type="danger" message={mailError} />}
                     <button
                       type="submit"
                       className="btn_one my-3 px-4 d-flex align-items-center"

@@ -2,13 +2,12 @@ import Product from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
 import Category from "../models/categoryModel.js";
 import { randomString, slugify } from "../utils/helper.js";
-import { main } from "../config/mail.js";
 
 //@desc fetch all products
 //@route GET api/products
 //@access public
 const getProducts = asyncHandler(async (req, res) => {
-  main();
+  
   const pageSize = 12;
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword

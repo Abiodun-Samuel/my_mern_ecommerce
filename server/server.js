@@ -10,6 +10,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import mailRoutes from "./routes/mailRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 connectDB();
@@ -26,6 +27,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/send_mail", mailRoutes);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

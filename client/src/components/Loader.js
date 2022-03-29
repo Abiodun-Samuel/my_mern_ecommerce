@@ -37,7 +37,7 @@ const Loader = ({ smallPage = false, fullPage = false }) => {
         <div
           className="d-flex justify-content-center align-items-center fade show"
           style={{
-            backgroundColor: "rgba(255,255,255,0.4)",
+            backgroundColor: "transparent",
             position: "relative",
             zIndex: 100000000000,
           }}
