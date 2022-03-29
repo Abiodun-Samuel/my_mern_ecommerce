@@ -104,6 +104,11 @@ const ProductScreen = () => {
     }
   };
 
+  const handleRequest = (e) => {
+    e.preventDefault();
+    console.log(request);
+  };
+
   return (
     <>
       <div className="row mt-5">
@@ -250,27 +255,26 @@ const ProductScreen = () => {
               Need more info about this product? Or you want to make a specific
               request about this product?
             </p>
-            <p className="desc">
-              <b>Product:</b> {product?.name?.toUpperCase()}
-            </p>
             {userInfo ? (
-              <form method="post">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="my-3"
-                    value={request}
-                    placeholder="Enter your text here"
-                    onChange={(e) => setRequest(e.target.value)}
-                  />
-                  <button
-                    type="submit"
-                    className="btn_one my-3 px-4 d-flex align-items-center"
-                  >
-                    <AiOutlineSend className="mr-2" /> Send
-                  </button>
-                </div>
-              </form>
+              <>
+                <form onSubmit={handleRequest}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="my-3"
+                      value={request}
+                      placeholder="Enter your text here"
+                      onChange={(e) => setRequest(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      className="btn_one my-3 px-4 d-flex align-items-center"
+                    >
+                      <AiOutlineSend className="mr-2" /> Send
+                    </button>
+                  </div>
+                </form>
+              </>
             ) : (
               <Message type="danger">
                 Please <Link to="/login">sign in</Link> to make a request

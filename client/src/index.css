@@ -735,23 +735,30 @@ label span:active {
 }
 .product-contact .header {
   color: var(--blue);
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: bold;
 }
 .product-contact .desc {
   color: var(--black);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 .product-contact input {
   border: none;
   outline-color: transparent;
-  border-bottom: 1.5px solid var(--blue-light);
-  /* outline-bottom: 1.5px solid var(--blue-light); */
+  border-bottom: 1.5px solid var(--blue);
+  background-color: transparent;
   padding: 0.5rem;
   width: 70%;
   font-size: 0.9rem;
-  color: var(--black-1);
+  color: var(--black);
+}
+
+.product-contact input:focus {
+  border: none;
+  outline: 0;
+  outline-color: transparent;
+  border-bottom: 1.5px solid var(--red-1);
 }
 /* product details  */
 /* media queries  */
