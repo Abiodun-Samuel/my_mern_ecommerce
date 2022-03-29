@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   listProductDetails,
   createProductReview,
-  productsListByCategory,
 } from "../actions/productActions";
 import {
   AiOutlineArrowRight,
   AiOutlinePlus,
   AiOutlineMinus,
+  AiOutlineSend,
 } from "react-icons/ai";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -32,6 +32,7 @@ const ProductScreen = () => {
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [request, setRequest] = useState("");
 
   const {
     loading: loadingProductReview,
@@ -192,7 +193,7 @@ const ProductScreen = () => {
             {userInfo ? (
               <>
                 <form onSubmit={submitHandler} className="reviews">
-                  <div className="form-group my-3">
+                  <div className="form-group mb-3">
                     <select
                       value={rating}
                       onChange={(e) => setRating(e.target.value)}
@@ -239,6 +240,42 @@ const ProductScreen = () => {
                 <span>{review.comment}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="col-lg-8 col-md-6 my-3">
+          <div className="product-contact">
+            <h4 className="header text-center">Contact Us</h4>
+            <p className="desc text-center">
+              Need more info about this product? Or you want to make a specific
+              request about this product?
+            </p>
+            <p className="desc">
+              <b>Product:</b> {product?.name?.toUpperCase()}
+            </p>
+            {userInfo ? (
+              <form method="post">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="my-3"
+                    value={request}
+                    placeholder="Enter your text here"
+                    onChange={(e) => setRequest(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    className="btn_one my-3 px-4 d-flex align-items-center"
+                  >
+                    <AiOutlineSend className="mr-2" /> Send
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <Message type="danger">
+                Please <Link to="/login">sign in</Link> to make a request
+              </Message>
+            )}
           </div>
         </div>
       </div>

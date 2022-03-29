@@ -513,6 +513,31 @@ ol.carousel-indicators li.active {
   border: 1.5px solid var(--blue-light-1);
   outline: 1.5px solid var(--blue-light-1);
 }
+
+.btn_three {
+  background-color: var(--red-1);
+  border: 1.5px solid var(--red-1);
+  outline: 1.5px solid var(--red-1);
+  outline-offset: 3px;
+  color: var(--white);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 500ms;
+  cursor: pointer;
+}
+
+.btn_three:hover,
+.btn_three:focus {
+  color: var(--white);
+  background-color: var(--red);
+  border: 1.5px solid var(--red);
+  outline: 1.5px solid var(--red);
+}
 /* table  */
 .table tr {
   font-size: 0.9rem;
@@ -680,15 +705,6 @@ label span:active {
   color: var(--black);
   font-size: 0.95rem;
 }
-
-.productreview .header {
-  color: var(--blue);
-  letter-spacing: 0.2px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  padding: 0 0 5px 0;
-  margin: 0 0 5px 0;
-}
 .productreview .reviews input,
 .productreview .reviews select {
   border: 1.5px solid var(--blue-light);
@@ -708,6 +724,34 @@ label span:active {
 .productreview .reviewbox span {
   color: var(--black-1);
   font-size: 0.85rem;
+}
+
+.product-contact {
+  background: url("./images/bg/contact-bg.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 4px;
+  padding: 1rem;
+}
+.product-contact .header {
+  color: var(--blue);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.product-contact .desc {
+  color: var(--black);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.product-contact input {
+  border: none;
+  outline-color: transparent;
+  border-bottom: 1.5px solid var(--blue-light);
+  /* outline-bottom: 1.5px solid var(--blue-light); */
+  padding: 0.5rem;
+  width: 70%;
+  font-size: 0.9rem;
+  color: var(--black-1);
 }
 /* product details  */
 /* media queries  */
