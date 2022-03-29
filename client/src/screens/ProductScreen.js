@@ -74,9 +74,11 @@ const ProductScreen = () => {
 
   const addToCartHandler = () => {
     dispatch(addToCart(product.slug, quantity));
+
     const existItem = cartItems.filter(
       (item) => item.product === product.slug && item.quantity === quantity
     );
+
     if (existItem.length > 0) {
       toastMessage("error", `${product.name}(${quantity}) exists in your cart`);
     } else {

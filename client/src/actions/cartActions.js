@@ -11,11 +11,11 @@ export const addToCart = (slug, quantity) => async (dispatch, getState) => {
   dispatch({
     type: ADD_CART_ITEM,
     payload: {
-      product: data.slug,
-      name: data.name,
-      image: data.image,
-      price: data.price,
-      countInStock: data.countInStock,
+      product: data.product.slug,
+      name: data.product.name,
+      image: data.product.image,
+      price: data.product.price,
+      countInStock: data.product.countInStock,
       quantity,
     },
   });
@@ -36,7 +36,7 @@ export const saveShippingAddress = (data) => async (dispatch) => {
   localStorage.setItem("shippingAddress", JSON.stringify(data));
 };
 export const savePaymentMethod = (data) => async (dispatch) => {
-  dispatch({ 
+  dispatch({
     type: SAVE_PAYMENT_METHOD_CART,
     payload: data,
   });
