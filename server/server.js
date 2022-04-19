@@ -11,6 +11,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import mailRoutes from "./routes/mailRoutes.js";
+import cors from "cors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 connectDB();
@@ -22,9 +23,12 @@ if (process.env.MODE === "development") {
 app.use(express.json({ limit: "50mb" }));
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "/client/build")));
+var corsOptions = { origin: "*" };
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.get("/", (req, res) => {
   res.send("welcome to my shop...");
+  // app.use(express.static(path.join(__dirname, "/client/build")));
   // res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   // app.get("*", (req, res) =>
   // );
@@ -37,7 +41,7 @@ app.use("/api/payment", paymentRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/send_mail", mailRoutes);
 
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 //production
 // if (process.env.MODE === "production") {
