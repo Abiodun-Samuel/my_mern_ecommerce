@@ -21,6 +21,14 @@ if (process.env.MODE === "development") {
 }
 app.use(express.json({ limit: "50mb" }));
 
+app.get("/", (req, res) => {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  // app.get("*", (req, res) =>
+
+  // );
+  // res.send("welcome to my shop...");
+});
 app.use("/api/users", userRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api/orders", orderRoutes);
@@ -33,16 +41,16 @@ const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 //production
-if (process.env.MODE === "production") {
-  app.use(express.static(path.join(__dirname, "/client/build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("welcome to my shop...");
-  });
-}
+// if (process.env.MODE === "production") {
+//   app.use(express.static(path.join(__dirname, "/client/build")));
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+//   );
+// } else {
+//   app.get("/", (req, res) => {
+//     res.send("welcome to my shop...");
+//   });
+// }
 
 app.use(notFound);
 app.use(errorHandler);
