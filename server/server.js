@@ -5,9 +5,9 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import colors from "colors";
 import productsRoutes from "./routes/productRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
-import uploadRoutes from "./routes/uploadRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import mailRoutes from "./routes/mailRoutes.js";
@@ -21,8 +21,8 @@ if (process.env.MODE === "development") {
 }
 app.use(express.json({ limit: "50mb" }));
 
-app.use("/api/products", productsRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/products", productsRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/payment", paymentRoutes);

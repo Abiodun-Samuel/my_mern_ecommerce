@@ -40,7 +40,7 @@ const LoginScreen = () => {
       <h2>Sign In</h2>
 
       {error && <Message variant="danger">{error}</Message>}
-      {loading && <Loader></Loader>}
+      {loading && <Loader fullPage={true} />}
 
       <form onSubmit={submitHandler}>
         <input
