@@ -21,6 +21,7 @@ if (process.env.MODE === "development") {
 }
 app.use(express.json({ limit: "50mb" }));
 
+const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "/client/build")));
 app.get("/", (req, res) => {
   // res.send("welcome to my shop...");
@@ -36,7 +37,6 @@ app.use("/api/payment", paymentRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/send_mail", mailRoutes);
 
-const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 //production
