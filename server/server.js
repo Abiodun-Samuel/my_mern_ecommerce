@@ -21,13 +21,12 @@ if (process.env.MODE === "development") {
 }
 app.use(express.json({ limit: "50mb" }));
 
+app.use(express.static(path.join(__dirname, "/client/build")));
 app.get("/", (req, res) => {
-  app.use(express.static(path.join(__dirname, "/client/build")));
+  // res.send("welcome to my shop...");
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   // app.get("*", (req, res) =>
-
   // );
-  // res.send("welcome to my shop...");
 });
 app.use("/api/users", userRoutes);
 app.use("/api/products", productsRoutes);
