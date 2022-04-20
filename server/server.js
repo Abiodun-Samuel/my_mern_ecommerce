@@ -65,3 +65,11 @@ app.listen(
     `Server is running on PORT: ${PORT}, in ${process.env.MODE} mode.`
   )
 );
+
+// export const BASE_URL = () => {
+//   if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+//     //development
+//   } else {
+//     // production code
+//   }
+// };
