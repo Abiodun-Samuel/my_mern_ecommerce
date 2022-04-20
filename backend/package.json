@@ -1,0 +1,45 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "ecommerce web app",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "node server/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node server/seeder.js",
+    "data:destroy": "node server/seeder.js -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abiodun-Samuel/my_mern_ecommerce.git"
+  },
+  "author": "abiodun samuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abiodun-Samuel/my_mern_ecommerce/issues"
+  },
+  "homepage": "https://github.com/Abiodun-Samuel/my_mern_ecommerce#readme",
+  "dependencies": {
+    "@sweetalert/with-react": "^0.1.1",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.28.1",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.9",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.7.3"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  }
+}
