@@ -106,6 +106,45 @@ const getOrders = asyncHandler(async (req, res) => {
   res.json(orders);
 });
 
+const createOrderAndPay = asyncHandler(async (req, res) => {
+  const {
+    orderItems,
+    shippingAddress,
+    paymentMethod,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
+  if (orderItems && orderItems.length === 0) {
+    res.status(400);
+    throw new Error("No order Items");
+    return;
+  } else {
+    const order = new Order({
+      user: req.user._id,
+      orderItems,
+      shippingAddress,
+      paymentMethod,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+      isPaid: true,
+      paidAt: Date.now(),
+      paymentResult: {
+        message: req.body.message,
+        reference: req.body.reference,
+        status: req.body.status,
+        trans: req.body.trans,
+        transaction: req.body.transaction,
+      },
+    });
+    const createdOrder = await order.save();
+    res.status(201).json(createdOrder);
+  }
+});
+
 export {
   addOrderItems,
   getOrderById,
@@ -113,4 +152,5 @@ export {
   updateOrderToDelivered,
   getMyOrders,
   getOrders,
+  createOrderAndPay,
 };
