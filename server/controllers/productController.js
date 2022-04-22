@@ -7,7 +7,6 @@ import { randomString, slugify } from "../utils/helper.js";
 //@route GET api/products
 //@access public
 const getProducts = asyncHandler(async (req, res) => {
-  
   const pageSize = 12;
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
@@ -74,6 +73,7 @@ const createProduct = asyncHandler(async (req, res) => {
     inflatedPrice: 0,
     user: req.user._id,
     image: "/images/sample.jpg",
+    images: [],
     brand: "sample brand",
     category: "sample category",
     category_slug: "sample-category",
